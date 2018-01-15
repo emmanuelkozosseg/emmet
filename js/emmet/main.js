@@ -6,6 +6,12 @@ emmet.main = (function() {
         $('.navbar-collapse').collapse('hide');
     };
     
+    var search = function(mode) {
+        emmet.search.search($("#emmet-search-expr").val(), mode);
+        $("#emmet-search-expr").val("");
+        collapseNavBar();
+    };
+    
     var init = function() {
         // Load songs
         emmet.songLoader.loadSongs(onSongsLoaded);
@@ -29,9 +35,15 @@ emmet.main = (function() {
         })
         $("#emmet-form-search").submit(function(e) {
             e.preventDefault();
-            emmet.search.search($("#emmet-search-expr").val());
-            $("#emmet-search-expr").val("");
-            collapseNavBar();
+            search(emmet.search.modes.wholeWord);
+        });
+        $("#emmet-search-wholeword").click(function() {
+            search(emmet.search.modes.wholeWord);
+        });
+        $("#emmet-search-partword").click(function() {
+            search(emmet.search.modes.partialWord);
+            $("#emmet-search-partword").parent(".dropdown-menu.show").dropdown('toggle');
+            return false;
         });
         
         // Show main page by default

@@ -13,10 +13,10 @@ emmet.search = (function() {
         str = str.replace(/[úüű]/g, "u");
         
         if (str == "") {return null;}
-        return str.split(" ");
+        return str;
     };
     
-    var getHighlightRegexp = function(searchExpr) {
+    var getHighlightRegexp = function(searchExpr, mode) {
         var str = searchExpr.toLowerCase();
         // Tokenize the search expression, but to make it a regexp.
         // Remove all non-word and non-space characters
@@ -29,34 +29,37 @@ emmet.search = (function() {
         str = str.replace(/[ií]/g, "[iíÍ]");
         str = str.replace(/[oóöő]/g, "[oóÓöÖőŐ]");
         str = str.replace(/[uúüű]/g, "[uúÚüÜűŰ]");
-        return new RegExp("("+str+")", "gi");
+        // Add capture group
+        str = "("+str+")";
+        // Apply mode
+        str = mode.addRegexpBoundaries(str);
+        return new RegExp(str, "gi");
     };
     
-    var findInTokenized = function(str, verse) {
-        if (str.length == verse.length) {
-            // The method below won't work, check for exact match
-            for (var i = 0; i < str.length; i++) {
-                if (str[i] != verse[i]) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        
-        verseLoop:
-        for (var i = 0; i < verse.length - str.length; i++) {
-            strLoop:
-            for (var j = 0; j < str.length; j++) {
-                if (str[j] != verse[i+j]) {
-                    continue verseLoop;
-                }
-            }
-            return true;
-        }
-        return false;
+    var findInTokenized = function(str, verse, mode) {
+        var searchRegexp = mode.addRegexpBoundaries(str);
+        return new RegExp(searchRegexp, "gi").test(verse);
     };
     
     return {
+        // Search modes
+        modes: {
+            wholeWord: {
+                name: "teljes szavas",
+                addRegexpBoundaries: function(str) {
+                    // It should begin and end on word boundaries
+                    return "(?:^| )"+str+"(?:$| )";
+                },
+            },
+            partialWord: {
+                name: "törtszavas",
+                addRegexpBoundaries: function(str) {
+                    // It can match anywhere -- no modification needed
+                    return str;
+                }
+            }
+        },
+        
         tokenizeVerseLines: function(lines) {
             var tokenized = [];
             for (var i = 0; i < lines.length; i++) {
@@ -64,16 +67,15 @@ emmet.search = (function() {
                 if (tokenizedLine == null) {
                     continue;
                 }
-                tokenized = tokenized.concat(tokenizedLine);
+                tokenized.push(tokenizedLine);
             }
-            return tokenized;
+            return tokenized.join(" ");
         },
         
-        search: function(searchExpr) {
+        search: function(searchExpr, searchMode) {
             var songBook = emmet.main.getCurrentBook();
             
-            var highlightRegexp = getHighlightRegexp(searchExpr);
-            
+            // Tokenize the search string
             var tokenizedExpr = tokenize(searchExpr);
             if (tokenizedExpr == null) {
                 emmet.notifier.showError(
@@ -83,13 +85,17 @@ emmet.search = (function() {
                 return;
             }
             
+            // Convert search string to highlighter regexp -- this will be used to highlight matches in the results
+            var highlightRegexp = getHighlightRegexp(searchExpr, searchMode);
+            
+            // Search
             var titleResults = [];
             var textResults = {};
             for (songNo in songBook.songs) {
                 var song = songBook.songs[songNo];
                 
                 // Look for results in the song title
-                if (findInTokenized(tokenizedExpr, tokenize(song.title))) {
+                if (findInTokenized(tokenizedExpr, tokenize(song.title), searchMode)) {
                     titleResults.push({
                         number: song.number,
                         displayNumber: song.displayNumber,
@@ -101,9 +107,12 @@ emmet.search = (function() {
                 for (var i = 0; i < song.verses.length; i++) {
                     var verse = song.verses[i];
                     
-                    if (! findInTokenized(tokenizedExpr, verse.tokenizedLines)) {
+                    // If there's no match, continue
+                    if (! findInTokenized(tokenizedExpr, verse.tokenizedLines, searchMode)) {
                         continue;
                     }
+                    
+                    // If we don't have this song in the results yet, create it
                     if (! textResults.hasOwnProperty(songNo)) {
                         textResults[songNo] = {
                                 number: song.number,
@@ -113,11 +122,14 @@ emmet.search = (function() {
                         };
                     }
                     
+                    // Generate highlight markup
                     var highlightedVerses = [];
                     for (var j = 0; j < verse.lines.length; j++) {
                         var highlightedMatch = verse.lines[j].replace(highlightRegexp, "<mark>$1</mark>")
                         highlightedVerses.push(highlightedMatch);
                     }
+                    
+                    // Add it all to the matched verses
                     textResults[songNo].matchedVerses.push({
                             displayCode: verse.displayCode,
                             lines: highlightedVerses,
@@ -125,14 +137,17 @@ emmet.search = (function() {
                 }
             }
             
+            // Convert map to array for Mustache
             var textResultsArr = [];
             for (songNo in textResults) {
                 textResultsArr.push(textResults[songNo]);
             }
             
+            // Compile result HTML
             var resultsHtml = Mustache.to_html(emmet.main.getTemplate("search"), {
                 searchExpr: searchExpr,
                 numOfResults: titleResults.length + textResultsArr.length,
+                searchMode: searchMode.name,
                 hasTitleResults: (titleResults.length > 0), 
                 titleResults: titleResults,
                 numOfTitleResults: titleResults.length,

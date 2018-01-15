@@ -5,7 +5,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <!-- Bootstrap CSS -->
-<!-- <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'> -->
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/emmet.css" />
 <title>Emmet - Emmánuel Énektár</title>
@@ -37,7 +36,16 @@
                 </form>
                 <form id="emmet-form-search" class="form-inline my-2 my-lg-0 mr-3">
                     <input id="emmet-search-expr" class="form-control mr-sm-2" type="search" placeholder="Keresés" aria-label="Keresés">
-                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Keresés</button>
+                    <!-- <button class="btn btn-primary my-2 my-sm-0" type="submit">Keresés</button> -->
+                    <div class="btn-group my-2 my-sm-0">
+                        <button id="emmet-search-wholeword" type="button" class="btn btn-primary">Keresés</button>
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a id="emmet-search-partword" class="dropdown-item" href="#">Törtszavas</a>
+                        </div>
+                    </div>
                 </form>
             </div>
         </nav>
@@ -65,11 +73,16 @@
                         <li>Kis- és nagybetű, ékezetes karakter és írásjelek nem számítanak.</li>
                         <li>Ha több szót írsz be, azokra az Emmet egyben keres (tehát az összes szónak, abban a sorrendben, és megszakítás
                         nélkül kell szerepelnie).</li>
+                        <li>Alapértelmezésben a kereső teljes szavakra keres. Ha tört szavakra is keresni szeretnél, nyisd ki a legördülő
+                        menüt és válaszd a <strong>Törtszavas</strong> lehetőséget.
+                        <span class="text-muted">Például az <strong>Úr</strong> keresésre az <strong>Uram</strong> találatot a törtszavas
+                        keresés visszaadja, az alapértelmezett teljes szavas viszont nem.</span></li>
                     </ul>
                     
                     <h4 class="mt-4 mb-1">OpenSong csomag</h4>
                     <p>Az Emmet a háttérben az OpenSong fájljaiból dolgozik, változtatás nélkül.</p>
-                    <p>Ha OpenSongból kell vetítened, letöltheted az Emmet által használt OpenSong csomagot.</p>
+                    <p>Ha énekeket kell vetítened, de nincs meg a szövegük az OpenSongban, itt letöltheted az Emmet által használt
+                    OpenSong csomagot.</p>
                     <p><a href="#" class="btn btn-primary disabled" onClick="return false;" role="button">OpenSong csomag letöltése</a><br />
                         <em>Ez a funkció még nem készült el.</em></p>
                 </div></div>
@@ -183,9 +196,9 @@
     
     <div id="emmet-tmpl-search" class="emmet-template">
         <h2 class="mb-3">Keresés</h2>
-        <p>Összesen <strong>{{numOfResults}}</strong> találat a(z) <strong>{{searchExpr}}</strong> kifejezésre.</p>
+        <p>Összesen <strong>{{numOfResults}}</strong> {{searchMode}} találat a(z) <strong>{{searchExpr}}</strong> kifejezésre.</p>
         
-        <h4>Dalok címében ({{numOfTitleResults}})</h3>
+        <h4>Dalok címében ({{numOfTitleResults}})</h4>
         {{#hasTitleResults}}
         <div class="list-group mb-3">
         {{#titleResults}}
@@ -199,7 +212,7 @@
         <div class="alert alert-primary" role="alert">Nincs találat.</div>
         {{/hasTitleResults}}
         
-        <h4>Dalok szövegében ({{numOfTextResults}})</h3>
+        <h4>Dalok szövegében ({{numOfTextResults}})</h4>
         {{#hasTextResults}}
         <div class="list-group mb-3">
         {{#textResults}}
