@@ -21,7 +21,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="emmetNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="emmetNavbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Könyvek
                         </a>
                         <div id="emmet-nav-bookselector" class="dropdown-menu" aria-labelledby="emmetNavbarDropdown"></div>
@@ -153,11 +154,10 @@
     -->
     
     <div id="emmet-tmpl-booklist" class="emmet-template">
-        <a class="dropdown-item disabled" href="#" onClick="return false;">Nyitva: <strong>{{selectedBookName}}</strong></a>
-        <div class="dropdown-divider"></div>
-        {{#otherBooks}}
+        <h6 class="dropdown-header">Másik könyv megnyitása</h6>
+        {{#.}}
         <a class="dropdown-item" href="#" data-bookid="{{id}}">{{name}}</a>
-        {{/otherBooks}}
+        {{/.}}
     </div>
     
     <div id="emmet-tmpl-toc-list" class="emmet-template">

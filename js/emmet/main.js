@@ -56,6 +56,7 @@ emmet.main = (function() {
     };
     
     var updateBookList = function() {
+        // Select non-opened books
         var otherBooks = [];
         for (bookId in songData) {
             if (bookId == currentBook) {continue;}
@@ -66,16 +67,18 @@ emmet.main = (function() {
             if (a.name > b.name) {return 1};
             return 0;
         });
-        var bookListHtml = Mustache.to_html(emmet.main.getTemplate("booklist"), {
-            selectedBookName: emmet.main.getCurrentBook().name,
-            otherBooks: otherBooks,
-        });
+        
+        // Populate dropdown
+        var bookListHtml = Mustache.to_html(emmet.main.getTemplate("booklist"), otherBooks);
         $("#emmet-nav-bookselector").html(bookListHtml);
         $("#emmet-nav-bookselector .dropdown-item:not(.disabled)").click(function() {
             setBook($(this).data("bookid"));
             $("#emmetNavbarDropdown").parent("li.nav-item.dropdown").dropdown('toggle');
             return false;
         });
+        
+        // Change label of button
+        $("#emmetNavbarDropdown").text(emmet.main.getCurrentBook().name);
     };
     
     var setBook = function(newBookId) {
