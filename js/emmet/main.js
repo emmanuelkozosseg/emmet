@@ -53,6 +53,7 @@ emmet.main = (function() {
     var onSongsLoaded = function(data) {
         songData = data;
         updateBookList();
+        $("#emmet-loading").fadeOut();
     };
     
     var updateBookList = function() {

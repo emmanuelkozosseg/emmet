@@ -13,3 +13,19 @@ div.emmet-page {
 div.emmet-template {
     display: none;
 }
+#emmet-loading {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 1035; /* Bootstrap modals (1040-1050) should be in front of it */
+}
+#emmet-loading > * {
+    position: relative;
+    top: 50%; transform: translateY(-50%);
+    text-align: center;
+    color: white;
+}
+#emmet-fatal-modal code {
+    color: black;
+}

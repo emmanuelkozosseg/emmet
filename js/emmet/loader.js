@@ -4,14 +4,19 @@ emmet.songLoader = (function() {
             url: "getsongs.php",
             dataType: "json",
             success: function(data, textStatus, jqXHR) {
-                processSongData(data, finalCallback);
+                try {
+                    processSongData(data, finalCallback);
+                } catch (e) {
+                    console.error(e);
+                    emmet.notifier.showSongLoadingError(e.hasOwnProperty("stack") ? e.stack : "(error not available)");
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                console.error("Error when loading songs. HTTP status: '"+jqXHR.status+"', status text: '"+jqXHR.statusText+"', "+
-                        "response text: '"+jqXHR.responseText+"', text status: '"+textStatus+"'.");
-                emmet.notifier.showFatal("Énekbetöltési hiba",
-                        "Az Emmet nem tudja betölteni az énekeket. A hiba részletei a fejlesztői konzolon találhatók."
-                );
+                var errorMsg = "Error when loading songs.\nHTTP status: '"+jqXHR.status+"'\nStatus text: '"+jqXHR.statusText+"'\n"+
+                        "Text status: '"+textStatus+"'";
+                console.error(errorMsg);
+                console.error("Response text:'"+jqXHR.responseText+"'");
+                emmet.notifier.showSongLoadingError(errorMsg);
             },
         });
     };
