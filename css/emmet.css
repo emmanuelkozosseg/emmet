@@ -1,0 +1,15 @@
+.emmet-song-verse p.card-text {
+    margin-bottom: 0;
+}
+.emmet-song-verse p.card-text:after {
+    /* To make empty ones show as well */
+    content: "";
+    display: inline-block;
+    width: 0px;
+}
+div.emmet-page {
+    display: none;
+}
+div.emmet-template {
+    display: none;
+}

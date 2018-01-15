@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<!-- Bootstrap CSS -->
+<!-- <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'> -->
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/emmet.css" />
+<title>Emmet - Emmánuel Énektár</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <a id="emmet-nav-mainlink" class="navbar-brand" href="#">Emmet</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="emmetNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Könyvek
+                        </a>
+                        <div id="emmet-nav-bookselector" class="dropdown-menu" aria-labelledby="emmetNavbarDropdown"></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="emmet-toc-link">Tartalomjegyzék</a>
+                    </li>
+                </ul>
+                <form id="emmet-form-jumpto" class="form-inline my-2 my-lg-0 mr-3">
+                    <input id="emmet-jumpto-songno" class="form-control mr-sm-2" type="search" placeholder="Énekszám" aria-label="Énekszám">
+                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Ugrás</button>
+                </form>
+                <form id="emmet-form-search" class="form-inline my-2 my-lg-0 mr-3">
+                    <input id="emmet-search-expr" class="form-control mr-sm-2" type="search" placeholder="Keresés" aria-label="Keresés">
+                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Keresés</button>
+                </form>
+            </div>
+        </nav>
+        
+        <!-- Body -->
+        <main class="p-3">
+            <div id="emmet-p-main" class="emmet-page">
+                <div class="row"><div class="col">
+                    <h2 class="mb-3">Üdv az Emmánuel Énektárban!</h2>
+                    
+                    <h4 class="mt-4 mb-1">Énekeskönyvek</h4>
+                    <p>Az Emmet több énekeskönyvet is támogat, de egyszerre csak egy lehet nyitva.
+                    A <strong>Könyvek</strong> menüben tudsz váltani közöttük.
+                    Indításkor mindig a magyar énekeskönyv nyílik ki.</p>
+                    
+                    <h4 class="mt-4 mb-1">Böngészés</h4>
+                    <ul>
+                        <li>A <strong>Tartalomjegyzék</strong> menüpontban a kiválasztott énekeskönyv összes dala között böngészhetsz.</li>
+                        <li>Ha tudod egy ének számát, közvetlenül rákereshetsz az <strong>Énekszám</strong> mezőben.</li>
+                    </ul>
+                    
+                    <h4 class="mt-4 mb-1">Keresés</h4>
+                    <p>Dalszöveg vagy cím alapján is kereshetsz a <strong>Keresés</strong> mezőben.</p>
+                    <ul>
+                        <li>Kis- és nagybetű, ékezetes karakter és írásjelek nem számítanak.</li>
+                        <li>Ha több szót írsz be, azokra az Emmet egyben keres (tehát az összes szónak, abban a sorrendben, és megszakítás
+                        nélkül kell szerepelnie).</li>
+                    </ul>
+                    
+                    <h4 class="mt-4 mb-1">OpenSong csomag</h4>
+                    <p>Az Emmet a háttérben az OpenSong fájljaiból dolgozik, változtatás nélkül.</p>
+                    <p>Ha OpenSongból kell vetítened, letöltheted az Emmet által használt OpenSong csomagot.</p>
+                    <p><a href="#" class="btn btn-primary disabled" onClick="return false;" role="button">OpenSong csomag letöltése</a><br />
+                        <em>Ez a funkció még nem készült el.</em></p>
+                </div></div>
+                <footer class="mt-5 text-muted text-center">
+                    <p><small>Az Emmánuel Énektárat Ecker Gábor fejleszti,<br />
+                    bármilyen hiba, megjegyzés, ötlet, stb. esetén írj az ecker [pont] gabor [kukac] gmail [pont] com e-mail címre.</small></p>
+                </footer>
+            </div>
+            
+            <div id="emmet-p-toc" class="emmet-page">
+                <h2 class="mb-3">Tartalomjegyzék</h2>
+                <div class="emmet-toc-sortby btn-group btn-group-toggle mb-3" data-toggle="buttons">
+                    <label class="btn btn-primary active">
+                        <input type="radio" name="emmet-toc-sortby" value="num" autocomplete="off" checked> Énekszám szerint
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="emmet-toc-sortby" value="title" autocomplete="off"> Cím szerint
+                    </label>
+                </div>
+                <div class="emmet-toc-list list-group"></div>
+            </div>
+            
+            <div id="emmet-p-search" class="emmet-page"></div>
+        </main>
+    </div>
+    
+    <!--
+        Modals
+    -->
+    
+    <div id="emmet-song-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    
+    <div id="emmet-error-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="emmet-fatal-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!--
+        Mustache templates
+    -->
+    
+    <div id="emmet-tmpl-booklist" class="emmet-template">
+        <a class="dropdown-item disabled" href="#" onClick="return false;">Nyitva: <strong>{{selectedBookName}}</strong></a>
+        <div class="dropdown-divider"></div>
+        {{#otherBooks}}
+        <a class="dropdown-item" href="#" data-bookid="{{id}}">{{name}}</a>
+        {{/otherBooks}}
+    </div>
+    
+    <div id="emmet-tmpl-toc-list" class="emmet-template">
+        {{#.}}
+        <a href="#" class="list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
+            <span class="badge badge-info">{{displayNumber}}</span> {{title}}
+        </a>
+        {{/.}}
+    </div>
+    
+    <div id="emmet-tmpl-song" class="emmet-template">
+        <div class="modal-header bg-secondary">
+            <h5 class="modal-title"><span class="badge badge-info">{{displayNumber}}</span> {{title}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{#verses}}
+            <div class="card mb-3 emmet-song-verse">
+                {{#displayCode}}
+                <div class="card-header p-2">{{.}}</div>
+                {{/displayCode}}
+                <div class="card-body p-2">
+                    {{#lines}}
+                    <p class="card-text">{{.}}</p>
+                    {{/lines}}
+                </div>
+            </div>
+            {{/verses}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
+        </div>
+    </div>
+    
+    <div id="emmet-tmpl-search" class="emmet-template">
+        <h2 class="mb-3">Keresés</h2>
+        <p>Összesen <strong>{{numOfResults}}</strong> találat a(z) <strong>{{searchExpr}}</strong> kifejezésre.</p>
+        
+        <h4>Dalok címében ({{numOfTitleResults}})</h3>
+        {{#hasTitleResults}}
+        <div class="list-group mb-3">
+        {{#titleResults}}
+            <a href="#" class="emmet-search-item list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
+                <span class="badge badge-info">{{displayNumber}}</span> {{{title}}}
+            </a>
+        {{/titleResults}}
+        </div>
+        {{/hasTitleResults}}
+        {{^hasTitleResults}}
+        <div class="alert alert-primary" role="alert">Nincs találat.</div>
+        {{/hasTitleResults}}
+        
+        <h4>Dalok szövegében ({{numOfTextResults}})</h3>
+        {{#hasTextResults}}
+        <div class="list-group mb-3">
+        {{#textResults}}
+            <a href="#" class="emmet-search-item list-group-item list-group-item-action" data-songnumber="{{number}}">
+                <h5 class="mb-2"><span class="badge badge-info">{{displayNumber}}</span> {{title}}</h5>
+                {{#matchedVerses}}
+                <div class="card mt-2 emmet-song-verse">
+                    {{#displayCode}}
+                    <div class="card-header p-2">{{.}}</div>
+                    {{/displayCode}}
+                    <div class="card-body p-2">
+                        {{#lines}}
+                        <p class="card-text">{{{.}}}</p>
+                        {{/lines}}
+                    </div>
+                </div>
+                {{/matchedVerses}}
+            </a>
+        {{/textResults}}
+        </div>
+        {{/hasTextResults}}
+        {{^hasTextResults}}
+        <div class="alert alert-primary" role="alert">Nincs találat.</div>
+        {{/hasTextResults}}
+    </div>
+    
+    <!--
+        JS imports
+    -->
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/popper.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/lazyload.js"></script>
+    <script src="js/init.js"></script>
+</body>
+</html>
