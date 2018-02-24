@@ -22,6 +22,52 @@
  *  }
  */
 
+function download_latest_songs_if_needed() {
+    // Get latest commit's ID on master branch
+    $commits = json_decode(file_get_contents("https://api.bitbucket.org/2.0/repositories/eckerg/emmet-enekek/commits/master?pagelen=1"));
+    $lastCommit = $commits->values[0]->hash;
+    print("Latest commit on Bitbucket master branch: $lastCommit<br>");
+    
+    // Get latest commit downloaded
+    $lastDlCommit = file_exists("songs/last_retrieved_commit") ? file_get_contents("songs/last_retrieved_commit") : "[N/A]";
+    print("Latest commit as of the last refresh: $lastDlCommit<br>");
+    
+    if ($lastCommit == $lastDlCommit) {
+        print("No change since last refresh. Exiting.<br>");
+        exit();
+    }
+    print("The repo has been changed. Proceeding with refresh.<br>");
+    
+    print("Clearing song directory...<br>");
+    array_map('unlink', glob("songs/*"));
+    
+    print("Downloading repo to songs/master.zip...<br>");
+    file_put_contents("songs/master.zip", fopen("https://bitbucket.org/eckerg/emmet-enekek/get/HEAD.zip", 'r'));
+    
+    print("Extracting zip file...<br>");
+    $zip = new ZipArchive;
+    $res = $zip->open('songs/master.zip');
+    if ($res === TRUE) {
+        $zip->extractTo('songs/zip');
+        $zip->close();
+    } else {
+        die("Failed to extract the file: $res");
+    }
+    
+    // Move out all files
+    $zip_1st_lvl_folder_name = array_values(array_diff(scandir("songs/zip"), array('..', '.')))[0];
+    $delete = array();
+    foreach (scandir("songs/zip/$zip_1st_lvl_folder_name") as $file) {
+        if (in_array($file, array(".",".."))) {continue;}
+        rename("songs/zip/$zip_1st_lvl_folder_name/$file", "songs/$file");
+    }
+    rmdir("songs/zip/$zip_1st_lvl_folder_name");
+    rmdir("songs/zip");
+    
+    print("Updating last retrieved commit...<br>");
+    file_put_contents("songs/last_retrieved_commit", $lastCommit);
+}
+
 function read_songs($subdir) {
     // Get all files in this subdir
     $dirContents = scandir($subdir);
@@ -133,8 +179,17 @@ function parse_verses($verseStr) {
     return $verses;
 }
 
+///////////////////////////
+////////// START //////////
+///////////////////////////
+
+// Replace songs if needed
+download_latest_songs_if_needed();
+
+print("Generating song JSON...<br>");
+
 // Read songbook descriptor
-$iniFile = parse_ini_file("songbooks.ini", true);
+$iniFile = parse_ini_file("songs/emmet-songbooks.ini", true);
 $json = array();
 // Collect songs
 foreach ($iniFile as $bookId => $bookData) {
