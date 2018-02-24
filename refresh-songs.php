@@ -147,8 +147,7 @@ foreach ($iniFile as $bookId => $bookData) {
     );
 }
 
-ob_start("ob_gzhandler");
-echo json_encode($json);
-ob_end_flush();
+// Write results to file
+file_put_contents("songs.json", json_encode($json));
 
-?>
+print("Song JSON has been successfully generated and dumped to songs.json.");
