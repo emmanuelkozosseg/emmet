@@ -161,6 +161,10 @@ function parse_verses($verseStr) {
             }
         } else if (preg_match('/^ (.+)$/', $line, $matches)) {
             // THIS IS A LYRIC LINE
+            // Handle line breaks
+            if ($line == " |" || $line == " ||") {
+                $line = "";
+            }
             // If this is an anonymous verse, let's add it without header
             if (! $currentVerse) {
                 $verses[] = array(
