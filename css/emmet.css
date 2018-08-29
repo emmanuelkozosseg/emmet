@@ -1,8 +1,36 @@
-.emmet-song-verse p.card-text {
-    margin-bottom: 0;
+.emmet-song {
+    display: table;
+    border-spacing: 7px 10px;
+    margin-left: -7px; margin-top: -10px;
 }
-.emmet-song-verse p.card-text:after {
-    /* To make empty ones show as well */
+.emmet-song-verse {
+    display: table-row;
+}
+.emmet-song-verse > * {
+    display: table-cell;
+}
+.emmet-song-verse .emmet-header {
+    background-color: #444;
+    padding: 5px;
+    border-radius: 6px;
+    text-align: center;
+}
+.emmet-song-verse .emmet-header.emmet-chorus {
+    background-color: #981b27;
+}
+.emmet-song-verse .emmet-header.emmet-bridge {
+    background-color: #003e80;
+}
+.emmet-song-verse .emmet-body {
+    padding-bottom: 5px;
+}
+.emmet-song-verse .emmet-body.emmet-chorus {
+    font-style: italic;
+}
+.emmet-song-verse .emmet-body p {
+    margin-bottom: 0px;
+}
+.emmet-song-verse .emmet-body p::after {
     content: "";
     display: inline-block;
     width: 0px;

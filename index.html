@@ -178,18 +178,20 @@
             </button>
         </div>
         <div class="modal-body">
-            {{#verses}}
-            <div class="card mb-3 emmet-song-verse">
-                {{#displayCode}}
-                <div class="card-header p-2">{{.}}</div>
-                {{/displayCode}}
-                <div class="card-body p-2">
-                    {{#lines}}
-                    <p class="card-text">{{.}}</p>
-                    {{/lines}}
+            <div class="emmet-song">
+                {{#verses}}
+                <div class="emmet-song-verse">
+                    {{#displayCode}}
+                    <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}">{{.}}</div>
+                    {{/displayCode}}
+                    <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
+                        {{#lines}}
+                        <p>{{.}}</p>
+                        {{/lines}}
+                    </div>
                 </div>
+                {{/verses}}
             </div>
-            {{/verses}}
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
@@ -220,18 +222,20 @@
         {{#textResults}}
             <a href="#" class="emmet-search-item list-group-item list-group-item-action" data-songnumber="{{number}}">
                 <h5 class="mb-2"><span class="badge badge-info">{{displayNumber}}</span> {{title}}</h5>
-                {{#matchedVerses}}
-                <div class="card mt-2 emmet-song-verse">
-                    {{#displayCode}}
-                    <div class="card-header p-2">{{.}}</div>
-                    {{/displayCode}}
-                    <div class="card-body p-2">
-                        {{#lines}}
-                        <p class="card-text">{{{.}}}</p>
-                        {{/lines}}
+                <div class="emmet-song">
+                    {{#matchedVerses}}
+                    <div class="emmet-song-verse">
+                        {{#displayCode}}
+                        <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}">{{.}}</div>
+                        {{/displayCode}}
+                        <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
+                            {{#lines}}
+                            <p>{{{.}}}</p>
+                            {{/lines}}
+                        </div>
                     </div>
+                    {{/matchedVerses}}
                 </div>
-                {{/matchedVerses}}
             </a>
         {{/textResults}}
         </div>

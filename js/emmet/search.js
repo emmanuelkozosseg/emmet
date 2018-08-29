@@ -24,15 +24,18 @@ emmet.search = (function() {
         // Reduce duplicate spaces
         str = str.replace(/ {2,}/g, " +");
         // Generalize accented characters
-        str = str.replace(/[aá]/g, "[aáÁ]");
-        str = str.replace(/[eé]/g, "[eéÉ]");
-        str = str.replace(/[ií]/g, "[iíÍ]");
-        str = str.replace(/[oóöő]/g, "[oóÓöÖőŐ]");
-        str = str.replace(/[uúüű]/g, "[uúÚüÜűŰ]");
+        str = str.replace(/[aá]/g, "[aá]");
+        str = str.replace(/[eé]/g, "[eé]");
+        str = str.replace(/[ií]/g, "[ií]");
+        str = str.replace(/[oóöő]/g, "[oóöő]");
+        str = str.replace(/[uúüű]/g, "[uúüű]");
+        // Space may hide non-word characters
+        str = str.replace(/ /g, "(?:[^a-zA-Z0-9\u00C0-\u024F]| )+");
         // Add capture group
         str = "("+str+")";
         // Apply mode
         str = mode.addRegexpBoundaries(str);
+        console.log("Highlight regexp: "+str);
         return new RegExp(str, "gi");
     };
     
@@ -133,6 +136,8 @@ emmet.search = (function() {
                     textResults[songNo].matchedVerses.push({
                             displayCode: verse.displayCode,
                             lines: highlightedVerses,
+                            isChorus: emmet.songLoader.isChorus(verse.code),
+                            isBridge: emmet.songLoader.isBridge(verse.code),
                     });
                 }
             }

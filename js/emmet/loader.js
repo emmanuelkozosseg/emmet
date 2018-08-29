@@ -33,6 +33,8 @@ emmet.songLoader = (function() {
                 for (var i = 0; i < song.verses.length; i++) {
                     var verse = song.verses[i];
                     verse.displayCode = getDisplayedVerseCode(verse.code);
+                    verse.isChorus = isChorus(verse.code);
+                    verse.isBridge = isBridge(verse.code);
                     verse.tokenizedLines = emmet.search.tokenizeVerseLines(verse.lines);
                 }
             }
@@ -46,19 +48,28 @@ emmet.songLoader = (function() {
         var number = verseCode.substring(1);
         var dispCode = "";
         
-        if (type == "C") {dispCode += "Refrén ";}
-        else if (type == "B") {dispCode += "Átkötés ";}
-        else if (type == "V") {dispCode += "Versszak ";}
-        else if (type == "P") {dispCode += "Előrefrén ";}
+        if (type == "C") {dispCode += "R";}
+        else if (type == "B") {dispCode += "Á";}
+        else if (type == "P") {dispCode += "E";}
         
         dispCode += number;
         
         return dispCode;
     };
+
+    var isChorus = function(verseCode) {
+        return verseCode.substring(0, 1) == "C";
+    };
+    
+    var isBridge = function(verseCode) {
+        return verseCode.substring(0, 1) == "B";
+    }
     
     return {
         loadSongs: function(callback) {
             startLoad(callback);
         },
+        isChorus: isChorus,
+        isBridge: isBridge,
     };
 })();
