@@ -1,4 +1,4 @@
-emmet.notifier = (function() {
+define([], function() {
     var setContents = function(id, title, message) {
         $("#emmet-"+id+"-modal .modal-title").text(title);
         $("#emmet-"+id+"-modal .modal-body").html(message);
@@ -40,4 +40,4 @@ emmet.notifier = (function() {
             });
         },
     };
-})();
+});

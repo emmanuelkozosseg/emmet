@@ -1,4 +1,4 @@
-emmet.songLoader = (function() {
+define(['emmet/notifier', 'emmet/search', 'emmet/utils'], function(emmetNotifier, emmetSearch, emmetUtils) {
     var startLoad = function(finalCallback) {
         $.ajax({
             url: "getsongs.php",
@@ -8,7 +8,7 @@ emmet.songLoader = (function() {
                     processSongData(data, finalCallback);
                 } catch (e) {
                     console.error(e);
-                    emmet.notifier.showSongLoadingError(e.hasOwnProperty("stack") ? e.stack : "(error not available)");
+                    emmetNotifier.showSongLoadingError(e.hasOwnProperty("stack") ? e.stack : "(error not available)");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -16,7 +16,7 @@ emmet.songLoader = (function() {
                         "Text status: '"+textStatus+"'";
                 console.error(errorMsg);
                 console.error("Response text:'"+jqXHR.responseText+"'");
-                emmet.notifier.showSongLoadingError(errorMsg);
+                emmetNotifier.showSongLoadingError(errorMsg);
             },
         });
     };
@@ -33,9 +33,9 @@ emmet.songLoader = (function() {
                 for (var i = 0; i < song.verses.length; i++) {
                     var verse = song.verses[i];
                     verse.displayCode = getDisplayedVerseCode(verse.code);
-                    verse.isChorus = isChorus(verse.code);
-                    verse.isBridge = isBridge(verse.code);
-                    verse.tokenizedLines = emmet.search.tokenizeVerseLines(verse.lines);
+                    verse.isChorus = emmetUtils.isChorus(verse.code);
+                    verse.isBridge = emmetUtils.isBridge(verse.code);
+                    verse.tokenizedLines = emmetSearch.tokenizeVerseLines(verse.lines);
                 }
             }
         }
@@ -56,20 +56,10 @@ emmet.songLoader = (function() {
         
         return dispCode;
     };
-
-    var isChorus = function(verseCode) {
-        return verseCode.substring(0, 1) == "C";
-    };
-    
-    var isBridge = function(verseCode) {
-        return verseCode.substring(0, 1) == "B";
-    }
     
     return {
         loadSongs: function(callback) {
             startLoad(callback);
         },
-        isChorus: isChorus,
-        isBridge: isBridge,
     };
-})();
+});

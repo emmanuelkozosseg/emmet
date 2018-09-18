@@ -1,4 +1,5 @@
-emmet.search = (function() {
+define(['emmet/notifier', 'emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache'],
+function(emmetNotifier, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
     var tokenize = function(str) {
         str = str.toLowerCase();
         // Remove all non-word and non-space characters
@@ -76,12 +77,12 @@ emmet.search = (function() {
         },
         
         search: function(searchExpr, searchMode) {
-            var songBook = emmet.main.getCurrentBook();
+            var songBook = emmetSongData.getCurrentBook();
             
             // Tokenize the search string
             var tokenizedExpr = tokenize(searchExpr);
             if (tokenizedExpr == null) {
-                emmet.notifier.showError(
+                emmetNotifier.showError(
                         "Érvénytelen keresés",
                         "Kérünk, olyan keresőkifejezést adj meg, amiben szerepelnek betűk vagy számok."
                 );
@@ -136,8 +137,8 @@ emmet.search = (function() {
                     textResults[songNo].matchedVerses.push({
                             displayCode: verse.displayCode,
                             lines: highlightedVerses,
-                            isChorus: emmet.songLoader.isChorus(verse.code),
-                            isBridge: emmet.songLoader.isBridge(verse.code),
+                            isChorus: emmetUtils.isChorus(verse.code),
+                            isBridge: emmetUtils.isBridge(verse.code),
                     });
                 }
             }
@@ -149,7 +150,7 @@ emmet.search = (function() {
             }
             
             // Compile result HTML
-            var resultsHtml = Mustache.to_html(emmet.main.getTemplate("search"), {
+            var resultsHtml = mustache.to_html(emmetUtils.getTemplate("search"), {
                 searchExpr: searchExpr,
                 numOfResults: titleResults.length + textResultsArr.length,
                 searchMode: searchMode.name,
@@ -162,10 +163,10 @@ emmet.search = (function() {
             });
             $("#emmet-p-search").html(resultsHtml);
             $("#emmet-p-search a.emmet-search-item").click(function() {
-                emmet.songDisplay.displaySong(String($(this).data("songnumber")));
+                emmetSongDisp.displaySong(String($(this).data("songnumber")));
                 return false;
             });
-            emmet.main.showPage("search");
+            emmetUtils.showPage("search");
         },
     };
-})();
+});

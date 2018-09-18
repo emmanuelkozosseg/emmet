@@ -1,4 +1,5 @@
-emmet.main = (function() {
+define(['emmet/search', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet/songdata', 'emmet/utils', 'mustache'],
+        function(emmetSearch, emmetLoader, emmetToc, emmetSongDisp, emmetSongData, emmetUtils, mustache) {
     var songData = null;
     var currentBook = "emm_hun";
     
@@ -7,62 +8,68 @@ emmet.main = (function() {
     };
     
     var search = function(mode) {
-        emmet.search.search($("#emmet-search-expr").val(), mode);
+        emmetSearch.search($("#emmet-search-expr").val(), mode);
         $("#emmet-search-expr").val("");
         collapseNavBar();
     };
     
     var init = function() {
         // Load songs
-        emmet.songLoader.loadSongs(onSongsLoaded);
+        emmetLoader.loadSongs(onSongsLoaded);
         
         // Set up navbar
         $("#emmet-nav-mainlink").click(function() {
-            emmet.main.showPage("main");
+            emmetUtils.showPage("main");
             collapseNavBar();
             return false;
         });
         $("#emmet-toc-link").click(function() {
-            emmet.toc.show();
+            emmetToc.show();
             collapseNavBar();
             return false;
         });
         $("#emmet-form-jumpto").submit(function(e) {
             e.preventDefault();
-            emmet.songDisplay.displaySong($("#emmet-jumpto-songno").val());
+            emmetSongDisp.displaySong($("#emmet-jumpto-songno").val());
             $("#emmet-jumpto-songno").val("");
             collapseNavBar();
         })
         $("#emmet-form-search").submit(function(e) {
             e.preventDefault();
-            search(emmet.search.modes.wholeWord);
+            search(emmetSearch.modes.wholeWord);
         });
         $("#emmet-search-wholeword").click(function() {
-            search(emmet.search.modes.wholeWord);
+            search(emmetSearch.modes.wholeWord);
         });
         $("#emmet-search-partword").click(function() {
-            search(emmet.search.modes.partialWord);
+            search(emmetSearch.modes.partialWord);
             $("#emmet-search-partword").parent(".dropdown-menu.show").dropdown('toggle');
             return false;
         });
         
         // Show main page by default
-        emmet.main.showPage("main");
+        emmetUtils.showPage("main");
     };
     
     var onSongsLoaded = function(data) {
-        songData = data;
+        emmetSongData.setData(data);
         updateBookList();
         $("#emmet-loading").fadeOut();
+    };
+
+    var setBook = function(newBookId) {
+        emmetSongData.setBook(newBookId);
+        updateBookList();
+        emmetUtils.showPage("main");
     };
     
     var updateBookList = function() {
         // Select non-opened books
         var otherBooks = [];
-        for (bookId in songData) {
-            if (bookId == currentBook) {continue;}
-            otherBooks.push(songData[bookId]);
-        }
+        emmetSongData.getBookIds().forEach(function(bookId) {
+            if (bookId == emmetSongData.getCurrentBookId()) {return;}
+            otherBooks.push(emmetSongData.getBook(bookId));
+        });
         otherBooks.sort(function(a,b) {
             if (a.name < b.name) {return -1};
             if (a.name > b.name) {return 1};
@@ -70,7 +77,7 @@ emmet.main = (function() {
         });
         
         // Populate dropdown
-        var bookListHtml = Mustache.to_html(emmet.main.getTemplate("booklist"), otherBooks);
+        var bookListHtml = mustache.to_html(emmetUtils.getTemplate("booklist"), otherBooks);
         $("#emmet-nav-bookselector").html(bookListHtml);
         $("#emmet-nav-bookselector .dropdown-item:not(.disabled)").click(function() {
             setBook($(this).data("bookid"));
@@ -79,27 +86,10 @@ emmet.main = (function() {
         });
         
         // Change label of button
-        $("#emmetNavbarDropdown").text(emmet.main.getCurrentBook().name);
-    };
-    
-    var setBook = function(newBookId) {
-        currentBook = newBookId;
-        updateBookList();
-        emmet.main.showPage("main");
+        $("#emmetNavbarDropdown").text(emmetSongData.getCurrentBook().name);
     };
     
     return {
-        getCurrentBook: function() {return songData[currentBook];},
         init: init,
-        
-        showPage: function(pageId) {
-            $("main").children().hide();
-            $("#emmet-p-"+pageId).show();
-        },
-        
-        getTemplate: function(templateId) {
-            return $("#emmet-tmpl-"+templateId).html();
-        },
-        
     };
-})();
+});

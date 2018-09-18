@@ -1,4 +1,5 @@
-emmet.toc = (function() {
+define(['emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache', 'naturalsort'],
+function(emmetSongData, emmetSongDisp, emmetUtils, mustache, naturalsort) {
     var sortBy = "num";
     var loadedBook = null;
     
@@ -38,7 +39,7 @@ emmet.toc = (function() {
     }
     
     var refreshSongList = function() {
-        var songBook = emmet.main.getCurrentBook();
+        var songBook = emmetSongData.getCurrentBook();
         
         var songList;
         if (sortBy == "title") {
@@ -47,10 +48,10 @@ emmet.toc = (function() {
             songList = sortByNumber(songBook);
         }
         
-        var listHtml = Mustache.to_html(emmet.main.getTemplate("toc-list"), songList);
+        var listHtml = mustache.to_html(emmetUtils.getTemplate("toc-list"), songList);
         $("main .emmet-toc-list").html(listHtml);
         $("main .emmet-toc-list a").click(function() {
-            emmet.songDisplay.displaySong(String($(this).data("songnumber")));
+            emmetSongDisp.displaySong(String($(this).data("songnumber")));
             return false;
         });
     };
@@ -59,14 +60,14 @@ emmet.toc = (function() {
         if (! loadedBook) {
             $("main #emmet-p-toc input[type=radio][name=emmet-toc-sortby]").change(toggleSortBy);
         }
-        if (loadedBook != emmet.main.getCurrentBook().id) {
+        if (loadedBook != emmetSongData.getCurrentBook().id) {
             refreshSongList();
-            loadedBook = emmet.main.getCurrentBook().id;
+            loadedBook = emmetSongData.getCurrentBook().id;
         }
-        emmet.main.showPage("toc");
+        emmetUtils.showPage("toc");
     };
     
     return {
         show: show,
     };
-})();
+});
