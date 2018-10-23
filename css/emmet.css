@@ -1,3 +1,24 @@
+.emmet-song-toolbar ul.nav {
+    padding-left: 5px; padding-right: 5px;
+}
+.emmet-song-toolbar a.nav-link {
+    padding-left: 10px; padding-right: 10px;
+}
+.emmet-lang-tag {
+    text-transform: uppercase;
+}
+.emmet-song-toolbar a.nav-link.disabled {
+    color: #666;
+}
+.emmet-song-toolbar a.nav-link.emmet-lang-btn.disabled:after {
+    display: none;
+}
+.emmet-song-toolbar a.nav-link.active {
+    border-radius: 0px;
+}
+.emmet-song-tab, .emmet-song-lang {
+    display: none;
+}
 .emmet-song {
     display: table;
     border-spacing: 7px 10px;
@@ -35,10 +56,10 @@
     display: inline-block;
     width: 0px;
 }
-div.emmet-page {
+.emmet-page {
     display: none;
 }
-div.emmet-template {
+.emmet-template {
     display: none;
 }
 #emmet-loading {

@@ -1,10 +1,10 @@
 define([], function() {
     return {
         isChorus: function(verseCode) {
-            return verseCode.substring(0, 1) == "C";
+            return verseCode.substring(0, 1) == "c";
         },
         isBridge: function(verseCode) {
-            return verseCode.substring(0, 1) == "B";
+            return verseCode.substring(0, 1) == "b";
         },
         getTemplate: function(templateId) {
             return $("#emmet-tmpl-"+templateId).html();

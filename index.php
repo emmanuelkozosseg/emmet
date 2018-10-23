@@ -1,3 +1,8 @@
+<?php
+function to_busted_url($url) {
+    return $url."?bust=".filemtime($url);
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,8 +10,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/emmet.css" />
+<link rel="stylesheet" href="<?php print(to_busted_url("css/bootstrap.min.css")); ?>" />
+<link rel="stylesheet" href="<?php print(to_busted_url("css/emmet.css")); ?>" />
+<link rel="stylesheet" href="<?php print(to_busted_url("css/flags/flags.min.css")); ?>" />
+<link rel="stylesheet" href="<?php print(to_busted_url("css/iconic/css/open-iconic-bootstrap.min.css")); ?>">
 <title>Emmet - Emmánuel Énektár</title>
 </head>
 <body>
@@ -155,50 +162,122 @@
         Mustache templates
     -->
     
-    <div id="emmet-tmpl-booklist" class="emmet-template">
+    <template id="emmet-tmpl-booklist" class="emmet-template">
         <h6 class="dropdown-header">Másik könyv megnyitása</h6>
         {{#.}}
         <a class="dropdown-item" href="#" data-bookid="{{id}}">{{name}}</a>
         {{/.}}
-    </div>
+    </template>
     
-    <div id="emmet-tmpl-toc-list" class="emmet-template">
+    <template id="emmet-tmpl-toc-list" class="emmet-template">
         {{#.}}
         <a href="#" class="list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
-            <span class="badge badge-info">{{displayNumber}}</span> {{title}}
+            <span class="badge badge-info">{{number}}</span> {{title}}
         </a>
         {{/.}}
-    </div>
+    </template>
     
-    <div id="emmet-tmpl-song" class="emmet-template">
+    <template id="emmet-tmpl-song" class="emmet-template">
         <div class="modal-header bg-secondary">
-            <h5 class="modal-title"><span class="badge badge-info">{{displayNumber}}</span> {{title}}</h5>
+            <h5 class="modal-title">
+                <span class="badge badge-info">{{currentNumber}}</span>
+                <span class="emmet-song-title"></span>
+            </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        <div class="emmet-song-toolbar">
+            <ul class="nav nav-tabs">
+                <li class="nav-item dropdown emmet-song-lang-select">
+                    <a class="nav-link {{#isSingleLanguage}}disabled{{/isSingleLanguage}} dropdown-toggle emmet-lang-btn" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img src="css/flags/blank.gif" class="flag" />
+                        <span class="emmet-langname emmet-lang-tag"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        {{#languages}}
+                        <a class="dropdown-item emmet-song-lang-select-{{id}}" href="#" data-langid="{{id}}">
+                            <img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{name}}" />
+                            <span class="emmet-lang-tag">{{name}}</span> &ndash; {{title}}
+                        </a>
+                        {{/languages}}
+                    </div>
+                </li>
+                <li class="nav-item emmet-song-lyrics-btn">
+                    <a class="nav-link" href="#" title="Dalszöveg">
+                        <span class="oi oi-musical-note"></span>
+                    </a>
+                </li>
+                <li class="nav-item emmet-song-details-btn">
+                    <a class="nav-link" href="#" title="Részletek">
+                        <span class="oi oi-document"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="javascript:" title="Lejátszás">
+                        <span class="oi oi-media-play"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
         <div class="modal-body">
-            <div class="emmet-song">
-                {{#verses}}
-                <div class="emmet-song-verse">
-                    {{#displayCode}}
-                    <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}">{{.}}</div>
-                    {{/displayCode}}
-                    <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
-                        {{#lines}}
-                        <p>{{.}}</p>
-                        {{/lines}}
+            <div class="emmet-song-tab emmet-song-lyrics" data-trigger="emmet-song-lyrics-btn">
+                {{#song.lyrics}}
+                <div class="emmet-song-lang emmet-song-lang-{{langId}}">
+                    <div class="emmet-song">
+                        {{#verses}}
+                        <div class="emmet-song-verse">
+                            <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}"
+                                >{{displayName}}</div>
+                            <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
+                                {{#lines}}
+                                <p>{{.}}</p>
+                                {{/lines}}
+                            </div>
+                        </div>
+                        {{/verses}}
                     </div>
                 </div>
-                {{/verses}}
+                {{/song.lyrics}}
+            </div>
+            <div class="emmet-song-tab emmet-song-details" data-trigger="emmet-song-details-btn">
+                <table class="table table-sm table-hover"><tbody>
+                    <!--
+                    <tr class="table-secondary">
+                        <th colspan="2">Zenei részletek</th>
+                    </tr>
+                    <tr>
+                        <th width="50%" scope="row">Hangnem</td>
+                        <td width="50%">ismeretlen</td>
+                    </tr>
+                    <tr>
+                        <th class="align-middle" scope="row">Kezdőhang</td>
+                        <td class="align-middle">
+                            ismeretlen
+                            <button type="button" class="btn btn-sm btn-primary ml-1" data-toggle="button" disabled>
+                                <span class="oi oi-media-play"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    -->
+                    <tr class="table-secondary">
+                        <th colspan="2">A dal a következő könyvekben szerepel:</th>
+                    </tr>
+                    <!-- {{#books}} -->
+                    <tr>
+                        <td>{{name}}</td>
+                        <td><span class="badge badge-info">{{number}}</span></td>
+                    </tr>
+                    <!-- {{/books}} -->
+                </tbody></table>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
         </div>
-    </div>
+    </template>
     
-    <div id="emmet-tmpl-search" class="emmet-template">
+    <template id="emmet-tmpl-search" class="emmet-template">
         <h2 class="mb-3">Keresés</h2>
         <p>Összesen <strong>{{numOfResults}}</strong> {{searchMode}} találat a(z) <strong>{{searchExpr}}</strong> kifejezésre.</p>
         
@@ -207,7 +286,7 @@
         <div class="list-group mb-3">
         {{#titleResults}}
             <a href="#" class="emmet-search-item list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
-                <span class="badge badge-info">{{displayNumber}}</span> {{{title}}}
+                <span class="badge badge-info">{{number}}</span> {{{title}}}
             </a>
         {{/titleResults}}
         </div>
@@ -221,13 +300,13 @@
         <div class="list-group mb-3">
         {{#textResults}}
             <a href="#" class="emmet-search-item list-group-item list-group-item-action" data-songnumber="{{number}}">
-                <h5 class="mb-2"><span class="badge badge-info">{{displayNumber}}</span> {{title}}</h5>
+                <h5 class="mb-2"><span class="badge badge-info">{{number}}</span> {{title}}</h5>
                 <div class="emmet-song">
                     {{#matchedVerses}}
                     <div class="emmet-song-verse">
-                        {{#displayCode}}
+                        {{#displayName}}
                         <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}">{{.}}</div>
-                        {{/displayCode}}
+                        {{/displayName}}
                         <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
                             {{#lines}}
                             <p>{{{.}}}</p>
@@ -243,8 +322,22 @@
         {{^hasTextResults}}
         <div class="alert alert-primary" role="alert">Nincs találat.</div>
         {{/hasTextResults}}
-    </div>
-    
+    </template>
+    <script>
+        var emmet_busts = { <?php
+            $dirs_to_scan = array("js/emmet");
+            foreach ($dirs_to_scan as $dir) {
+                foreach (scandir($dir) as $filename) {
+                    if (substr($filename, -3) != ".js") {
+                        continue;
+                    }
+                    $path = $dir."/".$filename;
+                    $last_mod_time = filemtime($path);
+                    print("'$path': $last_mod_time, ");
+                }
+            }
+        ?> };
+    </script>
     <script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js" integrity="sha256-lIXwkX+X/PT2Ol6jZSAP/VfxI/RROCovmhrS4v1RrJs=" crossorigin="anonymous"></script>
 </body>
 </html>

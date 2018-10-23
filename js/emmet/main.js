@@ -1,8 +1,5 @@
 define(['emmet/search', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet/songdata', 'emmet/utils', 'mustache'],
         function(emmetSearch, emmetLoader, emmetToc, emmetSongDisp, emmetSongData, emmetUtils, mustache) {
-    var songData = null;
-    var currentBook = "emm_hun";
-    
     var collapseNavBar = function() {
         $('.navbar-collapse').collapse('hide');
     };

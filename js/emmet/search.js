@@ -97,19 +97,19 @@ function(emmetNotifier, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
             var textResults = {};
             for (songNo in songBook.songs) {
                 var song = songBook.songs[songNo];
+                var lyrics = song.lyrics[0];  // TODO: handle languages correctly
                 
                 // Look for results in the song title
-                if (findInTokenized(tokenizedExpr, tokenize(song.title), searchMode)) {
+                if (findInTokenized(tokenizedExpr, tokenize(lyrics.title), searchMode)) {
                     titleResults.push({
-                        number: song.number,
-                        displayNumber: song.displayNumber,
-                        title: song.title.replace(highlightRegexp, "<mark>$1</mark>"),
+                        number: songNo,
+                        title: lyrics.title.replace(highlightRegexp, "<mark>$1</mark>"),
                     });
                 }
                 
                 // Look for results in the lyrics
-                for (var i = 0; i < song.verses.length; i++) {
-                    var verse = song.verses[i];
+                for (var i = 0; i < lyrics.verses.length; i++) {
+                    var verse = lyrics.verses[i];
                     
                     // If there's no match, continue
                     if (! findInTokenized(tokenizedExpr, verse.tokenizedLines, searchMode)) {
@@ -119,9 +119,8 @@ function(emmetNotifier, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
                     // If we don't have this song in the results yet, create it
                     if (! textResults.hasOwnProperty(songNo)) {
                         textResults[songNo] = {
-                                number: song.number,
-                                displayNumber: song.displayNumber,
-                                title: song.title,
+                                number: songNo,
+                                title: lyrics.title,
                                 matchedVerses: [],
                         };
                     }
@@ -135,10 +134,10 @@ function(emmetNotifier, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
                     
                     // Add it all to the matched verses
                     textResults[songNo].matchedVerses.push({
-                            displayCode: verse.displayCode,
+                            displayName: verse.displayName,
                             lines: highlightedVerses,
-                            isChorus: emmetUtils.isChorus(verse.code),
-                            isBridge: emmetUtils.isBridge(verse.code),
+                            isChorus: emmetUtils.isChorus(verse.name),
+                            isBridge: emmetUtils.isBridge(verse.name),
                     });
                 }
             }

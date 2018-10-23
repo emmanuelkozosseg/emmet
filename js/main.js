@@ -15,7 +15,14 @@ require.config({
             node.setAttribute('integrity', sri[module]);
             node.setAttribute('crossorigin', 'anonymous');
         }
-      },
+    },
+    urlArgs: function(id, url) {
+        if (url in emmet_busts) {
+            //console.log("Bust found: "+url+" => "+emmet_busts[url]);
+            return (url.indexOf('?') === -1 ? '?' : '&') + "bust=" + emmet_busts[url];
+        }
+        return "";
+    },
 });
 
 require(['jquery', 'bootstrap', 'mustache', 'emmet/main', 'emmet/notifier'],

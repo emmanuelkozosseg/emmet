@@ -1,19 +1,19 @@
 define([], function() {
     var songData = null;
-    var currentBook = "emm_hun";
+    var currentBook = "emmet";
 
     return {
         getCurrentBook: function() {
-            return songData[currentBook];
+            return songData['books'][currentBook];
         },
         getCurrentBookId: function() {
             return currentBook;
         },
         getBook: function(bookId) {
-            return songData[bookId];
+            return songData['books'][bookId];
         },
         getBookIds: function() {
-            return Object.keys(songData);
+            return Object.keys(songData['books']);
         },
         setBook: function(newBookId) {
             currentBook = newBookId;

@@ -1,5 +1,6 @@
-define(['emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache', 'naturalsort'],
-function(emmetSongData, emmetSongDisp, emmetUtils, mustache, naturalsort) {
+define(['emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache'],
+function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
+    var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
     var sortBy = "num";
     var loadedBook = null;
     
@@ -12,40 +13,48 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache, naturalsort) {
         refreshSongList();
     };
     
-    var sortByNumber = function(songBook) {
+    var sortByNumber = function(songs) {
         var songList = [];
         
         // Sort by natural ordering
         var songNumbers = [];
-        for (songNo in songBook.songs) {
+        for (songNo in songs) {
             songNumbers.push(songNo);
         }
-        songNumbers = songNumbers.sort(naturalSort);
-        for (var i = 0; i < songNumbers.length; i++) {
-            songList.push(songBook.songs[songNumbers[i]]);
-        }
+        songNumbers = songNumbers.sort(collator.compare);
+        songNumbers.forEach(function(songNo) {
+            songList.push(songs[songNo]);
+        });
         
         return songList;
     };
     
-    var sortByTitle = function(songBook) {
+    var sortByTitle = function(songs) {
         var songList = [];
-        for (songNo in songBook.songs) {
-            songList.push(songBook.songs[songNo]);
+        for (songNo in songs) {
+            songList.push(songs[songNo].lyrics[0]);
         }
         return songList.sort(function(a,b) {
-            return naturalSort(a.title, b.title);
+            return naturalsort(a.title, b.title);
         });
-    }
+    };
     
     var refreshSongList = function() {
         var songBook = emmetSongData.getCurrentBook();
         
         var songList;
         if (sortBy == "title") {
-            songList = sortByTitle(songBook);
+            songList = sortByTitle(songBook.songs);
         } else {
-            songList = sortByNumber(songBook);
+            songList = sortByNumber(songBook.songs);
+        }
+
+        for (var i = 0; i < songList.length; i++) {
+            currentSong = songList[i];
+            songList[i] = {
+                'number': currentSong.books.find(function(b) {return b.id == songBook.id}).number,
+                'title': currentSong.lyrics[0].title,
+            };
         }
         
         var listHtml = mustache.to_html(emmetUtils.getTemplate("toc-list"), songList);
