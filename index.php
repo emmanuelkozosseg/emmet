@@ -17,11 +17,16 @@ function to_busted_url($url) {
 <title>Emmet - Emmánuel Énektár</title>
 </head>
 <body>
-    <div id="emmet-loading"><p class="lead">Énekek betöltése...</p></div>
+    <div id="emmet-loading"><div>
+        <img src="img/logo.png" class="emmet-loading-logo" />
+        <p class="emmet-loading-text">Énekek betöltése...</p>
+    </div></div>
     <div class="container">
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-            <a id="emmet-nav-mainlink" class="navbar-brand" href="#">Emmet</a>
+            <a id="emmet-nav-mainlink" class="navbar-brand" href="#">
+                <img src="img/logo.png" />
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
