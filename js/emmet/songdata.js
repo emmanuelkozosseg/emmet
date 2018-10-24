@@ -21,5 +21,18 @@ define([], function() {
         setData: function(data) {
             songData = data;
         },
+
+        getMainLangIdOfSong: function(song) {
+            var bookLangOrder = songData['books'][currentBook].languages;
+            for (let lang of bookLangOrder) {
+                var langId = song.lyrics.findIndex(e => {
+                    return e.lang == lang;
+                });
+                if (langId != -1) {
+                    return langId;
+                }
+            }
+            return 0;
+        },
     };
 })

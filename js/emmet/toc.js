@@ -22,7 +22,7 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
             songNumbers.push(songNo);
         }
         songNumbers = songNumbers.sort(collator.compare);
-        songNumbers.forEach(function(songNo) {
+        songNumbers.forEach(songNo => {
             songList.push(songs[songNo]);
         });
         
@@ -32,10 +32,10 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
     var sortByTitle = function(songs) {
         var songList = [];
         for (songNo in songs) {
-            songList.push(songs[songNo].lyrics[0]);
+            songList.push(songs[songNo]);
         }
-        return songList.sort(function(a,b) {
-            return naturalsort(a.title, b.title);
+        return songList.sort(function(a, b) {
+            return collator.compare(a.lyrics[0].title, b.lyrics[0].title);
         });
     };
     
@@ -50,10 +50,11 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
         }
 
         for (var i = 0; i < songList.length; i++) {
-            currentSong = songList[i];
+            var currentSong = songList[i];
+            var mainLangId = emmetSongData.getMainLangIdOfSong(currentSong);
             songList[i] = {
-                'number': currentSong.books.find(function(b) {return b.id == songBook.id}).number,
-                'title': currentSong.lyrics[0].title,
+                'number': currentSong.books.find(b => {return b.id == songBook.id}).number,
+                'title': currentSong.lyrics[mainLangId].title,
             };
         }
         

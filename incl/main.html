@@ -1,0 +1,57 @@
+<main class="p-3">
+    <div id="emmet-p-main" class="emmet-page">
+        <div class="row"><div class="col">
+            <h2 class="mb-3">Üdv az Emmánuel Énektárban!</h2>
+            
+            <h4 class="mt-4 mb-1">Énekeskönyvek</h4>
+            <p>Az Emmet több énekeskönyvet is támogat, de egyszerre csak egy lehet nyitva. A könyvek menüjében tudsz váltani közöttük.
+            Indításkor mindig a magyar énekeskönyv nyílik ki.</p>
+            <p>A tartalomjegyzék mindig csak az éppen nyitott könyv énekeit tartalmazza, és az ugrás/keresés is mindig csak az aktuális
+            könyvben keres.</p>
+            
+            <h4 class="mt-4 mb-1">Böngészés</h4>
+            <ul>
+                <li>A <strong>Tartalomjegyzék</strong> menüpontban a kiválasztott énekeskönyv összes dala között böngészhetsz.</li>
+                <li>Ha tudod egy ének számát, közvetlenül rákereshetsz az <strong>Énekszám</strong> mezőben.</li>
+            </ul>
+            
+            <h4 class="mt-4 mb-1">Keresés</h4>
+            <p>Dalszöveg vagy cím alapján is kereshetsz a <strong>Keresés</strong> mezőben.</p>
+            <ul>
+                <li>Kis- és nagybetű, ékezetes karakter és írásjelek nem számítanak.</li>
+                <li>Ha több szót írsz be, azokra az Emmet egyben keres (tehát az összes szónak, abban a sorrendben, és megszakítás
+                nélkül kell szerepelnie).</li>
+                <li>Alapértelmezésben a kereső teljes szavakra keres. Ha tört szavakra is keresni szeretnél, nyisd ki a legördülő
+                menüt és válaszd a <strong>Törtszavas</strong> lehetőséget.
+                <span class="text-muted">Például az <strong>Úr</strong> keresésre az <strong>Uram</strong> találatot a törtszavas
+                keresés visszaadja, az alapértelmezett teljes szavas viszont nem.</span></li>
+            </ul>
+            
+            <h4 class="mt-4 mb-1">Hogyan segíthetsz?</h4>
+            <ul>
+                <li>Az Emmet nyílt forráskódú, <a href="https://bitbucket.org/eckerg/emmet">a Bitbucketen</a> beszállhatsz
+                a fejlesztésébe.</li>
+                <li>Az énekek szövegeit <a href="https://bitbucket.org/eckerg/emmet-enekek">szintén a Bitbucketen</a> találod meg.
+                Ha valamin javítani szeretnél, ott saját magad is megteheted, ha ismered az OpenSong fájlformátumát.</li>
+                <li>Ha hibát, elírást, stb. találsz, kérünk, jelentsd be, hogy kijavíthassuk! Az Emmet hibáit
+                <a href="https://bitbucket.org/eckerg/emmet/issues">itt</a>, az énekszövegek hibáit
+                <a href="https://bitbucket.org/eckerg/emmet-enekek/issues">itt</a> jelentheted. Köszönjük!</li>
+            </ul>
+        </div></div>
+    </div>
+    
+    <div id="emmet-p-toc" class="emmet-page">
+        <h2 class="mb-3">Tartalomjegyzék</h2>
+        <div class="emmet-toc-sortby btn-group btn-group-toggle mb-3" data-toggle="buttons">
+            <label class="btn btn-primary active">
+                <input type="radio" name="emmet-toc-sortby" value="num" autocomplete="off" checked> Énekszám szerint
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" name="emmet-toc-sortby" value="title" autocomplete="off"> Cím szerint
+            </label>
+        </div>
+        <div class="emmet-toc-list list-group"></div>
+    </div>
+    
+    <div id="emmet-p-search" class="emmet-page"></div>
+</main>

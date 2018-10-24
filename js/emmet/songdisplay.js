@@ -96,7 +96,7 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache) {
             });
             $('#emmet-song-modal div.emmet-song-toolbar a.nav-link').tooltip({"placement": "bottom"});
 
-            changeLanguage(0);
+            changeLanguage(emmetSongData.getMainLangIdOfSong(song));
             showTab("emmet-song-lyrics");
             $("#emmet-song-modal").modal();
         },
