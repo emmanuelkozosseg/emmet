@@ -9,30 +9,45 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="emmetNavbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Könyvek
+                <a class="nav-link dropdown-toggle" href="#" id="emmetNavMainDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Emmet
                 </a>
-                <div id="emmet-nav-bookselector" class="dropdown-menu" aria-labelledby="emmetNavbarDropdown"></div>
+                <div class="dropdown-menu" aria-labelledby="emmetNavMainDropdown">
+                    <a class="dropdown-item" id="emmet-navdd-mainlink" href="#"><span class="oi oi-home"></span> Nyitólap</a>
+                    <a class="dropdown-item disabled" href="#"><span class="oi oi-question-mark"></span> Súgó</a>
+                    <div class="dropdown-divider"></div>
+                    <h6 class="dropdown-header"><span class="oi oi-bug"></span> Hibabejelentés</h6>
+                    <a class="dropdown-item" href="https://bitbucket.org/eckerg/emmet-enekek/issues" target="_blank"><span class="oi"></span> Énekszövegben</a>
+                    <a class="dropdown-item" href="https://bitbucket.org/eckerg/emmet/issues" target="_blank"><span class="oi"></span> Az Emmet működésében</a>
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="emmet-toc-link">Tartalomjegyzék</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="emmetNavBookDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="oi oi-book"></span> <span class="emmet-book-name"></span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="emmetNavBookDropdown">
+                    <a class="dropdown-item" href="#" id="emmet-toc-link"><span class="oi oi-list"></span> Tartalomjegyzék</a>
+                    <div class="dropdown-divider"></div>
+                    <h6 class="dropdown-header"><span class="oi oi-loop-circular"></span> Másik könyv megnyitása</h6>
+                    <div id="emmet-nav-bookselector"></div>
+                </div>
             </li>
         </ul>
         <form id="emmet-form-jumpto" class="form-inline my-2 my-lg-0 mr-3">
-            <input id="emmet-jumpto-songno" class="form-control mr-sm-2" type="search" placeholder="Énekszám" aria-label="Énekszám">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Ugrás</button>
+            <div class="input-group">
+                <input id="emmet-jumpto-songno" class="form-control" type="search" placeholder="Énekszám" aria-label="Énekszám" size="8" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit"><span class="oi oi-share"></span></button>
+                </div>
+            </div>
         </form>
         <form id="emmet-form-search" class="form-inline my-2 my-lg-0 mr-3">
-            <input id="emmet-search-expr" class="form-control mr-sm-2" type="search" placeholder="Keresés" aria-label="Keresés">
-            <!-- <button class="btn btn-primary my-2 my-sm-0" type="submit">Keresés</button> -->
-            <div class="btn-group my-2 my-sm-0">
-                <button id="emmet-search-wholeword" type="button" class="btn btn-primary">Keresés</button>
-                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu">
-                    <a id="emmet-search-partword" class="dropdown-item" href="#">Törtszavas</a>
+            <div class="input-group">
+                <input id="emmet-search-expr" class="form-control" type="search" placeholder="Keresés" aria-label="Keresés" size="20" />
+                <div class="input-group-append" role="group" aria-label="Keresés">
+                    <button type="button" id="emmet-search-wholeword" class="btn btn-primary"><span class="oi oi-magnifying-glass"></span></button>
+                    <button type="button" id="emmet-search-advanced" class="btn btn-secondary"><span class="oi oi-cog"></span></button>
                 </div>
             </div>
         </form>

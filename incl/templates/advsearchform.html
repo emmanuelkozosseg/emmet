@@ -1,0 +1,71 @@
+<form id="emmet-advs-form">
+<div class="modal-header bg-secondary">
+    <h5 class="modal-title">Részletes keresés</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="form-group emmet-advs-mode-list">
+        <ul>
+            <li class="emmet-advs-mode-selector emmet-active"><div>
+                <div><input type="radio" name="emmet-advs-mode" class="emmet-advs-mode-radio" id="emmet-advs-mode-simple" value="simple" checked></div>
+                <div class="emmet-icon"><span class="oi oi-book"></span></div>
+                <label for="emmet-advs-mode-simple">
+                    <strong>Egyszerű keresés</strong><br />
+                    <em>A nyitott könyv énekei között, a benne szereplő nyelven</em>
+                </label>
+            </div></li>
+            <li class="emmet-advs-mode-selector"><div>
+                <div><input type="radio" name="emmet-advs-mode" class="emmet-advs-mode-radio" id="emmet-advs-mode-full" value="full"></div>
+                <div class="emmet-icon"><span class="oi oi-globe"></span></div>
+                <div>
+                    <div>
+                        <strong>Teljes keresés</strong><br />
+                        <em>Az összes ének között, a kiválasztott nyelveken:</em>
+                    </div>
+                    {{#languages}}
+                    <div class="form-check form-check-inline emmet-advs-lang-selector">
+                        <input class="form-check-input emmet-advs-lang" type="checkbox" id="emmet-advs-langs-{{lang}}" value="{{lang}}" disabled>
+                        <label class="form-check-label emmet-lang-tag" for="emmet-advs-langs-{{lang}}">
+                            <img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" /> {{lang}}
+                        </label>
+                    </div>
+                    {{/languages}}
+                    <div>
+                        <button type="button" class="btn btn-primary btn-sm emmet-advs-lang-selectbtn" id="emmet-advs-lang-selectall" disabled>
+                            Összes kijelölése
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm emmet-advs-lang-selectbtn" id="emmet-advs-lang-selectnone" disabled>
+                            Kijelölés törlése
+                        </button>
+                    </div>
+                </div>
+            </div></li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="emmet-advs-expr" value="{{keyword}}" placeholder="Mit keresel?" />
+    </div>
+    <div class="form-group">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="emmet-advs-wordm" id="emmet-advs-wordm-whole" value="wholeWord" checked>
+            <label class="form-check-label" for="emmet-advs-wordm-whole">Teljes szavas</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="emmet-advs-wordm" id="emmet-advs-wordm-partial" value="partialWord">
+            <label class="form-check-label" for="emmet-advs-wordm-partial">Törtszavas</label>
+        </div>
+    </div>
+    <div class="alert alert-primary emmet-alert-with-tips">
+        <ul class="mb-0">
+            <li>Kis- és nagybetű, ékezetes karakter és írásjelek nem számítanak.</li>
+            <li>Ha több szót írsz be, azokra az Emmet egyben keres (tehát az összes szónak, abban a sorrendben, és megszakítás nélkül kell szerepelnie).</li>
+        </ul>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" id="emmet-advs-searchbtn">Keresés</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
+</div>
+</form>

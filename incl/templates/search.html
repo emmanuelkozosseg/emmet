@@ -1,0 +1,58 @@
+<h2 class="mb-3">{{searchMode}}</h2>
+<p>Összesen <strong>{{numOfResults}}</strong> {{wordMatchingMode}} találat a(z) <strong>{{searchExpr}}</strong> kifejezésre.</p>
+
+<h4>Dalok címében ({{numOfTitleResults}})</h4>
+{{#hasTitleResults}}
+<div class="list-group mb-3">
+{{#titleResults}}
+    <a href="#" class="emmet-search-item list-group-item list-group-item-action emmet-toc-item p-2" data-songid="{{internalSongId}}" data-langid="{{langId}}">
+        {{#songNumber}}
+        <span class="badge badge-info">{{.}}</span>
+        {{/songNumber}}
+        {{#lang}}
+        <span class="badge badge-secondary"><img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" /> <span class="emmet-lang-tag">{{lang}}</span></span>
+        {{/lang}}
+        {{{highlightedTitle}}}
+    </a>
+{{/titleResults}}
+</div>
+{{/hasTitleResults}}
+{{^hasTitleResults}}
+<div class="alert alert-primary" role="alert">Nincs találat.</div>
+{{/hasTitleResults}}
+
+<h4>Dalok szövegében ({{numOfTextResults}})</h4>
+{{#hasTextResults}}
+<div class="list-group mb-3">
+{{#textResults}}
+    <a href="#" class="emmet-search-item list-group-item list-group-item-action" data-songid="{{internalSongId}}" data-langid="{{langId}}">
+        <h5 class="mb-2">
+            {{#songNumber}}
+            <span class="badge badge-info">{{.}}</span>
+            {{/songNumber}}
+            {{#lang}}
+            <span class="badge badge-secondary"><img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" /> <span class="emmet-lang-tag">{{lang}}</span></span>
+            {{/lang}}
+            {{{highlightedTitle}}}
+        </h5>
+        <div class="emmet-song">
+            {{#highlightedVerses}}
+            <div class="emmet-song-verse">
+                {{#displayName}}
+                <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}">{{.}}</div>
+                {{/displayName}}
+                <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
+                    {{#lines}}
+                    <p>{{{.}}}</p>
+                    {{/lines}}
+                </div>
+            </div>
+            {{/highlightedVerses}}
+        </div>
+    </a>
+{{/textResults}}
+</div>
+{{/hasTextResults}}
+{{^hasTextResults}}
+<div class="alert alert-primary" role="alert">Nincs találat.</div>
+{{/hasTextResults}}

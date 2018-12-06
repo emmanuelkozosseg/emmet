@@ -1,11 +1,19 @@
-define(['emmet/search', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet/songdata', 'emmet/utils', 'mustache'],
-        function(emmetSearch, emmetLoader, emmetToc, emmetSongDisp, emmetSongData, emmetUtils, mustache) {
+define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet/songdata', 'emmet/utils', 'mustache'],
+        function(emmetSearch, emmetSearchDialog, emmetLoader, emmetToc, emmetSongDisp, emmetSongData, emmetUtils, mustache) {
     var collapseNavBar = function() {
         $('.navbar-collapse').collapse('hide');
     };
+
+    var hideMainDropdown = function() {
+        $("#emmetNavMainDropdown").dropdown('toggle');
+    };
+    var hideBookDropdown = function() {
+        $("#emmetNavBookDropdown").dropdown('toggle');
+    };
     
-    var search = function(mode) {
-        emmetSearch.search($("#emmet-search-expr").val(), mode);
+    var search = function() {
+        var searchExpr = $("#emmet-search-expr").val();
+        emmetSearch.search(searchExpr, "simple", "wholeWord");
         $("#emmet-search-expr").val("");
         collapseNavBar();
     };
@@ -15,15 +23,21 @@ define(['emmet/search', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet
         emmetLoader.loadSongs(onSongsLoaded);
         
         // Set up navbar
-        $("#emmet-nav-mainlink").click(function() {
+        $("#emmet-nav-mainlink").click(function(e) {
+            e.preventDefault();
             emmetUtils.showPage("main");
             collapseNavBar();
-            return false;
         });
-        $("#emmet-toc-link").click(function() {
+        $("#emmet-navdd-mainlink").click(function(e) {
+            e.preventDefault();
+            emmetUtils.showPage("main");
+            hideMainDropdown();
+        });
+        $("#emmet-toc-link").click(function(e) {
+            e.preventDefault();
             emmetToc.show();
+            hideBookDropdown();
             collapseNavBar();
-            return false;
         });
         $("#emmet-form-jumpto").submit(function(e) {
             e.preventDefault();
@@ -33,15 +47,14 @@ define(['emmet/search', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet
         })
         $("#emmet-form-search").submit(function(e) {
             e.preventDefault();
-            search(emmetSearch.modes.wholeWord);
+            search();
         });
         $("#emmet-search-wholeword").click(function() {
-            search(emmetSearch.modes.wholeWord);
+            search();
         });
-        $("#emmet-search-partword").click(function() {
-            search(emmetSearch.modes.partialWord);
-            $("#emmet-search-partword").parent(".dropdown-menu.show").dropdown('toggle');
-            return false;
+        $("#emmet-search-advanced").click(function(e) {
+            //e.preventDefault();
+            emmetSearchDialog.displayAdvancedSearch($("#emmet-search-expr").val());
         });
         
         // Show main page by default
@@ -78,12 +91,12 @@ define(['emmet/search', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet
         $("#emmet-nav-bookselector").html(bookListHtml);
         $("#emmet-nav-bookselector .dropdown-item:not(.disabled)").click(function() {
             setBook($(this).data("bookid"));
-            $("#emmetNavbarDropdown").parent("li.nav-item.dropdown").dropdown('toggle');
+            hideBookDropdown();
             return false;
         });
         
         // Change label of button
-        $("#emmetNavbarDropdown").text(emmetSongData.getCurrentBook().name);
+        $("#emmetNavBookDropdown > span.emmet-book-name").text(emmetSongData.getCurrentBook().name);
     };
     
     return {

@@ -1,38 +1,57 @@
 define([], function() {
     var songData = null;
     var currentBook = "emmet";
+    var availableLanguages = null;
+
+    var getMainLangIdOfSong = function(song) {
+        var currentBookEntry = song.books.find(b => b.id == currentBook);
+        if (currentBookEntry === undefined) {
+            return 0;
+        }
+        return song.lyrics.findIndex(e => e.lang == currentBookEntry.lang);
+    };
 
     return {
         getCurrentBook: function() {
-            return songData['books'][currentBook];
+            return songData.books[currentBook];
         },
         getCurrentBookId: function() {
             return currentBook;
         },
         getBook: function(bookId) {
-            return songData['books'][bookId];
+            return songData.books[bookId];
         },
         getBookIds: function() {
-            return Object.keys(songData['books']);
+            return Object.keys(songData.books);
+        },
+        getAllBooks: function() {
+            return songData.books;
+        },
+        getAllSongs: function() {
+            return songData.songs;
+        },
+        getAvailableLanguages: function() {
+            return availableLanguages;
         },
         setBook: function(newBookId) {
             currentBook = newBookId;
         },
+
         setData: function(data) {
             songData = data;
-        },
 
-        getMainLangIdOfSong: function(song) {
-            var bookLangOrder = songData['books'][currentBook].languages;
-            for (let lang of bookLangOrder) {
-                var langId = song.lyrics.findIndex(e => {
-                    return e.lang == lang;
-                });
-                if (langId != -1) {
-                    return langId;
+            var langsAndOccurrances = new Map();
+            for (let song of songData.songs) {
+                for (let lyrics of song.lyrics) {
+                    langsAndOccurrances[lyrics.lang] = (langsAndOccurrances[lyrics.lang] || 0) + 1;
                 }
             }
-            return 0;
+            availableLanguages = Object.keys(langsAndOccurrances).sort((a, b) => langsAndOccurrances[b] - langsAndOccurrances[a]);
+        },
+
+        getMainLangIdOfSong: getMainLangIdOfSong,
+        getMainLangOfSong: function(song) {
+            return song.lyrics[getMainLangIdOfSong(song)];
         },
     };
 })

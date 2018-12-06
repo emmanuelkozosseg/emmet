@@ -19,7 +19,7 @@ function to_busted_url($url) {
 <body>
     <div id="emmet-loading"><div>
         <img src="img/logo.png" class="emmet-loading-logo" />
-        <p class="emmet-loading-text">Énekek betöltése...</p>
+        <p class="emmet-loading-text">Betöltés...</p>
     </div></div>
     
     <div class="container">
@@ -27,9 +27,19 @@ function to_busted_url($url) {
         <?php require("incl/main.html"); ?>
     </div>
     
-    <?php require("incl/modals.html"); ?>
-    <?php require("incl/templates.html"); ?>
-    
+    <?php
+    require("incl/modals.html");
+    foreach (scandir("incl/templates") as $template_file) {
+        if (substr($template_file, -5) != ".html") {
+            continue;
+        }
+        $template_id = substr($template_file, 0, strlen($template_file)-5);
+        print("\n<script type=\"x-emmet-template\" id=\"emmet-tmpl-$template_id\">\n");
+        require("incl/templates/$template_file");
+        print("\n</script>\n");
+    }
+    ?>
+
     <script>
         var emmet_busts = { <?php
             $dirs_to_scan = array("js/emmet");

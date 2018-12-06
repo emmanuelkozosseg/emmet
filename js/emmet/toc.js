@@ -1,6 +1,5 @@
 define(['emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache'],
 function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
-    var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
     var sortBy = "num";
     var loadedBook = null;
     
@@ -21,7 +20,7 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
         for (songNo in songs) {
             songNumbers.push(songNo);
         }
-        songNumbers = songNumbers.sort(collator.compare);
+        songNumbers = songNumbers.sort(emmetUtils.getCollator().compare);
         songNumbers.forEach(songNo => {
             songList.push(songs[songNo]);
         });
@@ -35,7 +34,7 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
             songList.push(songs[songNo]);
         }
         return songList.sort(function(a, b) {
-            return collator.compare(a.lyrics[0].title, b.lyrics[0].title);
+            return emmetUtils.getCollator().compare(emmetSongData.getMainLangOfSong(a).title, emmetSongData.getMainLangOfSong(b).title);
         });
     };
     
@@ -51,10 +50,9 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
 
         for (var i = 0; i < songList.length; i++) {
             var currentSong = songList[i];
-            var mainLangId = emmetSongData.getMainLangIdOfSong(currentSong);
             songList[i] = {
                 'number': currentSong.books.find(b => {return b.id == songBook.id}).number,
-                'title': currentSong.lyrics[mainLangId].title,
+                'title': emmetSongData.getMainLangOfSong(currentSong).title,
             };
         }
         

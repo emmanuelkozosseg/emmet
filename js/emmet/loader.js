@@ -1,4 +1,4 @@
-define(['emmet/notifier', 'emmet/search', 'emmet/utils'], function(emmetNotifier, emmetSearch, emmetUtils) {
+define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotifier, emmetTokenizer, emmetUtils) {
     var startLoad = function(finalCallback) {
         $.ajax({
             url: "getsongs.php",
@@ -24,21 +24,24 @@ define(['emmet/notifier', 'emmet/search', 'emmet/utils'], function(emmetNotifier
     var processSongData = function(origSongData, finalCallback) {
         var songData = {
             'books': {},
-            'songs': origSongData['songs'],
+            'songs': origSongData.songs,
         };
         
-        origSongData['books'].forEach(function(book) {
-            songData['books'][book['id']] = book;
-            songData['books'][book['id']]['songs'] = {};
+        origSongData['books'].forEach(book => {
+            songData.books[book.id] = book;
+            songData.books[book.id].songs = {};
         });
 
-        origSongData['songs'].forEach(function(song) {
-            song['books'].forEach(function(bookOfSong) {
-                songData['books'][bookOfSong['id']]['songs'][bookOfSong['number']] = song;
+        origSongData['songs'].forEach((song, index) => {
+            song.internalId = index;
+            song.books.forEach(bookOfSong => {
+                songData.books[bookOfSong.id].songs[bookOfSong.number] = song;
             });
-            song['lyrics'].forEach(function(songInLang, index) {
-                songInLang['langId'] = index;
-                songInLang['verses'].forEach(function(verse) {
+            song.lyrics.forEach((songInLang, index) => {
+                songInLang.langId = index;
+                songInLang.tokenizedTitle = emmetTokenizer.tokenize(songInLang.title);
+                songInLang.verses.forEach((verse, index) => {
+                    verse.verseId = index;
                     verse.displayName = getDisplayedVerseCode(verse.name);
                     verse.isChorus = emmetUtils.isChorus(verse.name);
                     verse.isBridge = emmetUtils.isBridge(verse.name);
@@ -50,7 +53,7 @@ define(['emmet/notifier', 'emmet/search', 'emmet/utils'], function(emmetNotifier
                         }
                     }
 
-                    verse.tokenizedLines = emmetSearch.tokenizeVerseLines(verse.lines);
+                    verse.tokenizedLines = emmetTokenizer.tokenizeVerseLines(verse.lines);
                 });
             });
         });

@@ -1,6 +1,5 @@
 define(['emmet/notifier', 'emmet/songdata', 'emmet/utils', 'mustache'],
 function(emmetNotifier, emmetSongData, emmetUtils, mustache) {
-    var langToCountry = {'hu': 'hu', 'la': 'va', 'en': 'gb', 'de': 'de'};
     var currentDisplay = null;
 
     var showTab = function(tabIdClass) {
@@ -24,12 +23,80 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache) {
 
         // Update language menu
         $("#emmet-song-modal div.emmet-song-toolbar .emmet-lang-btn img.flag")
-                .removeClass().addClass("flag flag-"+langToCountry[newLangOfSong.lang]);
+                .removeClass().addClass("flag flag-"+emmetUtils.getCountryOfLang(newLangOfSong.lang));
         $("#emmet-song-modal div.emmet-song-toolbar .emmet-lang-btn span.emmet-langname").text(newLangOfSong.lang);
 
         // Hide currently selected from menu
         $("#emmet-song-modal div.emmet-song-toolbar a.dropdown-item").show();
         $("#emmet-song-modal div.emmet-song-toolbar a.dropdown-item.emmet-song-lang-select-"+newLangId).hide();
+    };
+
+    var displaySongByInternalId = function(internalSongId, langId) {
+        var song = emmetSongData.getAllSongs()[internalSongId];
+
+        // If no language is requested, fall back to the main language
+        if (langId === undefined) {
+            langId = emmetSongData.getMainLangIdOfSong(song);
+        }
+
+        // Update inner state
+        currentDisplay = {
+            'song': song,
+        };
+
+        // Prepare list of available languages
+        var languages = song.lyrics.map((songInLang, index) => {
+            var country = emmetUtils.getCountryOfLang(songInLang.lang);
+            return {
+                'id': index,
+                'name': songInLang.lang.toUpperCase(),
+                'title': songInLang.title,
+                'country': country === undefined ? '?' : country,
+            };
+        });
+
+        // Prepare list of books
+        var books = song.books.map(book => {
+            return {
+                'name': emmetSongData.getBook(book.id).name,
+                'number': book.number,
+            };
+        });
+
+        var songInBook = song.books.find(function(b) {return b.id == emmetSongData.getCurrentBook().id});
+        var currentNumber = songInBook===undefined ? undefined : songInBook.number;
+
+        // Prepare view object for Mustache and generate HTML
+        var displaySong = {
+            'currentNumber': currentNumber,
+            'languages': languages,
+            'isSingleLanguage': languages.length == 1,
+            'books': books,
+            'song': song,
+        };
+        var songHtml = mustache.to_html(emmetUtils.getTemplate("song"), displaySong);
+        $("#emmet-song-modal .modal-content").html(songHtml);
+
+        // Set up bindings
+        $("#emmet-song-modal .emmet-song-lang-select a.dropdown-item").click(function(e) {
+            changeLanguage($(this).data("langid"));
+            e.preventDefault();
+        });
+        $("#emmet-song-modal .emmet-song-lyrics-btn a.nav-link").click(function(e) {
+            showTab("emmet-song-lyrics");
+            $(this).tooltip('hide');
+            e.preventDefault();
+        });
+        $("#emmet-song-modal .emmet-song-details-btn a.nav-link").click(function(e) {
+            showTab("emmet-song-details");
+            $(this).tooltip('hide');
+            e.preventDefault();
+        });
+        $('#emmet-song-modal div.emmet-song-toolbar a.nav-link').tooltip({"placement": "bottom"});
+
+        changeLanguage(langId);
+        showTab("emmet-song-lyrics");
+        $("#emmet-song-modal").modal();
     };
 
     return {
@@ -41,64 +108,9 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache) {
                         "Nincs <strong>"+songId+"</strong>. számú ének a kiválasztott énekeskönyvben ("+songBook.name+").");
                 return;
             }
-
-            // Update inner state
-            var song = songBook.songs[songId];
-            currentDisplay = {
-                'song': song,
-            };
-
-            // Prepare list of available languages
-            var languages = [];
-            song.lyrics.forEach(function(songInLang, index) {
-                languages.push({
-                    'id': index,
-                    'name': songInLang.lang.toUpperCase(),
-                    'title': songInLang.title,
-                    'country': songInLang.lang in langToCountry ? langToCountry[songInLang.lang] : '?',
-                });
-            });
-
-            // Prepare list of books
-            var books = [];
-            song.books.forEach(function(book) {
-                books.push({
-                    'name': emmetSongData.getBook(book.id).name,
-                    'number': book.number,
-                });
-            });
-
-            // Prepare view object for Mustache and generate HTML
-            var displaySong = {
-                'currentNumber': song.books.find(function(b) {return b.id == songBook.id}).number,
-                'languages': languages,
-                'isSingleLanguage': languages.length == 1,
-                'books': books,
-                'song': song,
-            };
-            var songHtml = mustache.to_html(emmetUtils.getTemplate("song"), displaySong);
-            $("#emmet-song-modal .modal-content").html(songHtml);
-
-            // Set up bindings
-            $("#emmet-song-modal .emmet-song-lang-select a.dropdown-item").click(function(e) {
-                changeLanguage($(this).data("langid"));
-                e.preventDefault();
-            });
-            $("#emmet-song-modal .emmet-song-lyrics-btn a.nav-link").click(function(e) {
-                showTab("emmet-song-lyrics");
-                $(this).tooltip('hide');
-                e.preventDefault();
-            });
-            $("#emmet-song-modal .emmet-song-details-btn a.nav-link").click(function(e) {
-                showTab("emmet-song-details");
-                $(this).tooltip('hide');
-                e.preventDefault();
-            });
-            $('#emmet-song-modal div.emmet-song-toolbar a.nav-link').tooltip({"placement": "bottom"});
-
-            changeLanguage(emmetSongData.getMainLangIdOfSong(song));
-            showTab("emmet-song-lyrics");
-            $("#emmet-song-modal").modal();
+            displaySongByInternalId(songBook.songs[songId].internalId);
         },
+
+        displaySongByInternalId: displaySongByInternalId,
     };
 });

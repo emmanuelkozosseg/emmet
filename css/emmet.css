@@ -1,5 +1,17 @@
+.emmet-lang-tag {
+    text-transform: uppercase;
+}
+.emmet-alert-with-tips ul {
+    padding-left: 20px;
+}
+
 nav .navbar-brand img {
-    height: 30px; width: auto;
+    height: 35px; width: auto;
+}
+nav .dropdown-menu span.oi {
+    width: 16px;
+    text-align: center;
+    margin-right: 2px;
 }
 
 .emmet-song-toolbar ul.nav {
@@ -7,9 +19,6 @@ nav .navbar-brand img {
 }
 .emmet-song-toolbar a.nav-link {
     padding-left: 10px; padding-right: 10px;
-}
-.emmet-song-toolbar .emmet-lang-tag {
-    text-transform: uppercase;
 }
 .emmet-song-toolbar a.nav-link.disabled {
     color: #666;
@@ -64,9 +73,6 @@ nav .navbar-brand img {
 .emmet-page {
     display: none;
 }
-.emmet-template {
-    display: none;
-}
 
 #emmet-loading {
     position: fixed;
@@ -90,4 +96,48 @@ nav .navbar-brand img {
 }
 #emmet-fatal-modal code {
     color: black;
+}
+
+#emmet-search-modal .emmet-advs-mode-list legend {
+    padding-top: .5em;
+    margin-bottom: .5em;
+    font-size: 1.1rem;
+}
+#emmet-search-modal .emmet-advs-mode-list ul {
+    display: table;
+    width: 100%;
+    padding-left: 0;
+    margin-left: 0; margin-bottom: 0;
+}
+#emmet-search-modal .emmet-advs-mode-list ul > li {
+    display: table-row;
+    list-style-type: none;
+}
+#emmet-search-modal .emmet-advs-mode-list ul > li > div {
+    margin-bottom: 10px;
+    border: 1px solid #444;
+    padding: 5px;
+    border-radius: 5px;
+}
+#emmet-search-modal .emmet-advs-mode-list ul > li.emmet-active > div {
+    background-color: #444;
+}
+#emmet-search-modal .emmet-advs-mode-list ul > li > div > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+#emmet-search-modal .emmet-advs-mode-list ul > li > div > *:not(:first-child) {
+    padding-left: .5em;
+}
+#emmet-search-modal .emmet-advs-mode-list ul > li span.oi {
+    font-size: 1.5rem;
+}
+#emmet-search-modal .emmet-advs-mode-list ul > li > div > * label {
+    display: block;
+    margin-bottom: 0px;
+}
+
+/* Bootstrap overrides */
+.list-group-item-action:hover {
+    background-color: #393939;
 }

@@ -1,0 +1,97 @@
+<div class="modal-header bg-secondary">
+    <h5 class="modal-title">
+        <span class="badge badge-info">{{currentNumber}}</span>
+        <span class="emmet-song-title"></span>
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="emmet-song-toolbar">
+    <ul class="nav nav-tabs">
+        <li class="nav-item dropdown emmet-song-lang-select">
+            <a class="nav-link {{#isSingleLanguage}}disabled{{/isSingleLanguage}} dropdown-toggle emmet-lang-btn" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <img src="css/flags/blank.gif" class="flag" />
+                <span class="emmet-langname emmet-lang-tag"></span>
+            </a>
+            <div class="dropdown-menu">
+                {{#languages}}
+                <a class="dropdown-item emmet-song-lang-select-{{id}}" href="#" data-langid="{{id}}">
+                    <img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{name}}" />
+                    <span class="emmet-lang-tag">{{name}}</span> &ndash; {{title}}
+                </a>
+                {{/languages}}
+            </div>
+        </li>
+        <li class="nav-item emmet-song-lyrics-btn">
+            <a class="nav-link" href="#" title="Dalszöveg">
+                <span class="oi oi-musical-note"></span>
+            </a>
+        </li>
+        <li class="nav-item emmet-song-details-btn">
+            <a class="nav-link" href="#" title="Részletek">
+                <span class="oi oi-document"></span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="javascript:" title="Lejátszás">
+                <span class="oi oi-media-play"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="modal-body">
+    <div class="emmet-song-tab emmet-song-lyrics" data-trigger="emmet-song-lyrics-btn">
+        {{#song.lyrics}}
+        <div class="emmet-song-lang emmet-song-lang-{{langId}}">
+            <div class="emmet-song">
+                {{#verses}}
+                <div class="emmet-song-verse">
+                    <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}"
+                        >{{displayName}}</div>
+                    <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
+                        {{#lines}}
+                        <p>{{.}}</p>
+                        {{/lines}}
+                    </div>
+                </div>
+                {{/verses}}
+            </div>
+        </div>
+        {{/song.lyrics}}
+    </div>
+    <div class="emmet-song-tab emmet-song-details" data-trigger="emmet-song-details-btn">
+        <table class="table table-sm table-hover"><tbody>
+            <!--
+            <tr class="table-secondary">
+                <th colspan="2">Zenei részletek</th>
+            </tr>
+            <tr>
+                <th width="50%" scope="row">Hangnem</td>
+                <td width="50%">ismeretlen</td>
+            </tr>
+            <tr>
+                <th class="align-middle" scope="row">Kezdőhang</td>
+                <td class="align-middle">
+                    ismeretlen
+                    <button type="button" class="btn btn-sm btn-primary ml-1" data-toggle="button" disabled>
+                        <span class="oi oi-media-play"></span>
+                    </button>
+                </td>
+            </tr>
+            -->
+            <tr class="table-secondary">
+                <th colspan="2">A dal a következő könyvekben szerepel:</th>
+            </tr>
+            <!-- {{#books}} -->
+            <tr>
+                <td>{{name}}</td>
+                <td><span class="badge badge-info">{{number}}</span></td>
+            </tr>
+            <!-- {{/books}} -->
+        </tbody></table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
+</div>
