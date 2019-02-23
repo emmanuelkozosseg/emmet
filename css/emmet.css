@@ -74,6 +74,28 @@ nav .dropdown-menu span.oi {
     display: none;
 }
 
+#emmet-p-toc .emmet-toc-chapters {
+    margin-bottom: 40px;
+}
+#emmet-p-toc .card-header {
+    padding: 0;
+}
+#emmet-p-toc .card-header h5 {
+    margin-bottom: 0px;
+}
+#emmet-p-toc .card-header h5 span.badge {
+    vertical-align: bottom;
+}
+#emmet-p-toc .card-header a {
+    text-decoration: none;
+    color: inherit;
+    padding: 12px;
+    display: block;
+}
+#emmet-p-toc .emmet-toc-chapters .list-group-item {
+    padding-left: 17px !important;
+}
+
 #emmet-loading {
     position: fixed;
     top: 0; left: 0;
@@ -140,4 +162,8 @@ nav .dropdown-menu span.oi {
 /* Bootstrap overrides */
 .list-group-item-action:hover {
     background-color: #393939;
+}
+span.badge {
+    padding-top: 0.4em;
+    vertical-align: text-bottom;
 }

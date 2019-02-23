@@ -1,0 +1,38 @@
+<h2 class="mb-3">Tartalomjegyzék</h2>
+<div class="emmet-toc-sortby btn-group btn-group-toggle mb-3" data-toggle="buttons">
+    <label class="btn btn-primary active">
+        <input type="radio" id="emmet-toc-sortby-num" name="emmet-toc-sortby" value="num" autocomplete="off" checked> Énekszám szerint
+    </label>
+    <label class="btn btn-primary">
+        <input type="radio" id="emmet-toc-sortby-title" name="emmet-toc-sortby" value="title" autocomplete="off"> Cím szerint
+    </label>
+</div>
+
+{{#hasChapters}}
+<div class="emmet-toc-chapters">
+    {{#chapters}}
+    <div class="card">
+        <div class="card-header">
+            <a data-toggle="collapse" href="#emmet-toc-list-{{id}}" role="button" aria-expanded="false" aria-controls="emmet-toc-list-{{id}}">
+                <h5><span class="badge badge-info">{{badge}}</span> {{name}}</h5>
+            </a>
+        </div>
+        <div id="emmet-toc-list-{{id}}" class="emmet-toc-list list-group list-group-flush collapse">
+            {{#songs}}
+            <a href="#" class="list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
+                <span class="badge badge-info">{{number}}</span> {{title}}
+            </a>
+            {{/songs}}
+        </div>
+    </div>
+    {{/chapters}}
+</div>
+{{/hasChapters}}
+
+<div class="emmet-toc-list list-group">
+    {{#otherSongs}}
+    <a href="#" class="list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
+        <span class="badge badge-info">{{number}}</span> {{title}}
+    </a>
+    {{/otherSongs}}
+</div>

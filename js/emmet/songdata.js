@@ -1,6 +1,6 @@
 define([], function() {
     var songData = null;
-    var currentBook = "emmet";
+    var currentBook = "emm_hu";
     var availableLanguages = null;
 
     var getMainLangIdOfSong = function(song) {

@@ -17,7 +17,7 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
         
         // Sort by natural ordering
         var songNumbers = [];
-        for (songNo in songs) {
+        for (var songNo of Object.keys(songs)) {
             songNumbers.push(songNo);
         }
         songNumbers = songNumbers.sort(emmetUtils.getCollator().compare);
@@ -30,7 +30,7 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
     
     var sortByTitle = function(songs) {
         var songList = [];
-        for (songNo in songs) {
+        for (var songNo of Object.keys(songs)) {
             songList.push(songs[songNo]);
         }
         return songList.sort(function(a, b) {
@@ -48,26 +48,46 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
             songList = sortByNumber(songBook.songs);
         }
 
-        for (var i = 0; i < songList.length; i++) {
-            var currentSong = songList[i];
-            songList[i] = {
-                'number': currentSong.books.find(b => {return b.id == songBook.id}).number,
+        var songsByChapters = new Map();
+        for (var currentSong of songList) {
+            var bookEntryOfSong = currentSong.books.find(b => {return b.id == songBook.id});
+            if (! songsByChapters.has(bookEntryOfSong.chapter)) {
+                songsByChapters.set(bookEntryOfSong.chapter, []);
+            }
+            songsByChapters.get(bookEntryOfSong.chapter).push({
+                'number': bookEntryOfSong.number,
                 'title': emmetSongData.getMainLangOfSong(currentSong).title,
-            };
+            });
+        }
+
+        var songsByChaptersList = [];
+        if (songBook.chapters) {
+            for (var chapter of songBook.chapters) {
+                songsByChaptersList.push({
+                    'id': chapter.id,
+                    'badge': chapter.badge,
+                    'name': chapter.name,
+                    'songs': songsByChapters.get(chapter.id),
+                });
+            }
         }
         
-        var listHtml = mustache.to_html(emmetUtils.getTemplate("toc-list"), songList);
-        $("main .emmet-toc-list").html(listHtml);
-        $("main .emmet-toc-list a").click(function() {
+        var listHtml = mustache.to_html(emmetUtils.getTemplate("toc"), {
+            hasChapters: songBook.chapters !== undefined,
+            chapters: songsByChaptersList,
+            otherSongs: songsByChapters.get(undefined),
+        });
+        $("#emmet-p-toc").html(listHtml);
+        $("#emmet-p-toc .emmet-toc-sortby input[name=emmet-toc-sortby]").parent().removeClass("active");
+        $("#emmet-toc-sortby-"+sortBy).parent().addClass("active");
+        $("#emmet-p-toc .emmet-toc-sortby input[name=emmet-toc-sortby]").change(toggleSortBy);
+        $("#emmet-p-toc .emmet-toc-list a").click(function() {
             emmetSongDisp.displaySong(String($(this).data("songnumber")));
             return false;
         });
     };
     
     var show = function() {
-        if (! loadedBook) {
-            $("main #emmet-p-toc input[type=radio][name=emmet-toc-sortby]").change(toggleSortBy);
-        }
         if (loadedBook != emmetSongData.getCurrentBook().id) {
             refreshSongList();
             loadedBook = emmetSongData.getCurrentBook().id;
