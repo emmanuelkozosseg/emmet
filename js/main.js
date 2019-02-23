@@ -3,6 +3,7 @@ require.config({
         jquery: 'lib/jquery.3.3.1.min',
         bootstrap: 'lib/bootstrap.bundle.4.1.3.min',
         mustache: 'lib/mustache.3.0.1.min',
+        audioplayer: 'lib/jquery.audioplayer.min'
     },
     onNodeCreated: function(node, config, module, path) {
         var sri = {
@@ -17,10 +18,14 @@ require.config({
     },
     urlArgs: function(id, url) {
         if (url in emmet_busts) {
-            //console.log("Bust found: "+url+" => "+emmet_busts[url]);
             return (url.indexOf('?') === -1 ? '?' : '&') + "bust=" + emmet_busts[url];
         }
         return "";
+    },
+    shim: {
+        audioplayer: {
+            deps: ['jquery'],
+        },
     },
 });
 

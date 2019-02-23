@@ -57,6 +57,7 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
             songsByChapters.get(bookEntryOfSong.chapter).push({
                 'number': bookEntryOfSong.number,
                 'title': emmetSongData.getMainLangOfSong(currentSong).title,
+                'hasRecords': currentSong.records !== undefined,
             });
         }
 

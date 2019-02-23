@@ -11,10 +11,15 @@ define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emme
         $("#emmetNavBookDropdown").dropdown('toggle');
     };
     
-    var search = function() {
-        var searchExpr = $("#emmet-search-expr").val();
-        emmetSearch.search(searchExpr, "simple", "wholeWord");
-        $("#emmet-search-expr").val("");
+    var search = function(searchElem) {
+        emmetSearch.search(searchElem.val(), "simple", "wholeWord");
+        $(searchElem).val("");
+        collapseNavBar();
+    };
+
+    var searchAdvanced = function(searchElem) {
+        emmetSearchDialog.displayAdvancedSearch(searchElem.val());
+        $(searchElem).val("");
         collapseNavBar();
     };
     
@@ -33,28 +38,33 @@ define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emme
             emmetUtils.showPage("main");
             hideMainDropdown();
         });
+        $("#emmet-navdd-helplink").click(function(e) {
+            e.preventDefault();
+            emmetUtils.showPage("help");
+            hideMainDropdown();
+        });
         $("#emmet-toc-link").click(function(e) {
             e.preventDefault();
             emmetToc.show();
             hideBookDropdown();
             collapseNavBar();
         });
-        $("#emmet-form-jumpto").submit(function(e) {
+        $(".emmet-form-jumpto").submit(function(e) {
             e.preventDefault();
-            emmetSongDisp.displaySong($("#emmet-jumpto-songno").val());
-            $("#emmet-jumpto-songno").val("");
+            var songNoField = $(this).find(".emmet-jumpto-songno");
+            emmetSongDisp.displaySong(songNoField.val());
+            songNoField.val("");
             collapseNavBar();
         })
-        $("#emmet-form-search").submit(function(e) {
+        $(".emmet-form-search").submit(function(e) {
             e.preventDefault();
-            search();
+            search($(this).find(".emmet-search-expr"));
         });
-        $("#emmet-search-wholeword").click(function() {
-            search();
+        $(".emmet-search-simple").click(function() {
+            search($(this).parents(".input-group").children(".emmet-search-expr"));
         });
-        $("#emmet-search-advanced").click(function(e) {
-            //e.preventDefault();
-            emmetSearchDialog.displayAdvancedSearch($("#emmet-search-expr").val());
+        $(".emmet-search-advanced").click(function() {
+            searchAdvanced($(this).parents(".input-group").children(".emmet-search-expr"));
         });
         
         // Show main page by default

@@ -109,6 +109,7 @@ function(emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils
             langId: langObj.langId,
             title: langObj.title,
             highlightedTitle: highlightedTitle,
+            hasRecords: song.records !== undefined,
         };
         searchMode.addSongMetadataToResult(song, langObj, titleResult);
         return titleResult;

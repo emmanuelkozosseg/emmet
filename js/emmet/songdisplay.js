@@ -1,5 +1,5 @@
-define(['emmet/notifier', 'emmet/songdata', 'emmet/utils', 'mustache'],
-function(emmetNotifier, emmetSongData, emmetUtils, mustache) {
+define(['emmet/notifier', 'emmet/songdata', 'emmet/utils', 'mustache', 'audioplayer'],
+function(emmetNotifier, emmetSongData, emmetUtils, mustache, audioplayer) {
     var currentDisplay = null;
 
     var showTab = function(tabIdClass) {
@@ -92,11 +92,32 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache) {
             $(this).tooltip('hide');
             e.preventDefault();
         });
+        if (song.records) {
+            $("#emmet-song-modal .emmet-song-play-btn a.nav-link").click(function(e) {
+                showTab("emmet-song-play");
+                $(this).tooltip('hide');
+                e.preventDefault();
+            });
+        } else {
+            $("#emmet-song-modal .emmet-song-play-btn a.nav-link").addClass("disabled");
+        }
         $('#emmet-song-modal div.emmet-song-toolbar a.nav-link').tooltip({"placement": "bottom"});
 
         changeLanguage(langId);
         showTab("emmet-song-lyrics");
         $("#emmet-song-modal").modal();
+
+        // Set up audio
+        if (song.records) {
+            $.AudioPlayer.init({
+                container: "#emmet-song-modal .emmet-song-player",
+                source: song.records[0].url,
+                imagePath: "css/jquery.audioplayer/image",
+            });
+            $('#emmet-song-modal').on('hidden.bs.modal', function() {
+                $.AudioPlayer.pause();
+            });
+        }
     };
 
     return {

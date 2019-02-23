@@ -15,8 +15,8 @@ define([], function() {
         showProgramError: function(errorMsg, url, lineNumber, columnNumber, error) {
             showError("Programhiba",
                     "<p>Az Emmet programhibát észlelt. Érdemes újratölteni az oldalt, mivel a működése instabillá válhat.</p>"+
-                    "<p><small>Ha szeretnél segíteni a javításban, kérünk, küldd el az ecker [pont] gabor [kukac] gmail [pont] com címre " +
-                    "a lenti részleteket, és hogy mit csináltál, mielőtt a hiba előjött volna. <strong>Köszönjük! :)</strong></small></p>"+
+                    "<p><small>Ha szeretnél segíteni a javításban, kérünk, <a href=\"https://bitbucket.org/eckerg/emmet/issues\" target=\"_blank\">jelentsd be a hibát</a> " +
+                    "a lenti részletekkel együtt, és hogy mit csináltál, mielőtt a hiba előjött volna. <strong>Köszönjük! :)</strong></small></p>"+
                     "<p><code>Error: "+errorMsg+"<br />URL: "+url+"<br />"+
                     "Line number: "+lineNumber+"<br />"+
                     "Column number: " + (columnNumber !== undefined ? columnNumber : "(unsupported by the browser)") + "<br />" +
@@ -29,8 +29,8 @@ define([], function() {
         showSongLoadingError: function(errorDetails) {
             setContents("fatal", "Énekbetöltési hiba",
                     "<p>Az Emmet nem tudja betölteni az énekeket, ezért sajnos nem működőképes. :(</p>"+
-                    "<p><small>Ha szeretnél segíteni a javításban, kérünk, küldd el az ecker [pont] gabor [kukac] gmail [pont] com címre " +
-                    "a lenti részleteket. <strong>Köszönjük! :)</strong></small></p>"+
+                    "<p><small>Ha szeretnél segíteni a javításban, kérünk, <a href=\"https://bitbucket.org/eckerg/emmet/issues\" target=\"_blank\">jelentsd be a hibát</a> " +
+                    "a lenti részletekkel együtt. <strong>Köszönjük! :)</strong></small></p>"+
                     "<p><code>"+errorDetails.replace(/\n/g, "<br />")+"</code></p>"+
                     "<p><small>Lehet, hogy további részletek olvashatók a hibáról a böngésző fejlesztői konzolján.</small></p>"
             );

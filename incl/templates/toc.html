@@ -1,4 +1,4 @@
-<h2 class="mb-3">Tartalomjegyzék</h2>
+<h2>Tartalomjegyzék</h2>
 <div class="emmet-toc-sortby btn-group btn-group-toggle mb-3" data-toggle="buttons">
     <label class="btn btn-primary active">
         <input type="radio" id="emmet-toc-sortby-num" name="emmet-toc-sortby" value="num" autocomplete="off" checked> Énekszám szerint
@@ -21,6 +21,7 @@
             {{#songs}}
             <a href="#" class="list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
                 <span class="badge badge-info">{{number}}</span> {{title}}
+                {{#hasRecords}}<span class="oi oi-volume-high emmet-has-records-icon"></span>{{/hasRecords}}
             </a>
             {{/songs}}
         </div>

@@ -1,8 +1,21 @@
+h2 {
+    margin-bottom: 16px;
+}
+h4 {
+    margin-top: 24px;
+    margin-bottom: 4px;
+}
+
 .emmet-lang-tag {
     text-transform: uppercase;
 }
 .emmet-alert-with-tips ul {
     padding-left: 20px;
+}
+.emmet-has-records-icon {
+    margin-left: 5px;
+    font-size: 75%;
+    color: #666;
 }
 
 nav .navbar-brand img {
@@ -12,6 +25,54 @@ nav .dropdown-menu span.oi {
     width: 16px;
     text-align: center;
     margin-right: 2px;
+}
+
+#emmet-p-main .emmet-logo {
+    text-align: center;
+}
+#emmet-p-main .emmet-logo > div {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 22.5px;
+}
+#emmet-p-main .emmet-logo img {
+    height: 40px; width: auto;
+    margin-right: 10px;
+}
+#emmet-p-main .emmet-logo span {
+    vertical-align: bottom;
+}
+#emmet-p-main .emmet-main-forms {
+    max-width: 600px;
+    margin-left: auto; margin-right: auto;
+    text-align: center;
+}
+#emmet-p-main .emmet-main-forms h5 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+#emmet-p-main .emmet-main-forms form {
+    display: inline-block;
+    margin-right: 0px !important;
+    margin-bottom: 10px !important;
+    margin-top: 0px !important;
+}
+#emmet-p-main hr {
+    background-color: #666;
+    margin: 20px 0px;
+}
+#emmet-p-main .emmet-main-latest-changes {
+    text-align: left;
+}
+#emmet-p-main .emmet-main-latest-changes * {
+    margin-bottom: 0px;
+}
+#emmet-p-main .emmet-main-latest-changes p {
+    margin-top: 1em;
+}
+#emmet-p-main .emmet-main-latest-changes > p:first-child {
+    margin-top: 0px;
 }
 
 .emmet-song-toolbar ul.nav {
@@ -68,6 +129,12 @@ nav .dropdown-menu span.oi {
     content: "";
     display: inline-block;
     width: 0px;
+}
+.emmet-song-player {
+    margin-bottom: 10px;
+}
+.emmet-song-help {
+    line-height: normal;
 }
 
 .emmet-page {

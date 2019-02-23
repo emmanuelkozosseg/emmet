@@ -1,46 +1,85 @@
 <main class="p-3">
     <div id="emmet-p-main" class="emmet-page">
-        <div class="row"><div class="col">
-            <h2 class="mb-3">Üdv az Emmánuel Énektárban!</h2>
-            
-            <h4 class="mt-4 mb-1">Énekeskönyvek</h4>
-            <p>Az Emmet több énekeskönyvet is támogat, de egyszerre csak egy lehet nyitva. A könyvek menüjében tudsz váltani közöttük.
-            Indításkor mindig a magyar énekeskönyv nyílik ki.</p>
-            <p>A tartalomjegyzék mindig csak az éppen nyitott könyv énekeit tartalmazza, és az ugrás/keresés is mindig csak az aktuális
-            könyvben keres.</p>
-            
-            <h4 class="mt-4 mb-1">Böngészés</h4>
-            <ul>
-                <li>A <strong>Tartalomjegyzék</strong> menüpontban a kiválasztott énekeskönyv összes dala között böngészhetsz.</li>
-                <li>Ha tudod egy ének számát, közvetlenül rákereshetsz az <strong>Énekszám</strong> mezőben.</li>
-            </ul>
-            
-            <h4 class="mt-4 mb-1">Keresés</h4>
-            <p>Dalszöveg vagy cím alapján is kereshetsz a <strong>Keresés</strong> mezőben.</p>
-            <ul>
-                <li>Kis- és nagybetű, ékezetes karakter és írásjelek nem számítanak.</li>
-                <li>Ha több szót írsz be, azokra az Emmet egyben keres (tehát az összes szónak, abban a sorrendben, és megszakítás
-                nélkül kell szerepelnie).</li>
-                <li>Alapértelmezésben a kereső teljes szavakra keres. Ha tört szavakra is keresni szeretnél, nyisd ki a legördülő
-                menüt és válaszd a <strong>Törtszavas</strong> lehetőséget.
-                <span class="text-muted">Például az <strong>Úr</strong> keresésre az <strong>Uram</strong> találatot a törtszavas
-                keresés visszaadja, az alapértelmezett teljes szavas viszont nem.</span></li>
-            </ul>
-            
-            <h4 class="mt-4 mb-1">Hogyan segíthetsz?</h4>
-            <ul>
-                <li>Az Emmet nyílt forráskódú, <a href="https://bitbucket.org/eckerg/emmet">a Bitbucketen</a> beszállhatsz
-                a fejlesztésébe.</li>
-                <li>Az énekek szövegeit <a href="https://bitbucket.org/eckerg/emmet-enekek">szintén a Bitbucketen</a> találod meg.
-                Ha valamin javítani szeretnél, ott saját magad is megteheted, ha ismered az OpenSong fájlformátumát.</li>
-                <li>Ha hibát, elírást, stb. találsz, kérünk, jelentsd be, hogy kijavíthassuk! Az Emmet hibáit
-                <a href="https://bitbucket.org/eckerg/emmet/issues">itt</a>, az énekszövegek hibáit
-                <a href="https://bitbucket.org/eckerg/emmet-enekek/issues">itt</a> jelentheted. Köszönjük!</li>
-            </ul>
+        <div class="emmet-logo"><div>
+            <img src="img/logo.png" alt="Emmet" />
+            <span>Emmánuel Énektár</span>
         </div></div>
+
+        <div class="emmet-main-forms">
+            <hr />
+            <h5>Ének megnyitása</h5>
+            <form class="form-inline my-2 my-lg-0 mr-3 emmet-form-jumpto">
+                <div class="input-group">
+                    <input class="form-control emmet-jumpto-songno" type="search" placeholder="Énekszám" aria-label="Énekszám" size="8" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><span class="oi oi-share"></span></button>
+                    </div>
+                </div>
+            </form>
+            <h5>Keresés</h5>
+            <form class="form-inline my-2 my-lg-0 mr-3 emmet-form-search">
+                <div class="input-group">
+                    <input class="form-control emmet-search-expr" type="search" placeholder="Keresés" aria-label="Keresés" size="20" />
+                    <div class="input-group-append" role="group" aria-label="Keresés">
+                        <button type="button" class="btn btn-primary emmet-search-simple"><span class="oi oi-magnifying-glass"></span></button>
+                        <button type="button" class="btn btn-secondary emmet-search-advanced"><span class="oi oi-cog"></span></button>
+                    </div>
+                </div>
+            </form>
+            <hr />
+            <h5>Legutóbbi változások</h5>
+            <div class="alert alert-secondary emmet-main-latest-changes">
+                <p><strong>2019.02.23-i frissítés</strong></p>
+                <ul>
+                    <li>A magyar énekeskönyv dalai fejezetenként jelennek meg a tartalomjegyzékben.</li>
+                    <li>A közösség által felvett magyar énekeket le lehet játszani a dalok ablakából.</li>
+                    <li>A lejátszható dalok mellett egy hangjegy ikon jelenik meg a tartalomjegyzékben és a keresési eredmények között.</li>
+                    <li>Az Emmet leírása a Súgó oldalra költözött, a helyét a főoldalon a két kereső és a legutóbbi változások listája vette át.</li>
+                </ul>
+                <hr />
+                <p class="text-center"><button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#emmet-latest-changes-more" aria-expanded="false" aria-controls="emmet-latest-changes-more">Korábbi változások</button></p>
+                <div id="emmet-latest-changes-more" class="collapse">
+                    <p><strong>2018.12.06-i frissítés</strong></p>
+                    <ul>
+                        <li>Az Emmet már a frissen lektorált, egységesített énekszövegeket használja.</li>
+                        <li>Frissített betűtípus (az ő, ű betűket is rendesen ismeri).</li>
+                        <li>Átalakult a felső menüsor (kompaktabb énekválasztó és a kereső mezők, külön Emmet- és könyvmenü).</li>
+                        <li>Átdolgozott keresés: egyszerű és teljes módot ismer. (További infókért nyisd ki a részletes keresés ablakát a fogaskerék ikonnal.)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
     
     <div id="emmet-p-toc" class="emmet-page"></div>
     
     <div id="emmet-p-search" class="emmet-page"></div>
+
+    <div id="emmet-p-help" class="emmet-page">
+        <h2>Súgó</h2>
+        <h4>Mi az Emmet?</h4>
+        <p>Az Emmet az <em><strong>Emm</strong>ánuel <strong>É</strong>nek<strong>t</strong>ár</em> rövidítése. Egy olyan, mobilon és számítógépen is használható weboldal, amely az Emmánuel közösség által ismert énekeket tartalmazza.</p>
+        <h4>Hogyan használjam?</h4>
+        <ul>
+            <li>
+                Az Emmetben minden ének egy vagy több <strong>énekeskönyvbe</strong> tartozik. Mindig <em>nyitva van</em> valamelyik énekeskönyv, ilyenkor az Emmet a benne szereplő énekekre "fókuszál", csak azokat látja.
+                <ul>
+                    <li>Az éppen nyitott énekeskönyv címét a fejlécben, vastag betűkkel, a könyv ikon mellett találod.</li>
+                    <li>A könyvben szereplő énekeket a könyv menüjét legördítve, a <strong>Tartalomjegyzék</strong> oldalon éred el.</li>
+                </ul>
+            </li>
+            <li>Az <strong>Énekszám</strong> mezőben meg tudsz nyitni egy éneket a nyitott énekeskönyvből a száma szerint.</li>
+            <li>
+                A <strong>Keresés</strong> mezőben a nyitott énekeskönyv dalainak a szövegeiben tudsz keresni.
+                <ul>
+                    <li>A fogaskerék gombra kattintva az összes ének között, csak a megadott nyelveken, vagy részszavakra is lehet keresni.</li>
+                </ul>
+            </li>
+        </ul>
+        <h4>Technikai részletek</h4>
+        <ul>
+            <li>Az énekeket egy Emmet.yaml nevű formátumban tároljuk <a href="https://bitbucket.org/eckerg/emmet-enekek">a Bitbucketen</a>. További információkat az énekek vetítéséről és az Emmet.yaml formátumról ott találsz.</li>
+            <li>Az Emmet nyílt forráskódú, a Git repót szintén <a href="https://bitbucket.org/eckerg/emmet">a Bitbucketen</a> találod meg. Ha szeretnél segíteni, szívesen fogadjuk; kérlek, kövesd a normál Gites menetrendet (forkold le a repót, végezd el a módosításokat, majd küldj pull requestet).</li>
+        </ul>
+    </div>
 </main>

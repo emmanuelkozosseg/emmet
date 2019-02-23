@@ -1,4 +1,4 @@
-<h2 class="mb-3">{{searchMode}}</h2>
+<h2>{{searchMode}}</h2>
 <p>Összesen <strong>{{numOfResults}}</strong> {{wordMatchingMode}} találat a(z) <strong>{{searchExpr}}</strong> kifejezésre.</p>
 
 <h4>Dalok címében ({{numOfTitleResults}})</h4>
@@ -13,6 +13,7 @@
         <span class="badge badge-secondary"><img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" /> <span class="emmet-lang-tag">{{lang}}</span></span>
         {{/lang}}
         {{{highlightedTitle}}}
+        {{#hasRecords}}<span class="oi oi-volume-high emmet-has-records-icon"></span>{{/hasRecords}}
     </a>
 {{/titleResults}}
 </div>
@@ -34,6 +35,7 @@
             <span class="badge badge-secondary"><img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" /> <span class="emmet-lang-tag">{{lang}}</span></span>
             {{/lang}}
             {{{highlightedTitle}}}
+            {{#hasRecords}}<span class="oi oi-volume-high emmet-has-records-icon"></span>{{/hasRecords}}
         </h5>
         <div class="emmet-song">
             {{#highlightedVerses}}

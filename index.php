@@ -14,6 +14,7 @@ function to_busted_url($url) {
 <link rel="stylesheet" href="<?php print(to_busted_url("css/emmet.css")); ?>" />
 <link rel="stylesheet" href="<?php print(to_busted_url("css/flags/flags.min.css")); ?>" />
 <link rel="stylesheet" href="<?php print(to_busted_url("css/iconic/css/open-iconic-bootstrap.min.css")); ?>">
+<link rel="stylesheet" href="<?php print(to_busted_url("css/jquery.audioplayer/jquery.audioplayer.css")); ?>">
 <title>Emmet - Emmánuel Énektár</title>
 </head>
 <body>
