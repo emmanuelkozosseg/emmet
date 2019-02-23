@@ -1,3 +1,5 @@
+/* https://github.com/Keystion/jQuery.AudioPlayer.js */
+
 @charset "utf-8";
 
 #componentWrapper {
@@ -130,8 +132,9 @@
 #componentWrapper .player_volume_wrapper {
     position: relative;
     height: 40px;
-    display: -webkit-flex;
-    display: flex;
+    /*display: -webkit-flex;
+    display: flex;*/
+    display: none;
     border-left: 2px solid #303030;
 }
 
