@@ -52,7 +52,7 @@ nav .dropdown-menu span.oi {
     margin-top: 15px;
     margin-bottom: 10px;
 }
-#emmet-p-main .emmet-main-forms form {
+#emmet-p-main .emmet-main-forms .emmet-form-block {
     display: inline-block;
     margin-right: 0px !important;
     margin-bottom: 10px !important;

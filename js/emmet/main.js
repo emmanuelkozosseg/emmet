@@ -49,6 +49,10 @@ define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emme
             hideBookDropdown();
             collapseNavBar();
         });
+        $(".emmet-p-main-toc-btn").click(function(e) {
+            e.preventDefault();
+            emmetToc.show();
+        });
         $(".emmet-form-jumpto").submit(function(e) {
             e.preventDefault();
             var songNoField = $(this).find(".emmet-jumpto-songno");
