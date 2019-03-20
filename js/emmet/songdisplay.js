@@ -93,7 +93,21 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache, audioplayer) {
             e.preventDefault();
         });
         if (song.records) {
+            var mediaIsSetUp = false;
             $("#emmet-song-modal .emmet-song-play-btn a.nav-link").click(function(e) {
+                // Set up audio if opening tab for the first time
+                if (! mediaIsSetUp) {
+                    $.AudioPlayer.init({
+                        container: "#emmet-song-modal .emmet-song-player",
+                        source: song.records[0].url,
+                        imagePath: "css/jquery.audioplayer/image",
+                    });
+                    $('#emmet-song-modal').on('hidden.bs.modal', function() {
+                        $.AudioPlayer.pause();
+                    });
+                    mediaIsSetUp = true;
+                }
+                // Show tab
                 showTab("emmet-song-play");
                 $(this).tooltip('hide');
                 e.preventDefault();
@@ -106,18 +120,6 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache, audioplayer) {
         changeLanguage(langId);
         showTab("emmet-song-lyrics");
         $("#emmet-song-modal").modal();
-
-        // Set up audio
-        if (song.records) {
-            $.AudioPlayer.init({
-                container: "#emmet-song-modal .emmet-song-player",
-                source: song.records[0].url,
-                imagePath: "css/jquery.audioplayer/image",
-            });
-            $('#emmet-song-modal').on('hidden.bs.modal', function() {
-                $.AudioPlayer.pause();
-            });
-        }
     };
 
     return {
