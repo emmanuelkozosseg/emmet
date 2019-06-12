@@ -24,8 +24,8 @@ define([], function() {
         getBookIds: function() {
             return Object.keys(songData.books);
         },
-        getAllBooks: function() {
-            return songData.books;
+        getBookList: function() {
+            return songData.bookList;
         },
         getAllSongs: function() {
             return songData.songs;

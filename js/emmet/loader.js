@@ -23,16 +23,17 @@ define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotif
     
     var processSongData = function(origSongData, finalCallback) {
         var songData = {
+            'bookList': origSongData.books,
             'books': {},
             'songs': origSongData.songs,
         };
         
-        origSongData['books'].forEach(book => {
+        origSongData.books.forEach(book => {
             songData.books[book.id] = book;
             songData.books[book.id].songs = {};
         });
 
-        origSongData['songs'].forEach((song, index) => {
+        origSongData.songs.forEach((song, index) => {
             song.internalId = index;
             song.books.forEach(bookOfSong => {
                 songData.books[bookOfSong.id].songs[bookOfSong.number] = song;

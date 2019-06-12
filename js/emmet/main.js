@@ -90,9 +90,10 @@ define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emme
     var updateBookList = function() {
         // Select non-opened books
         var otherBooks = [];
-        emmetSongData.getBookIds().forEach(function(bookId) {
-            if (bookId == emmetSongData.getCurrentBookId()) {return;}
-            otherBooks.push(emmetSongData.getBook(bookId));
+        emmetSongData.getBookList().forEach(function(book) {
+            if (book.id == emmetSongData.getCurrentBookId()) {return;}
+            if (! book.selectable) {return;}
+            otherBooks.push(book);
         });
         otherBooks.sort(function(a,b) {
             if (a.name < b.name) {return -1};
