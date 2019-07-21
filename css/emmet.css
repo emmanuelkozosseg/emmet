@@ -5,6 +5,9 @@ h4 {
     margin-top: 24px;
     margin-bottom: 4px;
 }
+.small {
+    font-size: 12px;
+}
 
 .emmet-lang-tag {
     text-transform: uppercase;
