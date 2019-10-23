@@ -125,13 +125,14 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache, audioplayer) {
     return {
         displaySong: function(songId) {
             var songBook = emmetSongData.getCurrentBook();
-            if (! songBook.songs.hasOwnProperty(songId)) {
+            var songIdLc = songId.toLowerCase();
+            if (! songBook.songs.hasOwnProperty(songIdLc)) {
                 emmetNotifier.showError(
                         "Hiányzó ének",
                         "Nincs <strong>"+songId+"</strong>. számú ének a kiválasztott énekeskönyvben ("+songBook.name+").");
                 return;
             }
-            displaySongByInternalId(songBook.songs[songId].internalId);
+            displaySongByInternalId(songBook.songs[songIdLc].internalId);
         },
 
         displaySongByInternalId: displaySongByInternalId,

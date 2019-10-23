@@ -36,7 +36,7 @@ define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotif
         origSongData.songs.forEach((song, index) => {
             song.internalId = index;
             song.books.forEach(bookOfSong => {
-                songData.books[bookOfSong.id].songs[bookOfSong.number] = song;
+                songData.books[bookOfSong.id].songs[bookOfSong.number.toLowerCase()] = song;
             });
             song.lyrics.forEach((songInLang, index) => {
                 songInLang.langId = index;
