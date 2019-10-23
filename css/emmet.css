@@ -127,6 +127,8 @@ nav .dropdown-menu span.oi {
 }
 .emmet-song-verse .emmet-body p {
     margin-bottom: 0px;
+    margin-left: 12px;
+    text-indent: -12px;
 }
 .emmet-song-verse .emmet-body p::after {
     content: "";
