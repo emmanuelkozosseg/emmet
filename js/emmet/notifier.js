@@ -20,7 +20,8 @@ define([], function() {
                     "<p><code>Error: "+errorMsg+"<br />URL: "+url+"<br />"+
                     "Line number: "+lineNumber+"<br />"+
                     "Column number: " + (columnNumber !== undefined ? columnNumber : "(unsupported by the browser)") + "<br />" +
-                    "Stacktrace: " + (error !== undefined ? errorObj.stack.replace("\n", "<br />") : "(unsupported by the browser)")+
+                    "Stacktrace: " + (error !== undefined ? errorObj.stack.replace("\n", "<br />") : "(unsupported by the browser)") + "<br />"+
+                    "User agent: "+navigator.userAgent+
                     "</code></p>"+
                     "<p><small>További részletek (pl. stacktrace) a böngésző fejlesztői konzolján érhetőek el.</small></p>"
             );
