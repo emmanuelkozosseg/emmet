@@ -4,12 +4,13 @@ function to_busted_url($url) {
 }
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="hu">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="theme-color" content="#222" />
+<meta name="google" content="notranslate" />
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="<?php print(to_busted_url("css/bootstrap.min.css")); ?>" />
 <link rel="stylesheet" href="<?php print(to_busted_url("css/emmet.css")); ?>" />
