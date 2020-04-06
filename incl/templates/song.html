@@ -80,15 +80,24 @@
                 </td>
             </tr>
             -->
-            <tr class="table-secondary">
-                <th colspan="2">A dal a következő könyvekben szerepel:</th>
-            </tr>
-            <!-- {{#books}} -->
             <tr>
-                <td>{{name}}</td>
-                <td><span class="badge badge-info">{{number}}</span></td>
+                <th>Könyvek</th>
+                <td>
+                    {{#books}}<div>{{name}} <span class="badge badge-info">{{number}}</span></div>{{/books}}
+                </td>
             </tr>
-            <!-- {{/books}} -->
+            <tr>
+                <th>Zene</th>
+                <td>{{song.about.music}}</td>
+            </tr>
+            <tr>
+                <th>Eredeti dalszöveg</th>
+                <td>{{song.about.lyrics}}</td>
+            </tr>
+            <tr>
+                <th>Eredeti szerzői jog</th>
+                <td>&copy; {{song.about.c_holder}}, {{song.about.c_year}}</td>
+            </tr>
         </tbody></table>
     </div>
     <div class="emmet-song-tab emmet-song-play" data-trigger="emmet-song-play-btn">
