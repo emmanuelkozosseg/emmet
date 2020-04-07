@@ -1,3 +1,24 @@
+html {
+    --scrollbarBG: #444;
+    --thumbBG: #303030;
+}
+
+/* Scrollbars */
+body, #emmet-song-modal .modal-body {
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar, #emmet-song-modal .modal-body::-webkit-scrollbar {
+    width: auto;
+}
+body::-webkit-scrollbar-track, #emmet-song-modal .modal-body::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb, #emmet-song-modal .modal-body::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+}
+
 h2 {
     margin-bottom: 16px;
 }
@@ -78,6 +99,19 @@ nav .dropdown-menu span.oi {
     margin-top: 0px;
 }
 
+@media (min-width: 576px){
+    #emmet-song-modal .modal-body {
+        max-height: calc(100vh - 1.75rem - 65px - 45px - 1.75rem);
+    }
+}
+@media (max-width: 575.98px) {
+    #emmet-song-modal .modal-body {
+        max-height: calc(100vh - 0.5rem - 65px - 45px - 0.5rem);
+    }
+}
+#emmet-song-modal .modal-body {
+    overflow-y: auto;
+}
 .emmet-song-toolbar ul.nav {
     padding-left: 5px; padding-right: 5px;
 }
