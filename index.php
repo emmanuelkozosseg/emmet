@@ -17,6 +17,10 @@ function to_busted_url($url) {
 <link rel="stylesheet" href="<?php print(to_busted_url("css/flags/flags.min.css")); ?>" />
 <link rel="stylesheet" href="<?php print(to_busted_url("css/iconic/css/open-iconic-bootstrap.min.css")); ?>">
 <link rel="stylesheet" href="<?php print(to_busted_url("css/jquery.audioplayer/jquery.audioplayer.css")); ?>">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
 <title>Emmet - Emmánuel Énektár</title>
 </head>
 <body>
