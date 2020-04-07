@@ -1,5 +1,5 @@
-define(['emmet/notifier', 'emmet/songdata', 'emmet/utils', 'mustache', 'audioplayer'],
-function(emmetNotifier, emmetSongData, emmetUtils, mustache, audioplayer) {
+define(['emmet/notifier', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
+function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
     var currentDisplay = null;
 
     var showTab = function(tabIdClass) {
@@ -49,7 +49,7 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache, audioplayer) {
             var country = emmetUtils.getCountryOfLang(songInLang.lang);
             return {
                 'id': index,
-                'name': songInLang.lang.toUpperCase(),
+                'name': songInLang.lang,
                 'title': songInLang.title,
                 'country': country === undefined ? '?' : country,
             };
@@ -63,6 +63,21 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache, audioplayer) {
             };
         });
 
+        // Prepare list of records
+        if (song.records) {
+            var records = song.records.map(record => {
+                var purposeDetails = emmetUtils.getRecordPurposeDetails(record.purpose);
+                return {
+                    'url': record.url,
+                    'purposeIcon': purposeDetails['icon'],
+                    'purposeName': purposeDetails['name'],
+                    'purposeDesc': purposeDetails['desc'],
+                    'country': emmetUtils.getCountryOfLang(record.lang), 'lang': record.lang,
+                    'note': record.note || '',
+                };
+            });
+        }
+
         var songInBook = song.books.find(function(b) {return b.id == emmetSongData.getCurrentBook().id});
         var currentNumber = songInBook===undefined ? undefined : songInBook.number;
 
@@ -73,6 +88,7 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache, audioplayer) {
             'isSingleLanguage': languages.length == 1,
             'books': books,
             'song': song,
+            'records': records,
         };
         var songHtml = mustache.to_html(emmetUtils.getTemplate("song"), displaySong);
         $("#emmet-song-modal .modal-content").html(songHtml);
@@ -93,24 +109,24 @@ function(emmetNotifier, emmetSongData, emmetUtils, mustache, audioplayer) {
             e.preventDefault();
         });
         if (song.records) {
-            var mediaIsSetUp = false;
+            // Create songplayer
+            var songPlayer = emmetSongPlayer.create($("#emmet-song-modal .emmet-song-player-container"));
+            // Toolbar button
             $("#emmet-song-modal .emmet-song-play-btn a.nav-link").click(function(e) {
-                // Set up audio if opening tab for the first time
-                if (! mediaIsSetUp) {
-                    $.AudioPlayer.init({
-                        container: "#emmet-song-modal .emmet-song-player",
-                        source: song.records[0].url,
-                        imagePath: "css/jquery.audioplayer/image",
-                    });
-                    $('#emmet-song-modal').on('hidden.bs.modal', function() {
-                        $.AudioPlayer.pause();
-                    });
-                    mediaIsSetUp = true;
-                }
-                // Show tab
                 showTab("emmet-song-play");
                 $(this).tooltip('hide');
                 e.preventDefault();
+            });
+            // Record selector
+            $("#emmet-song-modal .emmet-song-records a.emmet-song-record").click(function(e) {
+                songPlayer.play($(this).data("url"));
+                $(this).parent().children().removeClass("active");
+                $(this).addClass("active").blur();
+                e.preventDefault();
+            });
+            // Stop playing on dialog close
+            $('#emmet-song-modal').on('hidden.bs.modal', function() {
+                songPlayer.destroy();
             });
         } else {
             $("#emmet-song-modal .emmet-song-play-btn a.nav-link").addClass("disabled");

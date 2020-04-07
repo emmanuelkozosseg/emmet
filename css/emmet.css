@@ -136,10 +136,69 @@ nav .dropdown-menu span.oi {
     width: 0px;
 }
 .emmet-song-player {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.emmet-song-player .play-btn {
+    margin-right: 10px;
+}
+.emmet-song-player .progress-panel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+.emmet-song-player .progress-panel .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.emmet-song-player .progress-panel .progress-labels .media-title {
+    flex-grow: 1;
+}
+.emmet-song-player .progress-panel .progress-labels .media-title span.oi {
+    margin-right: 5px;
+}
+.emmet-song-player .progress-panel .progress-labels .progress-text {
+    text-align: right;
+}
+.emmet-song-player .progress-panel .progress {
+    width: 100%;
+    cursor: pointer;
+}
+.emmet-song-player .progress-panel .progress .progress-bar {
+    transition: width 0.2s ease;
+}
+.emmet-song-records {
     margin-bottom: 10px;
 }
+.emmet-song-record span.oi {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    margin-right: 5px;
+}
+.emmet-song-record .purpose-lang {
+    float: right;
+}
+.emmet-song-record .purpose-name {
+    font-weight: bold;
+}
+.emmet-song-record .purpose-desc, .emmet-song-record .purpose-note {
+    margin-left: 25px;
+    font-size: 12px;
+    color: #999;
+}
+.emmet-song-record .purpose-note {
+    font-style: italic;
+}
 .emmet-song-help {
-    line-height: normal;
+    margin-top: 15px;
+    font-size: 12px;
+    font-style: italic;
+    text-align: right;
 }
 
 .emmet-page {
