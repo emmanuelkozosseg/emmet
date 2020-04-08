@@ -99,6 +99,24 @@ nav .dropdown-menu span.oi {
     margin-top: 0px;
 }
 
+#emmet-song-modal h5.modal-title {
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+}
+#emmet-song-modal h5.modal-title:after {
+    content: '';
+    position: absolute;
+    top: 0px; right: 0px;
+    width: 50px; height: 100%;
+    pointer-events: none;
+    background-image: -webkit-linear-gradient(right, rgba(68, 68, 68, 1), rgba(68, 68, 68, 0));
+	background-image: -moz-linear-gradient(right, rgba(68, 68, 68, 1), rgba(68, 68, 68, 0));
+	background-image: -ms-linear-gradient(right, rgba(68, 68, 68, 1), rgba(68, 68, 68, 0));
+	background-image: -o-linear-gradient(right, rgba(68, 68, 68, 1), rgba(68, 68, 68, 0));
+	background-image: linear-gradient(to left, rgba(68, 68, 68, 1), rgba(68, 68, 68, 0));
+}
 @media (min-width: 576px){
     #emmet-song-modal .modal-body {
         max-height: calc(100vh - 1.75rem - 65px - 45px - 1.75rem);
