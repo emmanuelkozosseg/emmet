@@ -82,6 +82,9 @@ nav .dropdown-menu span.oi {
     margin-bottom: 10px !important;
     margin-top: 0px !important;
 }
+#emmet-p-main .emmet-main-forms .emmet-jumpto-songno::-webkit-search-cancel-button {
+    display: none;
+}
 #emmet-p-main hr {
     background-color: #666;
     margin: 20px 0px;
@@ -117,19 +120,7 @@ nav .dropdown-menu span.oi {
 	background-image: -o-linear-gradient(right, rgba(68, 68, 68, 1), rgba(68, 68, 68, 0));
 	background-image: linear-gradient(to left, rgba(68, 68, 68, 1), rgba(68, 68, 68, 0));
 }
-@media (min-width: 576px){
-    #emmet-song-modal .modal-body {
-        max-height: calc(100vh - 1.75rem - 65px - 45px - 1.75rem);
-    }
-}
-@media (max-width: 575.98px) {
-    #emmet-song-modal .modal-body {
-        max-height: calc(100vh - 0.5rem - 65px - 45px - 0.5rem);
-    }
-}
-#emmet-song-modal .modal-body {
-    overflow-y: auto;
-}
+
 .emmet-song-toolbar ul.nav {
     padding-left: 5px; padding-right: 5px;
 }
