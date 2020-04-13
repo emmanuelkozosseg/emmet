@@ -1,7 +1,7 @@
 define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotifier, emmetTokenizer, emmetUtils) {
     var startLoad = function(finalCallback) {
         $.ajax({
-            url: "getsongs.php",
+            url: "songs.json",
             dataType: "json",
             success: function(data, textStatus, jqXHR) {
                 try {

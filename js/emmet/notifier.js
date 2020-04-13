@@ -12,7 +12,7 @@ define([], function() {
     return {
         showError: showError,
         
-        showProgramError: function(errorMsg, url, lineNumber, columnNumber, error) {
+        showProgramError: function(errorMsg, url, lineNumber, columnNumber) {
             showError("Programhiba",
                     "<p>Az Emmet programhibát észlelt. Érdemes újratölteni az oldalt, mivel a működése instabillá válhat.</p>"+
                     "<p><small>Ha szeretnél segíteni a javításban, kérünk, <a href=\"https://bitbucket.org/eckerg/emmet/issues\" target=\"_blank\">jelentsd be a hibát</a> " +
@@ -20,7 +20,6 @@ define([], function() {
                     "<p><code>Error: "+errorMsg+"<br />URL: "+url+"<br />"+
                     "Line number: "+lineNumber+"<br />"+
                     "Column number: " + (columnNumber !== undefined ? columnNumber : "(unsupported by the browser)") + "<br />" +
-                    "Stacktrace: " + (error !== undefined ? errorObj.stack.replace("\n", "<br />") : "(unsupported by the browser)") + "<br />"+
                     "User agent: "+navigator.userAgent+
                     "</code></p>"+
                     "<p><small>További részletek (pl. stacktrace) a böngésző fejlesztői konzolján érhetőek el.</small></p>"

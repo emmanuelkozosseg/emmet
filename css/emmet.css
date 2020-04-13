@@ -51,6 +51,10 @@ nav .dropdown-menu span.oi {
     margin-right: 2px;
 }
 
+.emmet-jumpto-songno::-webkit-search-cancel-button {
+    display: none;
+}
+
 #emmet-p-main .emmet-logo {
     text-align: center;
 }
@@ -81,9 +85,6 @@ nav .dropdown-menu span.oi {
     margin-right: 0px !important;
     margin-bottom: 10px !important;
     margin-top: 0px !important;
-}
-#emmet-p-main .emmet-main-forms .emmet-jumpto-songno::-webkit-search-cancel-button {
-    display: none;
 }
 #emmet-p-main hr {
     background-color: #666;
