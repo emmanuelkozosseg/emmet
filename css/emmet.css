@@ -3,7 +3,10 @@ html {
     --thumbBG: #303030;
 }
 
-/* Scrollbars */
+/*****************
+*** Scrollbars ***
+*****************/
+
 body, #emmet-song-modal .modal-body {
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
@@ -19,6 +22,10 @@ body::-webkit-scrollbar-thumb, #emmet-song-modal .modal-body::-webkit-scrollbar-
     border: 3px solid var(--scrollbarBG);
 }
 
+/*************
+*** Common ***
+*************/
+
 h2 {
     margin-bottom: 16px;
 }
@@ -29,7 +36,6 @@ h4 {
 .small {
     font-size: 12px;
 }
-
 .emmet-lang-tag {
     text-transform: uppercase;
 }
@@ -41,19 +47,29 @@ h4 {
     font-size: 75%;
     color: #666;
 }
-
-nav .navbar-brand img {
-    height: 35px; width: auto;
+.emmet-page {
+    display: none;
 }
-nav .dropdown-menu span.oi {
+.dropdown-menu span.oi {
     width: 16px;
     text-align: center;
     margin-right: 2px;
 }
-
 .emmet-jumpto-songno::-webkit-search-cancel-button {
     display: none;
 }
+
+/*************
+*** Navbar ***
+*************/
+
+nav.emmet-nav .navbar-brand img {
+    height: 35px; width: auto;
+}
+
+/****************
+*** Home page ***
+****************/
 
 #emmet-p-main .emmet-logo {
     text-align: center;
@@ -102,6 +118,10 @@ nav .dropdown-menu span.oi {
 #emmet-p-main .emmet-main-latest-changes > p:first-child {
     margin-top: 0px;
 }
+
+/*****************
+*** Song modal ***
+*****************/
 
 #emmet-song-modal h5.modal-title {
     position: relative;
@@ -245,10 +265,28 @@ nav .dropdown-menu span.oi {
     text-align: right;
 }
 
-.emmet-page {
-    display: none;
-}
+/************************
+*** Table of Contents ***
+************************/
 
+#emmet-p-toc .emmet-toc-header {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 1rem;
+}
+#emmet-p-toc .emmet-toc-header nav {
+    flex-grow: 1;
+}
+#emmet-p-toc .emmet-toc-header nav .breadcrumb {
+    margin: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+#emmet-p-toc .emmet-toc-header .emmet-toc-options-btn {
+    height: 100%;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
 #emmet-p-toc .emmet-toc-chapters {
     margin-bottom: 40px;
 }
@@ -270,6 +308,10 @@ nav .dropdown-menu span.oi {
 #emmet-p-toc .emmet-toc-chapters .list-group-item {
     padding-left: 17px !important;
 }
+
+/**********************
+*** Loading overlay ***
+**********************/
 
 #emmet-loading {
     position: fixed;
@@ -294,6 +336,10 @@ nav .dropdown-menu span.oi {
 #emmet-fatal-modal code {
     color: black;
 }
+
+/********************
+*** Search dialog ***
+********************/
 
 #emmet-search-modal .emmet-advs-mode-list legend {
     padding-top: .5em;
@@ -334,11 +380,17 @@ nav .dropdown-menu span.oi {
     margin-bottom: 0px;
 }
 
-/* Bootstrap overrides */
+/**************************
+*** Bootstrap overrides ***
+**************************/
+
 .list-group-item-action:hover {
     background-color: #393939;
 }
 span.badge {
     padding-top: 0.4em;
     vertical-align: text-bottom;
+}
+.breadcrumb-item+.breadcrumb-item::before {
+    content: '»';
 }

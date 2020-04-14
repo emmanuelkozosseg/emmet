@@ -49,6 +49,15 @@ define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emme
             hideBookDropdown();
             collapseNavBar();
         });
+
+        // Set up pages
+
+        // General
+        $("body").on("click", ".emmet-home-link", function(e) {
+            e.preventDefault();
+            emmetUtils.showPage("main");
+        });
+        // Main
         $(".emmet-p-main-toc-btn").click(function(e) {
             e.preventDefault();
             emmetToc.show();

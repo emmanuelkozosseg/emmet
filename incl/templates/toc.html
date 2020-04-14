@@ -1,11 +1,23 @@
-<h2>Tartalomjegyzék</h2>
-<div class="emmet-toc-sortby btn-group btn-group-toggle mb-3" data-toggle="buttons">
-    <label class="btn btn-primary active">
-        <input type="radio" id="emmet-toc-sortby-num" name="emmet-toc-sortby" value="num" autocomplete="off" checked> Énekszám szerint
-    </label>
-    <label class="btn btn-primary">
-        <input type="radio" id="emmet-toc-sortby-title" name="emmet-toc-sortby" value="title" autocomplete="off"> Cím szerint
-    </label>
+<div class="emmet-toc-header">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb border border-secondary bg-transparent">
+            <li class="breadcrumb-item"><a href="#" class="emmet-home-link">Nyitólap</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tartalomjegyzék</li>
+        </ol>
+    </nav>
+    <div class="dropdown">
+        <button class="emmet-toc-options-btn btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-eye"></span></button>
+        <div class="emmet-toc-options dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <h6 class="dropdown-header">Rendezés</h6>
+            <a class="dropdown-item emmet-toc-sortby" data-sortby="num" href="#"><span class="oi{{#options.sortByNum}} oi-check{{/options.sortByNum}}"></span> Énekszám szerint</a>
+            <a class="dropdown-item emmet-toc-sortby" data-sortby="title" href="#"><span class="oi{{#options.sortByTitle}} oi-check{{/options.sortByTitle}}"></span> Cím szerint</a>
+            <h6 class="dropdown-header">Fejezetek</h6>
+            <a class="dropdown-item emmet-toc-show-chapters" href="#"><span class="oi{{#options.showChapters}} oi-check{{/options.showChapters}}"></span> Megjelenítés</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item emmet-toc-chapter-control{{^options.showChapters}} disabled{{/options.showChapters}}" data-action="expand" href="#"><span class="oi oi-fullscreen-enter"></span> Minden fejezet kinyitása</a>
+            <a class="dropdown-item emmet-toc-chapter-control{{^options.showChapters}} disabled{{/options.showChapters}}" data-action="collapse" href="#"><span class="oi oi-fullscreen-exit"></span> Minden fejezet összecsukása</a>
+        </div>
+    </div>
 </div>
 
 {{#hasChapters}}
@@ -34,6 +46,7 @@
     {{#otherSongs}}
     <a href="#" class="list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
         <span class="badge badge-info">{{number}}</span> {{title}}
+        {{#hasRecords}}<span class="oi oi-volume-high emmet-has-records-icon"></span>{{/hasRecords}}
     </a>
     {{/otherSongs}}
 </div>
