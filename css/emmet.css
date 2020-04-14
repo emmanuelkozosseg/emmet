@@ -199,6 +199,15 @@ nav.emmet-nav .navbar-brand img {
     display: inline-block;
     width: 0px;
 }
+table.emmet-song-detail-section tr.spacer {
+    height: 20px;
+}
+table.emmet-song-detail-section tr.header th {
+    border-top: none;
+}
+table.emmet-song-detail-section tr th {
+    white-space: nowrap;
+}
 .emmet-song-player {
     display: flex;
     align-items: center;
@@ -253,9 +262,9 @@ nav.emmet-nav .navbar-brand img {
 .emmet-song-record .purpose-desc, .emmet-song-record .purpose-note {
     margin-left: 25px;
     font-size: 12px;
-    color: #999;
 }
-.emmet-song-record .purpose-note {
+.emmet-song-record .purpose-desc {
+    color: #999;
     font-style: italic;
 }
 .emmet-song-help {

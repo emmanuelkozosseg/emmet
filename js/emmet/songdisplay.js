@@ -31,6 +31,19 @@ function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
         $("#emmet-song-modal div.emmet-song-toolbar a.dropdown-item.emmet-song-lang-select-"+newLangId).hide();
     };
 
+    var getCopyrightString = function(about_obj) {
+        if (! about_obj) {return null;}
+        var hasHolder = 'c_holder' in about_obj;
+        var hasYear = 'c_year' in about_obj;
+        if (hasHolder) {
+            return "© " + about_obj.c_holder + (hasYear ? ", "+about_obj.c_year : "");
+        } else if (hasYear) {
+            return "© " + about_obj.c_year;
+        } else {
+            return null;
+        }
+    };
+
     var displaySongByInternalId = function(internalSongId, langId) {
         var song = emmetSongData.getAllSongs()[internalSongId];
 
@@ -89,6 +102,15 @@ function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
             'books': books,
             'song': song,
             'records': records,
+            'hasFormerNumbers': 'former_numbers' in songInBook,
+            'formerNumbers': songInBook.former_numbers,
+            'origCopyright': getCopyrightString(song.about),
+            'translationCopyright': song.lyrics
+                                        .map(l => ({
+                                            'langName': l.lang, 'langCountry': emmetUtils.getCountryOfLang(l.lang),
+                                            'adaptedBy': l.about ? l.about.adapted_by : null,
+                                            'copyright': l.about ? getCopyrightString(l.about) : null,
+                                        })),
         };
         var songHtml = mustache.to_html(emmetUtils.getTemplate("song"), displaySong);
         $("#emmet-song-modal .modal-content").html(songHtml);

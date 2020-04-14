@@ -61,44 +61,69 @@
         {{/song.lyrics}}
     </div>
     <div class="emmet-song-tab emmet-song-details" data-trigger="emmet-song-details-btn">
-        <table class="table table-sm table-hover"><tbody>
-            <!--
-            <tr class="table-secondary">
-                <th colspan="2">Zenei részletek</th>
+        <table class="emmet-song-detail-section table table-sm">
+            <tr class="header table-secondary">
+                <th colspan="2">Énekszámok</th>
             </tr>
+            {{#hasFormerNumbers}}
             <tr>
-                <th width="50%" scope="row">Hangnem</td>
-                <td width="50%">ismeretlen</td>
-            </tr>
-            <tr>
-                <th class="align-middle" scope="row">Kezdőhang</td>
-                <td class="align-middle">
-                    ismeretlen
-                    <button type="button" class="btn btn-sm btn-primary ml-1" data-toggle="button" disabled>
-                        <span class="oi oi-media-play"></span>
-                    </button>
+                <th>Korábbi énekszámok</th>
+                <td>
+                    {{#formerNumbers}}<span class="badge badge-secondary">{{number}}</span> &raquo; {{/formerNumbers}}<span class="badge badge-info">{{currentNumber}}</span>
                 </td>
             </tr>
-            -->
+            {{/hasFormerNumbers}}
             <tr>
                 <th>Könyvek</th>
                 <td>
                     {{#books}}<div>{{name}} <span class="badge badge-info">{{number}}</span></div>{{/books}}
                 </td>
             </tr>
+            <tr class="spacer"></tr>
+            <tr class="header table-secondary">
+                <th colspan="2">Szerzői jog</th>
+            </tr>
             <tr>
                 <th>Zene</th>
-                <td>{{song.about.music}}</td>
+                <td>{{#song.about.music}}{{.}}{{/song.about.music}}{{^song.about.music}}<span class="text-muted"><em>ismeretlen</em></span>{{/song.about.music}}</td>
             </tr>
             <tr>
                 <th>Eredeti dalszöveg</th>
-                <td>{{song.about.lyrics}}</td>
+                <td>{{#song.about.lyrics}}{{.}}{{/song.about.lyrics}}{{^song.about.lyrics}}<span class="text-muted"><em>ismeretlen</em></span>{{/song.about.lyrics}}</td>
             </tr>
             <tr>
                 <th>Eredeti szerzői jog</th>
-                <td>&copy; {{song.about.c_holder}}, {{song.about.c_year}}</td>
+                <td>{{#origCopyright}}{{.}}{{/origCopyright}}{{^origCopyright}}<span class="text-muted"><em>ismeretlen</em></span>{{/origCopyright}}</td>
             </tr>
-        </tbody></table>
+            {{#translationCopyright}}
+            <tr>
+                <th><img src="css/flags/blank.gif" class="flag flag-{{langCountry}}" alt="{{langName}}" /> <span class="emmet-lang-tag">{{langName}}</span> &ndash; Adaptálta</th>
+                <td>{{#adaptedBy}}{{.}}{{/adaptedBy}}{{^adaptedBy}}<span class="text-muted"><em>ismeretlen</em></span>{{/adaptedBy}}</td>
+            </tr>
+            <tr>
+                <th><img src="css/flags/blank.gif" class="flag flag-{{langCountry}}" alt="{{langName}}" /> <span class="emmet-lang-tag">{{langName}}</span> &ndash; Szerzői jog</th>
+                <td>{{#copyright}}{{.}}{{/copyright}}{{^copyright}}<span class="text-muted"><em>ismeretlen</em></span>{{/copyright}}</td>
+            </tr>
+            {{/translationCopyright}}
+        </table>
+        <!--
+        <tr class="table-secondary">
+            <th colspan="2">Zenei részletek</th>
+        </tr>
+        <tr>
+            <th width="50%" scope="row">Hangnem</td>
+            <td width="50%">ismeretlen</td>
+        </tr>
+        <tr>
+            <th class="align-middle" scope="row">Kezdőhang</td>
+            <td class="align-middle">
+                ismeretlen
+                <button type="button" class="btn btn-sm btn-primary ml-1" data-toggle="button" disabled>
+                    <span class="oi oi-media-play"></span>
+                </button>
+            </td>
+        </tr>
+        -->
     </div>
     <div class="emmet-song-tab emmet-song-play" data-trigger="emmet-song-play-btn">
         <div class="emmet-song-player-container"></div>
@@ -110,8 +135,8 @@
                     <span class="emmet-lang-tag">{{lang}}</span>
                 </div>
                 <div class="purpose-name"><span class="oi {{purposeIcon}}"></span>{{purposeName}}</div>
-                <div class="purpose-desc">{{purposeDesc}}</div>
                 {{#note}}<div class="purpose-note">{{.}}</div>{{/note}}
+                <div class="purpose-desc">{{purposeDesc}}</div>
             </a>
             {{/records}}
         </div>
