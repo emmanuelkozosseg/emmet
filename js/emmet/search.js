@@ -140,6 +140,12 @@ function(emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils
 
     return {
         search: function(searchExpr, searchModeStr, wordMatchingModeStr, languages) {
+            if (! searchExpr.trim()) {
+                emmetNotifier.showError("Érvénytelen keresés",
+                        "Kérünk, adj meg egy keresőkifejezést!");
+                return;
+            }
+
             var searchMode = searchModes[searchModeStr];
             var wordMatchingMode = wordMatchingModes[wordMatchingModeStr];
 
@@ -148,8 +154,7 @@ function(emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils
             } catch (e) {
                 if (e == "emptySearch") {
                     emmetNotifier.showError("Érvénytelen keresés",
-                        "Kérünk, olyan keresőkifejezést adj meg, amiben szerepelnek betűk vagy számok!"
-                    );
+                            "Kérünk, olyan keresőkifejezést adj meg, amiben szerepelnek betűk vagy számok!");
                     return;
                 } else {throw e;}
             }

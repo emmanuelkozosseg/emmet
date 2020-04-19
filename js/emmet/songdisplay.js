@@ -156,11 +156,15 @@ function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
     return {
         displaySong: function(songId) {
             var songBook = emmetSongData.getCurrentBook();
-            var songIdLc = songId.toLowerCase();
+            var songIdLc = songId.toLowerCase().trim();
+            if (! songIdLc) {
+                emmetNotifier.showError("Hiányzó énekszám",
+                    "Kérünk, adj meg egy énekszámot a megnyitáshoz!");
+                return;
+            }
             if (! songBook.songs.hasOwnProperty(songIdLc)) {
-                emmetNotifier.showError(
-                        "Hiányzó ének",
-                        "Nincs <strong>"+songId+"</strong>. számú ének a kiválasztott énekeskönyvben ("+songBook.name+").");
+                emmetNotifier.showError("Hiányzó ének",
+                        "Nincs <strong>"+songId+"</strong> ének a kiválasztott énekeskönyvben ("+songBook.name+").");
                 return;
             }
             displaySongByInternalId(songBook.songs[songIdLc].internalId);
