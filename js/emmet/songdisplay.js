@@ -1,11 +1,15 @@
-define(['emmet/notifier', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
-function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
+define(['emmet/config', 'emmet/notifier', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
+function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
+    const CONFIG_VDISPLAYMODE = "song-verse-display-mode";
     var currentlyDisplayedSong = null;
     var currentlyDisplayedLang = null;
-    var repeatVerses = false;
-    
+
+    emmetConfig.configureSettings({
+        [CONFIG_VDISPLAYMODE]: "once",
+    });
+
     var rerenderLyrics = function() {
-        if (repeatVerses && 'order' in currentlyDisplayedLang) {
+        if (emmetConfig.get(CONFIG_VDISPLAYMODE) == "repeat" && 'order' in currentlyDisplayedLang) {
             var verses = currentlyDisplayedLang.order.map(verseName => currentlyDisplayedLang.verses.find(v => v.name == verseName));
         } else {  // "once" OR ("repeat" AND order is not defined)
             var verses = currentlyDisplayedLang.verses;
@@ -107,7 +111,7 @@ function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
                                             'adaptedBy': l.about ? l.about.adapted_by : null,
                                             'copyright': l.about ? getCopyrightString(l.about) : null,
                                         })),
-            'repeatVerses': repeatVerses,
+            'repeatVerses': emmetConfig.get(CONFIG_VDISPLAYMODE) == "repeat",
         };
         var songHtml = mustache.to_html(emmetUtils.getTemplate("song"), displaySong);
         $("#emmet-song-modal .modal-content").html(songHtml);
@@ -122,7 +126,7 @@ function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
         });
         $("#emmet-song-modal .emmet-song-verse-display-mode").click(function(e) {
             e.preventDefault();
-            repeatVerses = $(this).data("mode") == "repeat";
+            emmetConfig.set(CONFIG_VDISPLAYMODE, $(this).data("mode"));
             rerenderLyrics();
             // Move checkmark
             $(this).parent().find(".emmet-song-verse-display-mode span.oi-check").removeClass("oi-check");

@@ -1,8 +1,13 @@
-define(['emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache'],
-function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
-    var sortBy = "num";
-    var showChapters = true;
+define(['emmet/config', 'emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache'],
+function(emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
+    const CONFIG_SORTBY = "toc-sortby";
+    const CONFIG_SHOWCHAPTERS = "toc-showchapters";
     var loadedBook = null;
+
+    emmetConfig.configureSettings({
+        [CONFIG_SORTBY]: "num",
+        [CONFIG_SHOWCHAPTERS]: true,
+    });
 
     var sortByNumber = function(songs) {
         var songList = [];
@@ -34,7 +39,7 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
         var songBook = emmetSongData.getCurrentBook();
         
         var songList;
-        if (sortBy == "title") {
+        if (emmetConfig.get(CONFIG_SORTBY) == "title") {
             songList = sortByTitle(songBook.songs);
         } else {
             songList = sortByNumber(songBook.songs);
@@ -42,9 +47,9 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
 
         var mustacheOptions = {
             options: {
-                sortByNum: sortBy == "num",
-                sortByTitle: sortBy == "title",
-                showChapters: showChapters,
+                sortByNum: emmetConfig.get(CONFIG_SORTBY) != "title",
+                sortByTitle: emmetConfig.get(CONFIG_SORTBY) == "title",
+                showChapters: emmetConfig.get(CONFIG_SHOWCHAPTERS),
             },
         };
 
@@ -58,7 +63,7 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
             };
         }
 
-        if (showChapters) {
+        if (emmetConfig.get(CONFIG_SHOWCHAPTERS)) {
             var songsByChapters = new Map();
             for (var currentSong of songList) {
                 var displayableSong = songToDisplayableSong(currentSong);
@@ -92,13 +97,13 @@ function(emmetSongData, emmetSongDisp, emmetUtils, mustache) {
         $("#emmet-p-toc").html(listHtml);
         $("#emmet-p-toc .emmet-toc-sortby").click(function() {
             var newSortBy = $(this).data("sortby");
-            if (sortBy == newSortBy) {return;}
-            sortBy = newSortBy;
+            if (emmetConfig.get(CONFIG_SORTBY) == newSortBy) {return;}
+            emmetConfig.set(CONFIG_SORTBY, newSortBy);
             refreshSongList();
             return false;
         });
         $("#emmet-p-toc .emmet-toc-show-chapters").click(function() {
-            showChapters = ! showChapters;
+            emmetConfig.set(CONFIG_SHOWCHAPTERS, ! emmetConfig.get(CONFIG_SHOWCHAPTERS));
             refreshSongList();
             return false;
         });

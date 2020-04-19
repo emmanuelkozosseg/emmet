@@ -3,6 +3,7 @@
         jquery: 'sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=',
         bootstrap: 'sha256-OUFW7hFO0/r5aEGTQOz9F/aXQOt+TwqI1Z4fbVvww04=',
         mustache: 'sha256-MPgtcamIpCPKRRm1ppJHkvtNBAuE71xcOM+MmQytXi8=',
+        jscookie: 'sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA=',
     };
     require.config({
         paths: {
@@ -17,6 +18,10 @@
             mustache: [
                 'https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min',
                 'lib/mustache.3.1.0.min'
+            ],
+            jscookie: [
+                'https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min',
+                'lib/js.cookie.2.2.1.min'
             ],
         },
         onNodeCreated: function(node, config, module, path) {
