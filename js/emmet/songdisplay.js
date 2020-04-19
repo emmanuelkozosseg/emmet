@@ -105,7 +105,10 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
             'hasFormerNumbers': 'former_numbers' in songInBook,
             'formerNumbers': songInBook.former_numbers,
             'origCopyright': getCopyrightString(song.about),
+            'origLangCountry': ('about' in song && 'orig_lang' in song.about) ? emmetUtils.getCountryOfLang(song.about.orig_lang) : null,
             'translationCopyright': song.lyrics
+                                        // If the original language is known, don't display its translation copyright
+                                        .filter(l => ('about' in song && 'orig_lang' in song.about) ? song.about.orig_lang != l.lang : true)
                                         .map(l => ({
                                             'langName': l.lang, 'langCountry': emmetUtils.getCountryOfLang(l.lang),
                                             'adaptedBy': l.about ? l.about.adapted_by : null,

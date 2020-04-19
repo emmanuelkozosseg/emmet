@@ -16,7 +16,7 @@ if ($lastCommit == $lastDlCommit) {
 print("The repo has been changed. Proceeding with refresh.<br>");
 
 print("Updating songs.json...<br>");
-file_put_contents("songs.json", fopen("https://bitbucket.org/eckerg/emmet-enekek/downloads/songs.json", 'r'));
+file_put_contents("songs.json", fopen("https://bitbucket.org/eckerg/emmet-enekek/downloads/emmet.json", 'r'));
 
 print("Updating last retrieved commit...<br>");
 file_put_contents("songs.json.lastcommit", $lastCommit);

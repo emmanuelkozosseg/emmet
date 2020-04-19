@@ -87,6 +87,10 @@
                     <td>{{#song.about.music}}{{.}}{{/song.about.music}}{{^song.about.music}}<span class="text-muted"><em>ismeretlen</em></span>{{/song.about.music}}</td>
                 </tr>
                 <tr>
+                    <th>Eredeti nyelv</th>
+                    <td>{{#song.about.orig_lang}}<img src="css/flags/blank.gif" class="flag flag-{{origLangCountry}}" alt="{{.}}" /> <span class="emmet-lang-tag">{{.}}</span>{{/song.about.orig_lang}}{{^song.about.orig_lang}}<span class="text-muted"><em>ismeretlen</em></span>{{/song.about.orig_lang}}</td>
+                </tr>
+                <tr>
                     <th>Eredeti dalszöveg</th>
                     <td>{{#song.about.lyrics}}{{.}}{{/song.about.lyrics}}{{^song.about.lyrics}}<span class="text-muted"><em>ismeretlen</em></span>{{/song.about.lyrics}}</td>
                 </tr>
