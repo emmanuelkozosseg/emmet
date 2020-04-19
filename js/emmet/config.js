@@ -8,6 +8,9 @@ define(['jscookie', 'emmet/utils'], function(jsCookie, emmetUtils) {
     var cookieContent = jsCookie.get(COOKIE_KEY);
     if (cookieContent !== undefined) {
         settings = JSON.parse(atob(cookieContent));
+
+        // Save unchanged cookie content to extend the expiration time
+        jsCookie.set(COOKIE_KEY, cookieContent, {expires: COOKIE_EXPIRY_DAYS});
     }
 
     return {
