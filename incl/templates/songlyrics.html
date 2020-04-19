@@ -1,0 +1,13 @@
+<div class="emmet-song">
+    {{#.}}
+    <div class="emmet-song-verse">
+        <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}"
+            >{{displayName}}</div>
+        <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
+            {{#lines}}
+            <p>{{.}}</p>
+            {{/lines}}
+        </div>
+    </div>
+    {{/.}}
+</div>

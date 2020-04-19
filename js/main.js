@@ -25,7 +25,8 @@
             }
             node.setAttribute('integrity', sriConfig[module]);
             node.setAttribute('crossorigin', 'anonymous');
-        }
+        },
+        waitSeconds: 20,
     });
 })();
 

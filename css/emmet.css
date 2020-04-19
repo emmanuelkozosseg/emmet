@@ -157,9 +157,6 @@ nav.emmet-nav .navbar-brand img {
 .emmet-song-toolbar a.nav-link.active {
     border-radius: 0px;
 }
-.emmet-song-tab, .emmet-song-lang {
-    display: none;
-}
 .emmet-song {
     display: table;
     border-spacing: 7px 10px;

@@ -1,30 +1,30 @@
 define(['emmet/notifier', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
 function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
-    var currentDisplay = null;
-
-    var showTab = function(tabIdClass) {
-        var selectedTab = $("#emmet-song-modal div.emmet-song-tab."+tabIdClass);
-        $("#emmet-song-modal div.emmet-song-tab").hide();
-        selectedTab.show();
-
-        $("#emmet-song-modal div.emmet-song-toolbar a.nav-link").removeClass("active");
-        $("#emmet-song-modal div.emmet-song-toolbar ."+selectedTab.data("trigger")+" a.nav-link").addClass("active");
+    var currentlyDisplayedSong = null;
+    var currentlyDisplayedLang = null;
+    var repeatVerses = false;
+    
+    var rerenderLyrics = function() {
+        if (repeatVerses && 'order' in currentlyDisplayedLang) {
+            var verses = currentlyDisplayedLang.order.map(verseName => currentlyDisplayedLang.verses.find(v => v.name == verseName));
+        } else {  // "once" OR ("repeat" AND order is not defined)
+            var verses = currentlyDisplayedLang.verses;
+        }
+        var lyricsHtml = mustache.to_html(emmetUtils.getTemplate("songlyrics"), verses);
+        $("#emmet-song-lyrics").html(lyricsHtml);
     };
 
     var changeLanguage = function(newLangId) {
-        var newLangOfSong = currentDisplay['song'].lyrics[newLangId];
-
-        // Display language's div
-        $("#emmet-song-modal .emmet-song-lang").hide();
-        $("#emmet-song-modal .emmet-song-lang-"+newLangId).show();
+        currentlyDisplayedLang = currentlyDisplayedSong.lyrics[newLangId];
+        rerenderLyrics();
 
         // Set modal title
-        $("#emmet-song-modal .emmet-song-title").text(newLangOfSong.title);
+        $("#emmet-song-modal .emmet-song-title").text(currentlyDisplayedLang.title);
 
         // Update language menu
         $("#emmet-song-modal div.emmet-song-toolbar .emmet-lang-btn img.flag")
-                .removeClass().addClass("flag flag-"+emmetUtils.getCountryOfLang(newLangOfSong.lang));
-        $("#emmet-song-modal div.emmet-song-toolbar .emmet-lang-btn span.emmet-langname").text(newLangOfSong.lang);
+                .removeClass().addClass("flag flag-"+emmetUtils.getCountryOfLang(currentlyDisplayedLang.lang));
+        $("#emmet-song-modal div.emmet-song-toolbar .emmet-lang-btn span.emmet-langname").text(currentlyDisplayedLang.lang);
 
         // Hide currently selected from menu
         $("#emmet-song-modal div.emmet-song-toolbar a.dropdown-item").show();
@@ -46,16 +46,12 @@ function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
 
     var displaySongByInternalId = function(internalSongId, langId) {
         var song = emmetSongData.getAllSongs()[internalSongId];
+        currentlyDisplayedSong = song;
 
         // If no language is requested, fall back to the main language
         if (langId === undefined) {
             langId = emmetSongData.getMainLangIdOfSong(song);
         }
-
-        // Update inner state
-        currentDisplay = {
-            'song': song,
-        };
 
         // Prepare list of available languages
         var languages = song.lyrics.map((songInLang, index) => {
@@ -111,34 +107,32 @@ function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
                                             'adaptedBy': l.about ? l.about.adapted_by : null,
                                             'copyright': l.about ? getCopyrightString(l.about) : null,
                                         })),
+            'repeatVerses': repeatVerses,
         };
         var songHtml = mustache.to_html(emmetUtils.getTemplate("song"), displaySong);
         $("#emmet-song-modal .modal-content").html(songHtml);
 
         // Set up bindings
         $("#emmet-song-modal .emmet-song-lang-select a.dropdown-item").click(function(e) {
+            e.preventDefault();
             changeLanguage($(this).data("langid"));
-            e.preventDefault();
         });
-        $("#emmet-song-modal .emmet-song-lyrics-btn a.nav-link").click(function(e) {
-            showTab("emmet-song-lyrics");
+        $("#emmet-song-modal .emmet-song-toolbar a.nav-link[data-toggle='tab']").on("show.bs.tab", function(e) {
             $(this).tooltip('hide');
-            e.preventDefault();
         });
-        $("#emmet-song-modal .emmet-song-details-btn a.nav-link").click(function(e) {
-            showTab("emmet-song-details");
-            $(this).tooltip('hide');
+        $("#emmet-song-modal .emmet-song-verse-display-mode").click(function(e) {
             e.preventDefault();
+            repeatVerses = $(this).data("mode") == "repeat";
+            rerenderLyrics();
+            // Move checkmark
+            $(this).parent().find(".emmet-song-verse-display-mode span.oi-check").removeClass("oi-check");
+            $(this).children("span.oi").addClass("oi-check");
         });
         if (song.records) {
             // Create songplayer
             var songPlayer = emmetSongPlayer.create($("#emmet-song-modal .emmet-song-player-container"));
             // Toolbar button
-            $("#emmet-song-modal .emmet-song-play-btn a.nav-link").click(function(e) {
-                showTab("emmet-song-play");
-                $(this).tooltip('hide');
-                e.preventDefault();
-            });
+            $("#emmet-song-modal .emmet-song-play-btn a.nav-link").removeClass("disabled");
             // Record selector
             $("#emmet-song-modal .emmet-song-records a.emmet-song-record").click(function(e) {
                 songPlayer.play($(this).data("url"));
@@ -156,7 +150,6 @@ function(emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
         $('#emmet-song-modal div.emmet-song-toolbar a.nav-link').tooltip({"placement": "bottom"});
 
         changeLanguage(langId);
-        showTab("emmet-song-lyrics");
         $("#emmet-song-modal").modal();
     };
 

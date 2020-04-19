@@ -7,8 +7,8 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="emmet-song-toolbar">
-    <ul class="nav nav-tabs">
+<div class="emmet-song-toolbar d-flex">
+    <ul class="nav nav-tabs flex-grow-1" role="tablist">
         <li class="nav-item dropdown emmet-song-lang-select">
             <a class="nav-link {{#isSingleLanguage}}disabled{{/isSingleLanguage}} dropdown-toggle emmet-lang-btn" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                 <img src="css/flags/blank.gif" class="flag" />
@@ -23,126 +23,126 @@
                 {{/languages}}
             </div>
         </li>
-        <li class="nav-item emmet-song-lyrics-btn">
-            <a class="nav-link" href="#" title="Dalszöveg">
+        <li class="nav-item">
+            <a class="nav-link active" href="#emmet-song-lyrics" title="Dalszöveg" data-toggle="tab">
                 <span class="oi oi-musical-note"></span>
             </a>
         </li>
-        <li class="nav-item emmet-song-details-btn">
-            <a class="nav-link" href="#" title="Részletek">
+        <li class="nav-item">
+            <a class="nav-link" href="#emmet-song-details" title="Részletek" data-toggle="tab">
                 <span class="oi oi-document"></span>
             </a>
         </li>
         <li class="nav-item emmet-song-play-btn">
-            <a class="nav-link" href="javascript:" title="Lejátszás">
+            <a class="nav-link disabled" href="#emmet-song-play" title="Lejátszás" data-toggle="tab">
                 <span class="oi oi-volume-high"></span>
             </a>
         </li>
     </ul>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="oi oi-eye"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <h6 class="dropdown-header">Refrén megjelenítése</h6>
+                <a class="dropdown-item emmet-song-verse-display-mode" data-mode="once" href="#">
+                    <span class="oi{{^repeatVerses}} oi-check{{/repeatVerses}}"></span> Első alkalommal
+                </a>
+                <a class="dropdown-item emmet-song-verse-display-mode" data-mode="repeat" href="#">
+                    <span class="oi{{#repeatVerses}} oi-check{{/repeatVerses}}"></span> Minden versszak után
+                </a>
+            </div>
+        </li>
+    </ul>
 </div>
 <div class="modal-body">
-    <div class="emmet-song-tab emmet-song-lyrics" data-trigger="emmet-song-lyrics-btn">
-        {{#song.lyrics}}
-        <div class="emmet-song-lang emmet-song-lang-{{langId}}">
-            <div class="emmet-song">
-                {{#verses}}
-                <div class="emmet-song-verse">
-                    <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}"
-                        >{{displayName}}</div>
-                    <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
-                        {{#lines}}
-                        <p>{{.}}</p>
-                        {{/lines}}
+    <div class="tab-content">
+        <div class="tab-pane emmet-song-tab show active" id="emmet-song-lyrics" role="tabpanel"></div>
+        <div class="tab-pane emmet-song-tab" id="emmet-song-details" role="tabpanel">
+            <table class="emmet-song-detail-section table table-sm">
+                <tr class="header table-secondary">
+                    <th colspan="2">Énekszámok</th>
+                </tr>
+                {{#hasFormerNumbers}}
+                <tr>
+                    <th>Korábbi énekszámok</th>
+                    <td>
+                        {{#formerNumbers}}<span class="badge badge-secondary">{{number}}</span> &raquo; {{/formerNumbers}}<span class="badge badge-info">{{currentNumber}}</span>
+                    </td>
+                </tr>
+                {{/hasFormerNumbers}}
+                <tr>
+                    <th>Könyvek</th>
+                    <td>
+                        {{#books}}<div>{{name}} <span class="badge badge-info">{{number}}</span></div>{{/books}}
+                    </td>
+                </tr>
+                <tr class="spacer"></tr>
+                <tr class="header table-secondary">
+                    <th colspan="2">Szerzői jog</th>
+                </tr>
+                <tr>
+                    <th>Zene</th>
+                    <td>{{#song.about.music}}{{.}}{{/song.about.music}}{{^song.about.music}}<span class="text-muted"><em>ismeretlen</em></span>{{/song.about.music}}</td>
+                </tr>
+                <tr>
+                    <th>Eredeti dalszöveg</th>
+                    <td>{{#song.about.lyrics}}{{.}}{{/song.about.lyrics}}{{^song.about.lyrics}}<span class="text-muted"><em>ismeretlen</em></span>{{/song.about.lyrics}}</td>
+                </tr>
+                <tr>
+                    <th>Eredeti szerzői jog</th>
+                    <td>{{#origCopyright}}{{.}}{{/origCopyright}}{{^origCopyright}}<span class="text-muted"><em>ismeretlen</em></span>{{/origCopyright}}</td>
+                </tr>
+                {{#translationCopyright}}
+                <tr>
+                    <th><img src="css/flags/blank.gif" class="flag flag-{{langCountry}}" alt="{{langName}}" /> <span class="emmet-lang-tag">{{langName}}</span> &ndash; Adaptálta</th>
+                    <td>{{#adaptedBy}}{{.}}{{/adaptedBy}}{{^adaptedBy}}<span class="text-muted"><em>ismeretlen</em></span>{{/adaptedBy}}</td>
+                </tr>
+                <tr>
+                    <th><img src="css/flags/blank.gif" class="flag flag-{{langCountry}}" alt="{{langName}}" /> <span class="emmet-lang-tag">{{langName}}</span> &ndash; Szerzői jog</th>
+                    <td>{{#copyright}}{{.}}{{/copyright}}{{^copyright}}<span class="text-muted"><em>ismeretlen</em></span>{{/copyright}}</td>
+                </tr>
+                {{/translationCopyright}}
+            </table>
+            <!--
+            <tr class="table-secondary">
+                <th colspan="2">Zenei részletek</th>
+            </tr>
+            <tr>
+                <th width="50%" scope="row">Hangnem</td>
+                <td width="50%">ismeretlen</td>
+            </tr>
+            <tr>
+                <th class="align-middle" scope="row">Kezdőhang</td>
+                <td class="align-middle">
+                    ismeretlen
+                    <button type="button" class="btn btn-sm btn-primary ml-1" data-toggle="button" disabled>
+                        <span class="oi oi-media-play"></span>
+                    </button>
+                </td>
+            </tr>
+            -->
+        </div>
+        <div class="tab-pane emmet-song-tab" id="emmet-song-play" role="tabpanel">
+            <div class="emmet-song-player-container"></div>
+            <div class="emmet-song-records list-group">
+                {{#records}}
+                <a href="#" class="emmet-song-record list-group-item list-group-item-action" data-url="{{url}}">
+                    <div class="purpose-lang">
+                        <img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" />
+                        <span class="emmet-lang-tag">{{lang}}</span>
                     </div>
-                </div>
-                {{/verses}}
+                    <div class="purpose-name"><span class="oi {{purposeIcon}}"></span>{{purposeName}}</div>
+                    {{#note}}<div class="purpose-note">{{.}}</div>{{/note}}
+                    <div class="purpose-desc">{{purposeDesc}}</div>
+                </a>
+                {{/records}}
             </div>
-        </div>
-        {{/song.lyrics}}
-    </div>
-    <div class="emmet-song-tab emmet-song-details" data-trigger="emmet-song-details-btn">
-        <table class="emmet-song-detail-section table table-sm">
-            <tr class="header table-secondary">
-                <th colspan="2">Énekszámok</th>
-            </tr>
-            {{#hasFormerNumbers}}
-            <tr>
-                <th>Korábbi énekszámok</th>
-                <td>
-                    {{#formerNumbers}}<span class="badge badge-secondary">{{number}}</span> &raquo; {{/formerNumbers}}<span class="badge badge-info">{{currentNumber}}</span>
-                </td>
-            </tr>
-            {{/hasFormerNumbers}}
-            <tr>
-                <th>Könyvek</th>
-                <td>
-                    {{#books}}<div>{{name}} <span class="badge badge-info">{{number}}</span></div>{{/books}}
-                </td>
-            </tr>
-            <tr class="spacer"></tr>
-            <tr class="header table-secondary">
-                <th colspan="2">Szerzői jog</th>
-            </tr>
-            <tr>
-                <th>Zene</th>
-                <td>{{#song.about.music}}{{.}}{{/song.about.music}}{{^song.about.music}}<span class="text-muted"><em>ismeretlen</em></span>{{/song.about.music}}</td>
-            </tr>
-            <tr>
-                <th>Eredeti dalszöveg</th>
-                <td>{{#song.about.lyrics}}{{.}}{{/song.about.lyrics}}{{^song.about.lyrics}}<span class="text-muted"><em>ismeretlen</em></span>{{/song.about.lyrics}}</td>
-            </tr>
-            <tr>
-                <th>Eredeti szerzői jog</th>
-                <td>{{#origCopyright}}{{.}}{{/origCopyright}}{{^origCopyright}}<span class="text-muted"><em>ismeretlen</em></span>{{/origCopyright}}</td>
-            </tr>
-            {{#translationCopyright}}
-            <tr>
-                <th><img src="css/flags/blank.gif" class="flag flag-{{langCountry}}" alt="{{langName}}" /> <span class="emmet-lang-tag">{{langName}}</span> &ndash; Adaptálta</th>
-                <td>{{#adaptedBy}}{{.}}{{/adaptedBy}}{{^adaptedBy}}<span class="text-muted"><em>ismeretlen</em></span>{{/adaptedBy}}</td>
-            </tr>
-            <tr>
-                <th><img src="css/flags/blank.gif" class="flag flag-{{langCountry}}" alt="{{langName}}" /> <span class="emmet-lang-tag">{{langName}}</span> &ndash; Szerzői jog</th>
-                <td>{{#copyright}}{{.}}{{/copyright}}{{^copyright}}<span class="text-muted"><em>ismeretlen</em></span>{{/copyright}}</td>
-            </tr>
-            {{/translationCopyright}}
-        </table>
-        <!--
-        <tr class="table-secondary">
-            <th colspan="2">Zenei részletek</th>
-        </tr>
-        <tr>
-            <th width="50%" scope="row">Hangnem</td>
-            <td width="50%">ismeretlen</td>
-        </tr>
-        <tr>
-            <th class="align-middle" scope="row">Kezdőhang</td>
-            <td class="align-middle">
-                ismeretlen
-                <button type="button" class="btn btn-sm btn-primary ml-1" data-toggle="button" disabled>
-                    <span class="oi oi-media-play"></span>
-                </button>
-            </td>
-        </tr>
-        -->
-    </div>
-    <div class="emmet-song-tab emmet-song-play" data-trigger="emmet-song-play-btn">
-        <div class="emmet-song-player-container"></div>
-        <div class="emmet-song-records list-group">
-            {{#records}}
-            <a href="#" class="emmet-song-record list-group-item list-group-item-action" data-url="{{url}}">
-                <div class="purpose-lang">
-                    <img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" />
-                    <span class="emmet-lang-tag">{{lang}}</span>
-                </div>
-                <div class="purpose-name"><span class="oi {{purposeIcon}}"></span>{{purposeName}}</div>
-                {{#note}}<div class="purpose-note">{{.}}</div>{{/note}}
-                <div class="purpose-desc">{{purposeDesc}}</div>
-            </a>
-            {{/records}}
-        </div>
-        <div class="emmet-song-help text-muted">
-            Lejátszás közben átválthatsz a többi fülre.<br />
-            Ha becsukod az ablakot, a lejátszás befejeződik.
+            <div class="emmet-song-help text-muted">
+                Lejátszás közben átválthatsz a többi fülre.<br />
+                Ha becsukod az ablakot, a lejátszás befejeződik.
+            </div>
         </div>
     </div>
 </div>
