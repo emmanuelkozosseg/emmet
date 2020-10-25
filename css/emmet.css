@@ -150,6 +150,8 @@ nav.emmet-nav .navbar-brand img {
 }
 .emmet-song-toolbar a.nav-link {
     padding-left: 10px; padding-right: 10px;
+    min-width: 1em; box-sizing: content-box;
+    text-align: center;
 }
 .emmet-song-toolbar a.nav-link.disabled {
     color: #666;
@@ -272,6 +274,9 @@ table.emmet-song-detail-section tr th {
     font-size: 12px;
     font-style: italic;
     text-align: right;
+}
+#emmet-song-change-modal button {
+    width: 33%;
 }
 
 /************************

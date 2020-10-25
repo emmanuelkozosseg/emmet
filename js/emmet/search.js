@@ -215,7 +215,7 @@ function(emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils
                 e.preventDefault();
                 var internalSongId = Number($(this).data("songid"));
                 var langId = Number($(this).data("langid"))
-                emmetSongDisp.displaySongByInternalId(internalSongId, langId);
+                emmetSongDisp.displaySongByInternalId(internalSongId, {langId: langId});
             });
             $("#emmet-search-modal").modal("hide");
             emmetUtils.showPage("search");

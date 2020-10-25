@@ -20,7 +20,7 @@ define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotif
             },
         });
     };
-    
+
     var processSongData = function(origSongData, finalCallback) {
         var songData = {
             'bookList': origSongData.books,
@@ -35,9 +35,11 @@ define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotif
 
         origSongData.songs.forEach((song, index) => {
             song.internalId = index;
+            // Collect all songs of each book
             song.books.forEach(bookOfSong => {
                 songData.books[bookOfSong.id].songs[bookOfSong.number.toLowerCase()] = song;
             });
+            // Enhance lyrics/verse objects
             song.lyrics.forEach((songInLang, index) => {
                 songInLang.langId = index;
                 songInLang.isLiteral = 'type' in songInLang && songInLang.type == "literal";
@@ -58,6 +60,13 @@ define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotif
                     verse.tokenizedLines = emmetTokenizer.tokenizeVerseLines(verse.lines);
                 });
             });
+        });
+
+        origSongData.books.forEach(book => {
+            let songMap = songData.books[book.id].songs;
+            songData.books[book.id].songsInOrder = Object.keys(songMap)
+                    .sort(emmetUtils.getCollator().compare)
+                    .map(key => songMap[key]);
         });
         
         finalCallback(songData);

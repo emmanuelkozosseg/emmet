@@ -1,5 +1,8 @@
 define([], function() {
-    var langsWithDifferentCountryCodes = {'la': 'va', 'en': 'gb'};
+    var langsWithDifferentCountryCodes = {
+        'la': 'va',
+        'en': 'gb'
+    };
     var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
     var recordPurposes = {
         'listening': {

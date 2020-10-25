@@ -55,6 +55,18 @@ function(j, b, m, emmetMain, emmetNotifier) {
     window.addEventListener("error", function(e) {
         emmetNotifier.showProgramError(e.message, e.filename, e.lineno, e.colno);
     });
+
+    // Bootstrap fix for stacked modals
+    $(document).on('show.bs.modal', '.modal', function () {
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+        setTimeout(function() {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+        }, 0);
+    });
+    $(document).on('hidden.bs.modal', '.modal', function () {
+        $('.modal:visible').length && $(document.body).addClass('modal-open');
+    });
     
     // Start to initialize
     emmetMain.init();

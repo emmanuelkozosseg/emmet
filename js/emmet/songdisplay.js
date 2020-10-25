@@ -51,13 +51,37 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
         }
     };
 
-    var displaySongByInternalId = function(internalSongId, langId) {
+    var switchToSongRelative = function(offset) {
+        let numOfSongsInBook = emmetSongData.getCurrentBook().songsInOrder.length;
+        let currentSongIndex = emmetSongData.getCurrentBook().songsInOrder.findIndex(s => s.internalId == currentlyDisplayedSong.internalId);
+        let newSongIndex = (currentSongIndex + offset) % numOfSongsInBook;
+        if (newSongIndex < 0) {newSongIndex += numOfSongsInBook;}
+
+        displaySongByInternalId(emmetSongData.getCurrentBook().songsInOrder[newSongIndex].internalId, {dontShowModal: true});
+    }
+
+    var showSwitchSongDialog = function() {
+        $("#emmet-song-change-modal .modal-content").html(emmetUtils.getTemplate("songchange"));
+
+        $("#emmet-song-change-modal .emmet-songch").click(function(e) {
+            switchToSongRelative(parseInt($(this).data("offset")));
+        });
+
+        $("#emmet-song-change-modal").modal();
+    }
+
+    var handleKeyDown = function(e) {
+        if (e.key == "ArrowLeft") {switchToSongRelative(-1);}
+        if (e.key == "ArrowRight") {switchToSongRelative(1);}
+    };
+
+    var displaySongByInternalId = function(internalSongId, options={}) {
         var song = emmetSongData.getAllSongs()[internalSongId];
         currentlyDisplayedSong = song;
 
         // If no language is requested, fall back to the main language
-        if (langId === undefined) {
-            langId = emmetSongData.getMainLangIdOfSong(song);
+        if (! ('langId' in options)) {
+            options.langId = emmetSongData.getMainLangIdOfSong(song);
         }
 
         // Prepare list of available languages
@@ -139,6 +163,10 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
             $(this).parent().find(".emmet-song-verse-display-mode span.oi-check").removeClass("oi-check");
             $(this).children("span.oi").addClass("oi-check");
         });
+        $("#emmet-song-modal .emmet-song-ch-btn").click(function(e) {
+            e.preventDefault();
+            showSwitchSongDialog();
+        });
         if (song.records) {
             // Create songplayer
             var songPlayer = emmetSongPlayer.create($("#emmet-song-modal .emmet-song-player-container"));
@@ -159,9 +187,13 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
             $("#emmet-song-modal .emmet-song-play-btn a.nav-link").addClass("disabled");
         }
         $('#emmet-song-modal div.emmet-song-toolbar a.nav-link').tooltip({"placement": "bottom"});
+        $(document).off("keydown", handleKeyDown).on("keydown", handleKeyDown);
+        $('#emmet-song-modal').on('hidden.bs.modal', function() {$(document).off("keydown", handleKeyDown);});
 
-        changeLanguage(langId);
-        $("#emmet-song-modal").modal();
+        changeLanguage(options.langId);
+        if (! options.dontShowModal) {
+            $("#emmet-song-modal").modal();
+        }
     };
 
     return {
