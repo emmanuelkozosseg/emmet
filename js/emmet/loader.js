@@ -40,6 +40,7 @@ define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotif
             });
             song.lyrics.forEach((songInLang, index) => {
                 songInLang.langId = index;
+                songInLang.isLiteral = 'type' in songInLang && songInLang.type == "literal";
                 songInLang.tokenizedTitle = emmetTokenizer.tokenize(songInLang.title);
                 songInLang.verses.forEach((verse, index) => {
                     verse.verseId = index;

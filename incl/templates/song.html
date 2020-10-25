@@ -18,7 +18,7 @@
                 {{#languages}}
                 <a class="dropdown-item emmet-song-lang-select-{{id}}" href="#" data-langid="{{id}}">
                     <img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{name}}" />
-                    <span class="emmet-lang-tag">{{name}}</span> &ndash; {{title}}
+                    <span class="emmet-lang-tag">{{name}}</span>{{#isLiteral}} <span class="oi oi-beaker"></span>{{/isLiteral}} &ndash; {{title}}
                 </a>
                 {{/languages}}
             </div>

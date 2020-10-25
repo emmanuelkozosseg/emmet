@@ -1,7 +1,7 @@
 <?php
 
 // Get latest commit's ID on master branch
-$commits = json_decode(file_get_contents("https://api.bitbucket.org/2.0/repositories/eckerg/emmet-enekek/commits/master?pagelen=1"));
+$commits = json_decode(file_get_contents("https://api.bitbucket.org/2.0/repositories/eckerg/emmert/commits/master?pagelen=1"));
 $lastCommit = $commits->values[0]->hash;
 print("Latest commit on Bitbucket master branch: $lastCommit<br>");
 
@@ -16,7 +16,7 @@ if ($lastCommit == $lastDlCommit) {
 print("The repo has been changed. Proceeding with refresh.<br>");
 
 print("Updating songs.json...<br>");
-file_put_contents("songs.json", fopen("https://bitbucket.org/eckerg/emmet-enekek/downloads/emmet.json", 'r'));
+file_put_contents("songs.json", fopen("https://bitbucket.org/eckerg/emmert/downloads/emmet.json", 'r'));
 
 print("Updating last retrieved commit...<br>");
 file_put_contents("songs.json.lastcommit", $lastCommit);

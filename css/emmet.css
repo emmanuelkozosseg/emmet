@@ -58,6 +58,9 @@ h4 {
 .emmet-jumpto-songno::-webkit-search-cancel-button {
     display: none;
 }
+.emmet-icon {
+    margin-right: 3px;
+}
 
 /*************
 *** Navbar ***

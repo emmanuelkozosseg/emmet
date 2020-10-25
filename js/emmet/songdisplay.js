@@ -14,7 +14,10 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
         } else {  // "once" OR ("repeat" AND order is not defined)
             var verses = currentlyDisplayedLang.verses;
         }
-        var lyricsHtml = mustache.to_html(emmetUtils.getTemplate("songlyrics"), verses);
+        var lyricsHtml = mustache.to_html(emmetUtils.getTemplate("songlyrics"), {
+            'verses': verses,
+            'isLiteral': currentlyDisplayedLang.isLiteral,
+        });
         $("#emmet-song-lyrics").html(lyricsHtml);
     };
 
@@ -63,6 +66,7 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
             return {
                 'id': index,
                 'name': songInLang.lang,
+                'isLiteral': songInLang.isLiteral,
                 'title': songInLang.title,
                 'country': country === undefined ? '?' : country,
             };

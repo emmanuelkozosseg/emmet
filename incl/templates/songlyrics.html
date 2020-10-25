@@ -1,5 +1,10 @@
+{{#isLiteral}}
+<div class="alert alert-danger">
+    <span class="oi oi-beaker emmet-icon"></span> Ideiglenes, szó szerinti fordítás.
+</div>
+{{/isLiteral}}
 <div class="emmet-song">
-    {{#.}}
+    {{#verses}}
     <div class="emmet-song-verse">
         <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}"
             >{{displayName}}</div>
@@ -9,5 +14,5 @@
             {{/lines}}
         </div>
     </div>
-    {{/.}}
+    {{/verses}}
 </div>
