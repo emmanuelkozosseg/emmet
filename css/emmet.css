@@ -162,6 +162,10 @@ nav.emmet-nav .navbar-brand img {
 .emmet-song-toolbar a.nav-link.active {
     border-radius: 0px;
 }
+.emmet-song-toolbar .emmet-song-play-progress {
+    width: calc(100% + 6px); height: 2px;
+    margin: 0px -3px -2px -3px;
+}
 .emmet-song {
     display: table;
     border-spacing: 7px 10px;

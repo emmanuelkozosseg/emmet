@@ -32,6 +32,7 @@ function(emmetUtils, mustache) {
                 audio[0].oncanplaythrough = audio[0].play();
                 $("#emmet-song-player-"+playerId+" .play-btn").prop("disabled", false);
                 $("#emmet-song-player-"+playerId+" .play-btn .oi").removeClass("oi-media-play").addClass('oi-media-pause');
+                $("#emmet-song-modal .emmet-song-play-progress").removeClass("d-none");
                 loaded = true;
                 playing = true;
             }
@@ -64,6 +65,7 @@ function(emmetUtils, mustache) {
                 $("#emmet-song-player-"+playerId+" .progress-bar").width((currentTime/duration*100)+"%");
                 $("#emmet-song-player-"+playerId+" .media-title").text(timeToText(currentTime));
                 $("#emmet-song-player-"+playerId+" .progress-text").text(timeToText(duration));
+                $("#emmet-song-modal .emmet-song-play-progress .progress-bar").width((currentTime/duration*100)+"%");
             }
 
             // Add triggers
