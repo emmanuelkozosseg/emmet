@@ -1,11 +1,16 @@
 define(['emmet/config', 'emmet/notifier', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
 function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
     const CONFIG_VDISPLAYMODE = "song-verse-display-mode";
+    const CONFIG_FONTSIZE = "song-font-size";
+    
+    const FONT_SIZES = ["s", "m", "l", "xl", "xxl"];
+
     var currentlyDisplayedSong = null;
     var currentlyDisplayedLang = null;
 
     emmetConfig.configureSettings({
         [CONFIG_VDISPLAYMODE]: "once",
+        [CONFIG_FONTSIZE]: "m"
     });
 
     var rerenderLyrics = function() {
@@ -16,7 +21,7 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
         }
         var lyricsHtml = mustache.to_html(emmetUtils.getTemplate("songlyrics"), {
             'verses': verses,
-            'isLiteral': currentlyDisplayedLang.isLiteral,
+            'isLiteral': currentlyDisplayedLang.isLiteral
         });
         $("#emmet-song-lyrics").html(lyricsHtml);
     };
@@ -143,6 +148,11 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
                                             'copyright': l.about ? getCopyrightString(l.about) : null,
                                         })),
             'repeatVerses': emmetConfig.get(CONFIG_VDISPLAYMODE) == "repeat",
+            'activeFontSize': emmetConfig.get(CONFIG_FONTSIZE),
+            'fontSizes': FONT_SIZES.map(size => ({
+                'size': size, 'sizeUpper': size.toUpperCase(),
+                'isActive': emmetConfig.get(CONFIG_FONTSIZE) == size
+            }))
         };
         var songHtml = mustache.to_html(emmetUtils.getTemplate("song"), displaySong);
         $("#emmet-song-modal .modal-content").html(songHtml);
@@ -162,6 +172,12 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
             // Move checkmark
             $(this).parent().find(".emmet-song-verse-display-mode span.oi-check").removeClass("oi-check");
             $(this).children("span.oi").addClass("oi-check");
+        });
+        $("input[type=radio][name=emmet-font-size]").change(function() {
+            emmetConfig.set(CONFIG_FONTSIZE, this.value);
+            $("#emmet-song-lyrics").removeClass(function(index, className) {
+                return (className.match (/(^|\s)emmet-song-size-\S+/g) || []).join(' ');
+            }).addClass("emmet-song-size-"+this.value);
         });
         $("#emmet-song-modal .emmet-song-ch-btn").click(function(e) {
             e.preventDefault();

@@ -133,6 +133,8 @@ nav.emmet-nav .navbar-brand img {
 *** Song modal ***
 *****************/
 
+/* Modal */
+
 #emmet-song-modal h5.modal-title {
     position: relative;
     white-space: nowrap;
@@ -151,6 +153,8 @@ nav.emmet-nav .navbar-brand img {
 	background-image: -o-linear-gradient(right, rgba(68, 68, 68, 1), rgba(68, 68, 68, 0));
 	background-image: linear-gradient(to left, rgba(68, 68, 68, 1), rgba(68, 68, 68, 0));
 }
+
+/* Toolbar */
 
 .emmet-song-toolbar ul.nav {
     padding-left: 5px; padding-right: 5px;
@@ -173,10 +177,13 @@ nav.emmet-nav .navbar-brand img {
     width: calc(100% + 6px); height: 2px;
     margin: 0px -3px -2px -3px;
 }
+
+/* Lyrics */
+
 .emmet-song {
     display: table;
-    border-spacing: 7px 10px;
-    margin-left: -7px; margin-top: -10px;
+    border-spacing: 0.466em 0.66em;
+    margin-left: -0.466em; margin-top: -0.66em;
 }
 .emmet-song-verse {
     display: table-row;
@@ -186,8 +193,8 @@ nav.emmet-nav .navbar-brand img {
 }
 .emmet-song-verse .emmet-header {
     background-color: #444;
-    padding: 5px;
-    border-radius: 6px;
+    padding: 0.33em;
+    border-radius: 0.4em;
     text-align: center;
 }
 .emmet-song-verse .emmet-header.emmet-chorus {
@@ -197,21 +204,29 @@ nav.emmet-nav .navbar-brand img {
     background-color: #003e80;
 }
 .emmet-song-verse .emmet-body {
-    padding-bottom: 5px;
+    padding-bottom: 0.33em;
 }
 .emmet-song-verse .emmet-body.emmet-chorus {
     font-style: italic;
 }
 .emmet-song-verse .emmet-body p {
     margin-bottom: 0px;
-    margin-left: 12px;
-    text-indent: -12px;
+    margin-left: 0.8em;
+    text-indent: -0.8em;
 }
 .emmet-song-verse .emmet-body p::after {
     content: "";
     display: inline-block;
     width: 0px;
 }
+.emmet-song-size-s .emmet-song { font-size: 85%; }
+.emmet-song-size-m .emmet-song { font-size: 100%; }
+.emmet-song-size-l .emmet-song { font-size: 140%; }
+.emmet-song-size-xl .emmet-song { font-size: 180%; }
+.emmet-song-size-xxl .emmet-song { font-size: 220%; }
+
+/* Details */
+
 table.emmet-song-detail-section tr.spacer {
     height: 20px;
 }
@@ -221,6 +236,9 @@ table.emmet-song-detail-section tr.header th {
 table.emmet-song-detail-section tr th {
     white-space: nowrap;
 }
+
+/* Player */
+
 .emmet-song-player {
     display: flex;
     align-items: center;

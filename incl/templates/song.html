@@ -59,13 +59,22 @@
                 <a class="dropdown-item emmet-song-verse-display-mode" data-mode="repeat" href="#">
                     <span class="oi{{#repeatVerses}} oi-check{{/repeatVerses}}"></span> Ahogy énekeljük
                 </a>
+                <div class="dropdown-divider"></div>
+                <h6 class="dropdown-header">Betűméret</h6>
+                <div class="btn-group btn-group-toggle px-4 w-100" data-toggle="buttons">
+                    {{#fontSizes}}
+                    <label class="btn btn-primary{{#isActive}} active{{/isActive}}">
+                        <input type="radio" name="emmet-font-size" value="{{size}}"{{#isActive}} checked{{/isActive}}> {{sizeUpper}}
+                    </label>
+                    {{/fontSizes}}
+                </div>
             </div>
         </li>
     </ul>
 </div>
 <div class="modal-body">
     <div class="tab-content">
-        <div class="tab-pane emmet-song-tab show active" id="emmet-song-lyrics" role="tabpanel"></div>
+        <div class="tab-pane emmet-song-tab show active emmet-song-size-{{activeFontSize}}" id="emmet-song-lyrics" role="tabpanel"></div>
         <div class="tab-pane emmet-song-tab" id="emmet-song-details" role="tabpanel">
             <table class="emmet-song-detail-section table table-sm">
                 <tr class="header table-secondary">
