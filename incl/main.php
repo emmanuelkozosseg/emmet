@@ -29,10 +29,22 @@
             </form>
             <hr />
             <h5>Legutóbbi változások</h5>
-            <p>Az Emmetet legutóbb <strong>2020.10.25-én</strong> frissítettük.</p>
-            <p class="text-center">
-                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#emmet-latest-changes" aria-expanded="false" aria-controls="emmet-latest-changes">Mi változott?</button>
-            </p>
+            <div class="container-fluid mt-4">
+                <div class="row">
+                    <div class="col-6 col-md-4 offset-md-2">
+                        <p><span class="oi oi-cog"></span><br><strong>Program</strong><br>2020.10.25.</p>
+                        <p class="text-center">
+                            <button type="button" class="btn btn-primary emmet-collapser-btn collapsed" data-toggle="collapse" data-target="#emmet-latest-changes" aria-expanded="false" aria-controls="emmet-latest-changes">Változások</button>
+                        </p>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <p><span class="oi oi-musical-note"></span><br><strong>Dalok</strong><br><?php print(json_decode(file_get_contents("songs.json.lastcommit"))->date); ?></p>
+                        <p class="text-center">
+                            <a href="https://bitbucket.org/eckerg/emmert/commits/" class="btn btn-primary" role="button" target="_blank">Változások <small><span class="oi oi-external-link pl-1"></span></small></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
             <div id="emmet-latest-changes" class="alert alert-secondary emmet-main-latest-changes collapse">
                 <?php require(__DIR__."/main-latest-changes.html"); ?>
             </div>
@@ -42,6 +54,7 @@
                 tartalomjegyzékkel és a navigálást megkönnyítő hivatkozásokkal.</p>
             <p><a href="https://bitbucket.org/eckerg/emmert/downloads/emmet_offline.pdf" class="btn btn-primary" role="button">Letöltés</a></p>
             <p class="text-muted small"><strong>Figyelem:</strong> az Android alapértelmezett PDF-olvasója nem tudja kezelni a hivatkozásokat, ezért a tartalomjegyzék nem működik. Ha Androidon szeretnéd használni a letölthető változatot, azt ajánljuk, hogy telepíts egy másik PDF-olvasót, például az <a href="https://play.google.com/store/apps/details?id=com.adobe.reader&hl=hu">Adobe Acrobat Readert</a>.</p>
+            <hr />
         </div>
     </div>
     

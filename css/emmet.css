@@ -61,6 +61,13 @@ h4 {
 .emmet-icon {
     margin-right: 3px;
 }
+.emmet-collapser-btn:after {
+    content: '\25B4';
+    margin-left: 0.25em;
+}
+.emmet-collapser-btn.collapsed:after {
+    content: '\25BE';
+}
 
 /*************
 *** Navbar ***
