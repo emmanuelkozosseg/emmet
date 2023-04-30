@@ -217,14 +217,10 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
             var songBook = emmetSongData.getCurrentBook();
             var songIdLc = songId.toLowerCase().trim();
             if (! songIdLc) {
-                emmetNotifier.showError("Hiányzó énekszám",
-                    "Kérünk, adj meg egy énekszámot a megnyitáshoz!");
-                return;
+                throw {name: "empty", message: "Hiányzó énekszám!"};
             }
             if (! songBook.songs.hasOwnProperty(songIdLc)) {
-                emmetNotifier.showError("Hiányzó ének",
-                        "Nincs <strong>"+songId+"</strong> ének a kiválasztott énekeskönyvben ("+songBook.name+").");
-                return;
+                throw {name: "missing", message: "Ismeretlen énekszám!"};
             }
             displaySongByInternalId(songBook.songs[songIdLc].internalId);
         },

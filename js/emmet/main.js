@@ -62,10 +62,21 @@ define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emme
             e.preventDefault();
             emmetToc.show();
         });
+        $(".emmet-jumpto-songno").tooltip({placement: "bottom", trigger: "manual", html: true});
+        $(".emmet-jumpto-songno").on("input", function(e) {
+            $(this).tooltip("hide");
+        });
         $(".emmet-form-jumpto").submit(function(e) {
             e.preventDefault();
             var songNoField = $(this).find(".emmet-jumpto-songno");
-            emmetSongDisp.displaySong(songNoField.val());
+            try {
+                emmetSongDisp.displaySong(songNoField.val());
+            } catch (exc) {
+                var message = `<span class="text-warning"><span class="oi oi-circle-x"></span> ${exc.message}</span>`;
+                songNoField.attr("title", message).attr("data-original-title", message)
+                    .tooltip("update").tooltip("show");
+                return;
+            }
             songNoField.val("");
             collapseNavBar();
         })
