@@ -32,7 +32,7 @@
             <div class="container-fluid mt-4">
                 <div class="row">
                     <div class="col-6 col-md-4 offset-md-2">
-                        <p><span class="oi oi-cog"></span><br><strong>Program</strong><br>2020.10.25.</p>
+                        <p><span class="oi oi-cog"></span><br><strong>Program</strong><br>2023.10.07.</p>
                         <p class="text-center">
                             <button type="button" class="btn btn-primary emmet-collapser-btn collapsed" data-toggle="collapse" data-target="#emmet-latest-changes" aria-expanded="false" aria-controls="emmet-latest-changes">Változások</button>
                         </p>
