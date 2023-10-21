@@ -198,7 +198,7 @@ function(emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils
             titleResults.sort(searchMode.sortResults);
             textResults.sort(searchMode.sortResults);
 
-            var resultsHtml = mustache.to_html(emmetUtils.getTemplate("search"), {
+            var resultsHtml = mustache.render(emmetUtils.getTemplate("search"), {
                 searchExpr: searchExpr,
                 searchMode: searchMode.name.charAt(0).toUpperCase() + searchMode.name.slice(1),
                 numOfResults: titleResults.length + textResults.length,

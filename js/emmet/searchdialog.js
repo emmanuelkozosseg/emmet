@@ -5,7 +5,7 @@ function(emmetNotifier, emmetSongData, emmetUtils, emmetSearch, mustache) {
             var langsForDisplay = emmetSongData.getAvailableLanguages()
                     .map(l => {return {lang: l, country: emmetUtils.getCountryOfLang(l)}});
             
-            var modalHtml = mustache.to_html(emmetUtils.getTemplate("advsearchform"), {
+            var modalHtml = mustache.render(emmetUtils.getTemplate("advsearchform"), {
                 'languages': langsForDisplay,
                 'keyword': keyword,
             });

@@ -19,6 +19,7 @@ RewriteRule ^(.*)\.[\d]{10,}\.(css|js)$ %{ENV:BASE}/$1.$2
 # Redirect to HTTPS if available
 <IfModule mod_ssl.c>
     RewriteEngine On
+    RewriteCond %{HTTP_HOST} !=localhost
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>

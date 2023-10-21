@@ -19,7 +19,20 @@ if ($lastCommit["hash"] == $lastDlCommit->hash) {
 print("The repo has been changed. Proceeding with refresh.<br>");
 
 print("Updating songs.json...<br>");
-file_put_contents("songs.json", fopen("https://bitbucket.org/eckerg/emmert/downloads/emmet.json", 'r'));
+$songsJsonFp = fopen("songs.json", "w");
+try {
+    $curl = curl_init("https://bitbucket.org/eckerg/emmert/downloads/emmet.json");
+    curl_setopt($curl, CURLOPT_FILE, $songsJsonFp);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($curl, CURLOPT_FORBID_REUSE, TRUE);
+    curl_exec($curl);
+    $st_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+} finally {
+    fclose($songsJsonFp);
+}
+if($st_code != 200) {
+    die("ERROR: Failed to download songs.json: $st_code");
+}
 
 print("Updating last retrieved commit...<br>");
 file_put_contents("songs.json.lastcommit", json_encode($lastCommit));

@@ -16,7 +16,7 @@ function(emmetUtils, mustache) {
             var playerId = nextPlayerId++;
 
             // Populate HTML
-            var controlsHtml = mustache.to_html(emmetUtils.getTemplate("songplayer"), {
+            var controlsHtml = mustache.render(emmetUtils.getTemplate("songplayer"), {
                 playerId: playerId,
             });
             target.html(controlsHtml);

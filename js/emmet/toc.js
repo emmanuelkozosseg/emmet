@@ -93,7 +93,7 @@ function(emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
             mustacheOptions["otherSongs"] = songList.map(s => songToDisplayableSong(s));
         }
         
-        var listHtml = mustache.to_html(emmetUtils.getTemplate("toc"), mustacheOptions);
+        var listHtml = mustache.render(emmetUtils.getTemplate("toc"), mustacheOptions);
         $("#emmet-p-toc").html(listHtml);
         $("#emmet-p-toc .emmet-toc-sortby").click(function() {
             var newSortBy = $(this).data("sortby");

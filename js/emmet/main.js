@@ -122,7 +122,7 @@ define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emme
         });
         
         // Populate dropdown
-        var bookListHtml = mustache.to_html(emmetUtils.getTemplate("booklist"), otherBooks);
+        var bookListHtml = mustache.render(emmetUtils.getTemplate("booklist"), otherBooks);
         $("#emmet-nav-bookselector").html(bookListHtml);
         $("#emmet-nav-bookselector .dropdown-item:not(.disabled)").click(function() {
             setBook($(this).data("bookid"));

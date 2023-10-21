@@ -19,7 +19,7 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
         } else {  // "once" OR ("repeat" AND order is not defined)
             var verses = currentlyDisplayedLang.verses;
         }
-        var lyricsHtml = mustache.to_html(emmetUtils.getTemplate("songlyrics"), {
+        var lyricsHtml = mustache.render(emmetUtils.getTemplate("songlyrics"), {
             'verses': verses,
             'isLiteral': currentlyDisplayedLang.isLiteral
         });
@@ -154,7 +154,7 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
                 'isActive': emmetConfig.get(CONFIG_FONTSIZE) == size
             }))
         };
-        var songHtml = mustache.to_html(emmetUtils.getTemplate("song"), displaySong);
+        var songHtml = mustache.render(emmetUtils.getTemplate("song"), displaySong);
         $("#emmet-song-modal .modal-content").html(songHtml);
 
         // Set up bindings
