@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy Site
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ vars.FTP_HOST }}
+          protocol: ftps
+          username: ${{ vars.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /subdoms/emmet/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            songs.json*
+            mp3/**
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          make_latest: 'true'
+          generate_release_notes: true

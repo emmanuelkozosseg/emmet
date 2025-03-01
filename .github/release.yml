@@ -1,0 +1,14 @@
+changelog:
+  categories:
+    - title: 🎉 Új funkciók
+      labels:
+        - új funkció
+    - title: 🛠 Fejlesztések
+      labels:
+        - fejlesztés
+    - title: 🚧 Hibajavítások
+      labels:
+        - hibajavítás
+    - title: 🏗 Infrastruktúra
+      labels:
+        - infrastruktúra
