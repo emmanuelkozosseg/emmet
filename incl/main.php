@@ -38,9 +38,9 @@
                         </p>
                     </div>
                     <div class="col-6 col-md-4">
-                        <p><span class="oi oi-musical-note"></span><br><strong>Dalok</strong><br><?php print(json_decode(file_get_contents("songs.json.lastcommit"))->date); ?></p>
+                        <p><span class="oi oi-musical-note"></span><br><strong>Dalok</strong><br><?php print(date("Y.m.d.", filemtime("songs.json"))); ?></p>
                         <p class="text-center">
-                            <a href="https://bitbucket.org/eckerg/emmert/commits/" class="btn btn-primary" role="button" target="_blank">Változások <small><span class="oi oi-external-link pl-1"></span></small></a>
+                            <a href="https://github.com/emmanuelkozosseg/edra/releases" class="btn btn-primary" role="button" target="_blank">Változások <small><span class="oi oi-external-link pl-1"></span></small></a>
                         </p>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
             <h5>Emmet Offline</h5>
             <p>A <em>Jézus él!</em> énekeskönyv összes dala egy, az Emmet megjelenésére hasonlító PDF-ben,<br />
                 tartalomjegyzékkel és a navigálást megkönnyítő hivatkozásokkal.</p>
-            <p><a href="https://bitbucket.org/eckerg/emmert/downloads/emmet_offline.pdf" class="btn btn-primary" role="button">Letöltés</a></p>
+            <p><a href="https://github.com/emmanuelkozosseg/edra/releases/latest/download/emmet_offline.pdf" class="btn btn-primary" role="button">Letöltés</a></p>
             <p class="text-muted small"><strong>Figyelem:</strong> az Android alapértelmezett PDF-olvasója nem tudja kezelni a hivatkozásokat, ezért a tartalomjegyzék nem működik. Ha Androidon szeretnéd használni a letölthető változatot, azt ajánljuk, hogy telepíts egy másik PDF-olvasót, például az <a href="https://play.google.com/store/apps/details?id=com.adobe.reader&hl=hu">Adobe Acrobat Readert</a>.</p>
             <hr />
         </div>
@@ -90,8 +90,8 @@
         </ul>
         <h4>Technikai részletek</h4>
         <ul>
-            <li>Az énekeket egy Emmet.yaml nevű formátumban tároljuk <a href="https://bitbucket.org/eckerg/emmet-enekek">a Bitbucketen</a>. További információkat az énekek vetítéséről és az Emmet.yaml formátumról ott találsz.</li>
-            <li>Az Emmet nyílt forráskódú, a Git repót szintén <a href="https://bitbucket.org/eckerg/emmet">a Bitbucketen</a> találod meg. Ha szeretnél segíteni, szívesen fogadjuk; kérlek, kövesd a normál Gites menetrendet (forkold le a repót, végezd el a módosításokat, majd küldj pull requestet).</li>
+            <li>Az énekeket egy Emmet.yaml nevű formátumban tároljuk az Edrában (Emmánuel Dalraktár), <a href="https://github.com/emmanuelkozosseg/edra">a GitHubon</a>. További információkat az énekek vetítéséről és az Emmet.yaml formátumról ott találsz.</li>
+            <li>Az Emmet nyílt forráskódú, a Git repót szintén <a href="https://github.com/emmanuelkozosseg/emmet">a GitHubon</a> találod meg. Ha szeretnél segíteni, szívesen fogadjuk; kérlek, kövesd a normál Gites menetrendet (forkold le a repót, végezd el a módosításokat, majd küldj pull requestet).</li>
         </ul>
     </div>
 </main>
