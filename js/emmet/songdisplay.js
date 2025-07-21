@@ -1,5 +1,5 @@
-define(['emmet/config', 'emmet/notifier', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
-function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
+define(['bootstrap', 'emmet/config', 'emmet/notifier', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
+function(bootstrap, emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
     const CONFIG_VDISPLAYMODE = "song-verse-display-mode";
     const CONFIG_FONTSIZE = "song-font-size";
     
@@ -72,7 +72,7 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
             switchToSongRelative(parseInt($(this).data("offset")));
         });
 
-        $("#emmet-song-change-modal").modal();
+        new bootstrap.Modal("#emmet-song-change-modal").show();
     }
 
     var handleKeyDown = function(e) {
@@ -162,8 +162,8 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
             e.preventDefault();
             changeLanguage($(this).data("langid"));
         });
-        $("#emmet-song-modal .emmet-song-toolbar a.nav-link[data-toggle='tab']").on("show.bs.tab", function(e) {
-            $(this).tooltip('hide');
+        $("#emmet-song-modal .emmet-song-toolbar li.nav-item:has(a.nav-link[data-bs-toggle='tab'])").on("show.bs.tab", function(e) {
+            bootstrap.Tooltip.getInstance(this).hide();
         });
         $("#emmet-song-modal .emmet-song-verse-display-mode").click(function(e) {
             e.preventDefault();
@@ -202,13 +202,15 @@ function(emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils,
         } else {
             $("#emmet-song-modal .emmet-song-play-btn a.nav-link").addClass("disabled");
         }
-        $('#emmet-song-modal div.emmet-song-toolbar a.nav-link').tooltip({"placement": "bottom"});
+        Array.from(document.querySelectorAll("#emmet-song-modal div.emmet-song-toolbar li.nav-item"), it =>
+            new bootstrap.Tooltip(it, {"placement": "bottom"})
+        );
         $(document).off("keydown", handleKeyDown).on("keydown", handleKeyDown);
         $('#emmet-song-modal').on('hidden.bs.modal', function() {$(document).off("keydown", handleKeyDown);});
 
         changeLanguage(options.langId);
-        if (! options.dontShowModal) {
-            $("#emmet-song-modal").modal();
+        if (!options.dontShowModal) {
+            new bootstrap.Modal("#emmet-song-modal").show();
         }
     };
 

@@ -1,7 +1,7 @@
-<nav aria-label="breadcrumb">
+<nav>
     <ol class="breadcrumb border border-secondary bg-transparent">
         <li class="breadcrumb-item"><a href="#" class="emmet-home-link">Nyitólap</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{searchMode}}</li>
+        <li class="breadcrumb-item active">{{searchMode}}</li>
     </ol>
 </nav>
 <p>Összesen <strong>{{numOfResults}}</strong> {{wordMatchingMode}} találat a(z) <strong>{{searchExpr}}</strong> kifejezésre.</p>
@@ -12,10 +12,10 @@
 {{#titleResults}}
     <a href="#" class="emmet-search-item list-group-item list-group-item-action emmet-toc-item p-2" data-songid="{{internalSongId}}" data-langid="{{langId}}">
         {{#songNumber}}
-        <span class="badge badge-info">{{.}}</span>
+        <span class="badge bg-info">{{.}}</span>
         {{/songNumber}}
         {{#lang}}
-        <span class="badge badge-secondary"><img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" /> <span class="emmet-lang-tag">{{lang}}</span></span>
+        <span class="badge bg-secondary"><img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" /> <span class="emmet-lang-tag">{{lang}}</span></span>
         {{/lang}}
         {{{highlightedTitle}}}
         {{#hasRecords}}<span class="oi oi-volume-high emmet-has-records-icon"></span>{{/hasRecords}}
@@ -34,10 +34,10 @@
     <a href="#" class="emmet-search-item list-group-item list-group-item-action" data-songid="{{internalSongId}}" data-langid="{{langId}}">
         <h5 class="mb-2">
             {{#songNumber}}
-            <span class="badge badge-info">{{.}}</span>
+            <span class="badge bg-info">{{.}}</span>
             {{/songNumber}}
             {{#lang}}
-            <span class="badge badge-secondary"><img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" /> <span class="emmet-lang-tag">{{lang}}</span></span>
+            <span class="badge bg-secondary"><img src="css/flags/blank.gif" class="flag flag-{{country}}" alt="{{lang}}" /> <span class="emmet-lang-tag">{{lang}}</span></span>
             {{/lang}}
             {{{highlightedTitle}}}
             {{#hasRecords}}<span class="oi oi-volume-high emmet-has-records-icon"></span>{{/hasRecords}}

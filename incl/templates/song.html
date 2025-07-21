@@ -1,16 +1,14 @@
 <div class="modal-header bg-secondary">
     <h5 class="modal-title">
-        <span class="badge badge-info">{{currentNumber}}</span>
+        <span class="badge bg-info">{{currentNumber}}</span>
         <span class="emmet-song-title"></span>
     </h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 </div>
 <div class="emmet-song-toolbar d-flex">
     <ul class="nav nav-tabs flex-grow-1" role="tablist">
         <li class="nav-item dropdown emmet-song-lang-select">
-            <a class="nav-link {{#isSingleLanguage}}disabled{{/isSingleLanguage}} dropdown-toggle emmet-lang-btn" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link {{#isSingleLanguage}}disabled{{/isSingleLanguage}} dropdown-toggle emmet-lang-btn" data-bs-toggle="dropdown" href="#" role="button">
                 <img src="css/flags/blank.gif" class="flag" />
                 <span class="emmet-langname emmet-lang-tag"></span>
             </a>
@@ -23,18 +21,18 @@
                 {{/languages}}
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="#emmet-song-lyrics" title="Dalszöveg" data-toggle="tab">
+        <li class="nav-item" data-bs-title="Dalszöveg">
+            <a class="nav-link active" href="#emmet-song-lyrics" title="Dalszöveg" data-bs-toggle="tab">
                 <span class="oi oi-musical-note"></span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#emmet-song-details" title="Részletek" data-toggle="tab">
+        <li class="nav-item" data-bs-title="Részletek">
+            <a class="nav-link" href="#emmet-song-details" title="Részletek" data-bs-toggle="tab">
                 <span class="oi oi-info"></span>
             </a>
         </li>
-        <li class="nav-item emmet-song-play-btn">
-            <a class="nav-link disabled" href="#emmet-song-play" title="Lejátszás" data-toggle="tab">
+        <li class="nav-item emmet-song-play-btn" data-bs-title="Lejátszás">
+            <a class="nav-link disabled" href="#emmet-song-play" title="Lejátszás" data-bs-toggle="tab">
                 <span class="oi oi-volume-high"></span>
                 <div class="progress emmet-song-play-progress d-none">
                     <div class="progress-bar bg-info" role="progressbar"></div>
@@ -44,7 +42,7 @@
     </ul>
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
                 <span class="oi oi-menu"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -61,10 +59,11 @@
                 </a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">Betűméret</h6>
-                <div class="btn-group btn-group-toggle px-4 w-100" data-toggle="buttons">
+                <div class="btn-group px-4 w-100" role="group">
                     {{#fontSizes}}
-                    <label class="btn btn-primary{{#isActive}} active{{/isActive}}">
-                        <input type="radio" name="emmet-font-size" value="{{size}}"{{#isActive}} checked{{/isActive}}> {{sizeUpper}}
+                    <input type="radio" class="btn-check" name="emmet-font-size" id="emmet-font-size-{{size}}" autocomplete="off" value="{{size}}"{{#isActive}} checked{{/isActive}}>
+                    <label class="btn btn-primary" for="emmet-font-size-{{size}}">
+                        {{sizeUpper}}
                     </label>
                     {{/fontSizes}}
                 </div>
@@ -84,14 +83,14 @@
                 <tr>
                     <th>Korábbi énekszámok</th>
                     <td>
-                        {{#formerNumbers}}<span class="badge badge-secondary">{{number}}</span> &raquo; {{/formerNumbers}}<span class="badge badge-info">{{currentNumber}}</span>
+                        {{#formerNumbers}}<span class="badge bg-secondary">{{number}}</span> &raquo; {{/formerNumbers}}<span class="badge bg-info">{{currentNumber}}</span>
                     </td>
                 </tr>
                 {{/hasFormerNumbers}}
                 <tr>
                     <th>Könyvek</th>
                     <td>
-                        {{#books}}<div>{{name}} <span class="badge badge-info">{{number}}</span></div>{{/books}}
+                        {{#books}}<div>{{name}} <span class="badge bg-info">{{number}}</span></div>{{/books}}
                     </td>
                 </tr>
                 <tr class="spacer"></tr>
@@ -137,7 +136,7 @@
                 <th class="align-middle" scope="row">Kezdőhang</td>
                 <td class="align-middle">
                     ismeretlen
-                    <button type="button" class="btn btn-sm btn-primary ml-1" data-toggle="button" disabled>
+                    <button type="button" class="btn btn-sm btn-primary ms-1" data-bs-toggle="button" disabled>
                         <span class="oi oi-media-play"></span>
                     </button>
                 </td>

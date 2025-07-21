@@ -1,59 +1,60 @@
 <nav class="emmet-nav navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <a id="emmet-nav-mainlink" class="navbar-brand" href="#">
-        <img src="img/logo.png" />
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="emmetNavMainDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Emmet
-                </a>
-                <div class="dropdown-menu" aria-labelledby="emmetNavMainDropdown">
-                    <a class="dropdown-item" id="emmet-navdd-mainlink" href="#"><span class="oi oi-home"></span> Nyitólap</a>
-                    <a class="dropdown-item" id="emmet-navdd-helplink" href="#"><span class="oi oi-question-mark"></span> Súgó</a>
-                    <div class="dropdown-divider"></div>
-                    <h6 class="dropdown-header"><span class="oi oi-bug"></span> Hibabejelentés</h6>
-                    <a class="dropdown-item" href="https://github.com/emmanuelkozosseg/edra/issues" target="_blank"><span class="oi"></span> Énekszövegben</a>
-                    <a class="dropdown-item" href="https://github.com/emmanuelkozosseg/emmet/issues" target="_blank"><span class="oi"></span> Az Emmet működésében</a>
-                    <div class="dropdown-divider"></div>
-                    <h6 class="dropdown-header"><span class="oi oi-code"></span> Forráskód</h6>
-                    <a class="dropdown-item" href="https://github.com/emmanuelkozosseg/emmet" target="_blank"><span class="oi"></span> Emmet</a>
-                    <a class="dropdown-item" href="https://github.com/emmanuelkozosseg/edra" target="_blank"><span class="oi"></span> Énekszövegek</a>
+    <div class="container-fluid">
+        <a id="emmet-nav-mainlink" class="navbar-brand" href="#">
+            <img src="img/logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="emmetNavMainDropdown" role="button" data-bs-toggle="dropdown">
+                        Emmet
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" id="emmet-navdd-mainlink" href="#"><span class="oi oi-home"></span> Nyitólap</a>
+                        <a class="dropdown-item" id="emmet-navdd-helplink" href="#"><span class="oi oi-question-mark"></span> Súgó</a>
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header"><span class="oi oi-bug"></span> Hibabejelentés</h6>
+                        <a class="dropdown-item" href="https://github.com/emmanuelkozosseg/edra/issues" target="_blank"><span class="oi"></span> Énekszövegben</a>
+                        <a class="dropdown-item" href="https://github.com/emmanuelkozosseg/emmet/issues" target="_blank"><span class="oi"></span> Az Emmet működésében</a>
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header"><span class="oi oi-code"></span> Forráskód</h6>
+                        <a class="dropdown-item" href="https://github.com/emmanuelkozosseg/emmet" target="_blank"><span class="oi"></span> Emmet</a>
+                        <a class="dropdown-item" href="https://github.com/emmanuelkozosseg/edra" target="_blank"><span class="oi"></span> Énekszövegek</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fw-bold" href="#" id="emmetNavBookDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                        <span class="oi oi-book"></span> <span class="emmet-book-name"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#" id="emmet-toc-link"><span class="oi oi-list"></span> Tartalomjegyzék</a>
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header"><span class="oi oi-loop-circular"></span> Másik könyv megnyitása</h6>
+                        <div id="emmet-nav-bookselector"></div>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 me-3 emmet-form-jumpto">
+                <div class="input-group">
+                    <input class="form-control emmet-jumpto-songno" type="search" placeholder="Énekszám" size="8" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit"><span class="oi oi-share"></span></button>
+                    </div>
                 </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="emmetNavBookDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="oi oi-book"></span> <span class="emmet-book-name"></span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="emmetNavBookDropdown">
-                    <a class="dropdown-item" href="#" id="emmet-toc-link"><span class="oi oi-list"></span> Tartalomjegyzék</a>
-                    <div class="dropdown-divider"></div>
-                    <h6 class="dropdown-header"><span class="oi oi-loop-circular"></span> Másik könyv megnyitása</h6>
-                    <div id="emmet-nav-bookselector"></div>
+            </form>
+            <form class="form-inline my-2 my-lg-0 me-3 emmet-form-search">
+                <div class="input-group">
+                    <input class="form-control emmet-search-expr" type="search" placeholder="Keresés" size="20" />
+                    <div class="input-group-append" role="group">
+                        <button type="button" id="my-btn" class="btn btn-primary emmet-search-simple"><span class="oi oi-magnifying-glass"></span></button>
+                        <button type="button" class="btn btn-secondary emmet-search-advanced"><span class="oi oi-cog"></span></button>
+                    </div>
                 </div>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0 mr-3 emmet-form-jumpto">
-            <div class="input-group">
-                <input class="form-control emmet-jumpto-songno" type="search" placeholder="Énekszám" aria-label="Énekszám" size="8" />
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit"><span class="oi oi-share"></span></button>
-                </div>
-            </div>
-        </form>
-        <form class="form-inline my-2 my-lg-0 mr-3 emmet-form-search">
-            <div class="input-group">
-                <input class="form-control emmet-search-expr" type="search" placeholder="Keresés" aria-label="Keresés" size="20" />
-                <div class="input-group-append" role="group" aria-label="Keresés">
-                    <button type="button" id="my-btn" class="btn btn-primary emmet-search-simple"><span class="oi oi-magnifying-glass"></span></button>
-                    <button type="button" class="btn btn-secondary emmet-search-advanced"><span class="oi oi-cog"></span></button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </nav>

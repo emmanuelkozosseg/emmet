@@ -1,21 +1,21 @@
 <div class="emmet-toc-header">
-    <nav aria-label="breadcrumb">
+    <nav>
         <ol class="breadcrumb border border-secondary bg-transparent">
             <li class="breadcrumb-item"><a href="#" class="emmet-home-link">Nyitólap</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tartalomjegyzék</li>
+            <li class="breadcrumb-item active">Tartalomjegyzék</li>
         </ol>
     </nav>
     <div class="dropdown">
-        <button class="emmet-toc-options-btn btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-eye"></span></button>
-        <div class="emmet-toc-options dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+        <button class="emmet-toc-options-btn btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"><span class="oi oi-eye"></span></button>
+        <div class="emmet-toc-options dropdown-menu dropdown-menu-right">
             <h6 class="dropdown-header">Rendezés</h6>
             <a class="dropdown-item emmet-toc-sortby" data-sortby="num" href="#"><span class="oi{{#options.sortByNum}} oi-check{{/options.sortByNum}}"></span> Énekszám szerint</a>
             <a class="dropdown-item emmet-toc-sortby" data-sortby="title" href="#"><span class="oi{{#options.sortByTitle}} oi-check{{/options.sortByTitle}}"></span> Cím szerint</a>
             <h6 class="dropdown-header">Fejezetek</h6>
             <a class="dropdown-item emmet-toc-show-chapters" href="#"><span class="oi{{#options.showChapters}} oi-check{{/options.showChapters}}"></span> Megjelenítés</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item emmet-toc-chapter-control{{^options.showChapters}} disabled{{/options.showChapters}}" data-action="expand" href="#"><span class="oi oi-fullscreen-enter"></span> Minden fejezet kinyitása</a>
-            <a class="dropdown-item emmet-toc-chapter-control{{^options.showChapters}} disabled{{/options.showChapters}}" data-action="collapse" href="#"><span class="oi oi-fullscreen-exit"></span> Minden fejezet összecsukása</a>
+            <a class="dropdown-item emmet-toc-chapter-control{{^options.showChapters}} disabled{{/options.showChapters}}" data-bs-action="expand" href="#"><span class="oi oi-fullscreen-enter"></span> Minden fejezet kinyitása</a>
+            <a class="dropdown-item emmet-toc-chapter-control{{^options.showChapters}} disabled{{/options.showChapters}}" data-bs-action="collapse" href="#"><span class="oi oi-fullscreen-exit"></span> Minden fejezet összecsukása</a>
         </div>
     </div>
 </div>
@@ -25,14 +25,14 @@
     {{#chapters}}
     <div class="card">
         <div class="card-header">
-            <a data-toggle="collapse" href="#emmet-toc-list-{{id}}" role="button" aria-expanded="false" aria-controls="emmet-toc-list-{{id}}">
-                <h5><span class="badge badge-primary">{{badge}}</span> {{name}}</h5>
+            <a data-bs-toggle="collapse" href="#emmet-toc-list-{{id}}" role="button">
+                <h5><span class="badge bg-primary">{{badge}}</span> {{name}}</h5>
             </a>
         </div>
         <div id="emmet-toc-list-{{id}}" class="emmet-toc-list list-group list-group-flush collapse">
             {{#songs}}
             <a href="#" class="list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
-                <span class="badge badge-info">{{number}}</span> {{title}}
+                <span class="badge bg-info">{{number}}</span> {{title}}
                 {{#hasRecords}}<span class="oi oi-volume-high emmet-has-records-icon"></span>{{/hasRecords}}
             </a>
             {{/songs}}
@@ -45,7 +45,7 @@
 <div class="emmet-toc-list list-group">
     {{#otherSongs}}
     <a href="#" class="list-group-item list-group-item-action emmet-toc-item p-2" data-songnumber="{{number}}">
-        <span class="badge badge-info">{{number}}</span> {{title}}
+        <span class="badge bg-info">{{number}}</span> {{title}}
         {{#hasRecords}}<span class="oi oi-volume-high emmet-has-records-icon"></span>{{/hasRecords}}
     </a>
     {{/otherSongs}}

@@ -7,11 +7,11 @@
 
         <div class="emmet-main-forms">
             <hr />
-            <a href="#" class="emmet-p-main-toc-btn btn btn-primary emmet-form-block" role="button" aria-label="Megnyitás">Tartalomjegyzék</a>
+            <a href="#" class="emmet-p-main-toc-btn btn btn-primary emmet-form-block" role="button">Tartalomjegyzék</a>
             <h5>Ének megnyitása</h5>
             <form class="form-inline emmet-form-block emmet-form-jumpto">
                 <div class="input-group">
-                    <input class="form-control emmet-jumpto-songno" type="search" placeholder="Énekszám" aria-label="Énekszám" size="8" />
+                    <input class="form-control emmet-jumpto-songno" type="search" placeholder="Énekszám" size="8" />
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"><span class="oi oi-share"></span></button>
                     </div>
@@ -20,8 +20,8 @@
             <h5>Keresés</h5>
             <form class="form-inline emmet-form-block emmet-form-search">
                 <div class="input-group">
-                    <input class="form-control emmet-search-expr" type="search" placeholder="Keresés" aria-label="Keresés" size="20" />
-                    <div class="input-group-append" role="group" aria-label="Keresés">
+                    <input class="form-control emmet-search-expr" type="search" placeholder="Keresés" size="20" />
+                    <div class="input-group-append" role="group">
                         <button type="button" class="btn btn-primary emmet-search-simple"><span class="oi oi-magnifying-glass"></span></button>
                         <button type="button" class="btn btn-secondary emmet-search-advanced"><span class="oi oi-cog"></span></button>
                     </div>
@@ -34,13 +34,13 @@
                     <div class="col-6 col-md-4 offset-md-2">
                         <p><span class="oi oi-cog"></span><br><strong>Program</strong><br>2023.10.07.</p>
                         <p class="text-center">
-                            <button type="button" class="btn btn-primary emmet-collapser-btn collapsed" data-toggle="collapse" data-target="#emmet-latest-changes" aria-expanded="false" aria-controls="emmet-latest-changes">Változások</button>
+                            <button type="button" class="btn btn-primary emmet-collapser-btn collapsed" data-bs-toggle="collapse" data-bs-target="#emmet-latest-changes">Változások</button>
                         </p>
                     </div>
                     <div class="col-6 col-md-4">
                         <p><span class="oi oi-musical-note"></span><br><strong>Dalok</strong><br><?php print(date("Y.m.d.", filemtime("songs.json"))); ?></p>
                         <p class="text-center">
-                            <a href="https://github.com/emmanuelkozosseg/edra/releases" class="btn btn-primary" role="button" target="_blank">Változások <small><span class="oi oi-external-link pl-1"></span></small></a>
+                            <a href="https://github.com/emmanuelkozosseg/edra/releases" class="btn btn-primary" role="button" target="_blank">Változások <small><span class="oi oi-external-link ps-1"></span></small></a>
                         </p>
                     </div>
                 </div>
@@ -63,10 +63,10 @@
     <div id="emmet-p-search" class="emmet-page"></div>
 
     <div id="emmet-p-help" class="emmet-page">
-        <nav aria-label="breadcrumb">
+        <nav>
             <ol class="breadcrumb border border-secondary bg-transparent">
                 <li class="breadcrumb-item"><a href="#" class="emmet-home-link">Nyitólap</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Súgó</li>
+                <li class="breadcrumb-item active">Súgó</li>
             </ol>
         </nav>
         <h4>Mi az Emmet?</h4>

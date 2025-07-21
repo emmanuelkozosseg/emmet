@@ -12,7 +12,7 @@ function to_busted_css_url($url) {
     <meta name="theme-color" content="#222" />
     <meta name="google" content="notranslate" />
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<?php print(to_busted_css_url("css/bootstrap.min.css")); ?>" />
+    <link rel="stylesheet" href="<?php print(to_busted_css_url("css/bootstrap-darkly.5.3.7.min.css")); ?>" />
     <link rel="stylesheet" href="<?php print(to_busted_css_url("css/emmet.css")); ?>" />
     <link rel="stylesheet" href="<?php print(to_busted_css_url("css/flags/flags.min.css")); ?>" />
     <link rel="stylesheet" href="<?php print(to_busted_css_url("css/iconic/css/open-iconic-bootstrap.min.css")); ?>">

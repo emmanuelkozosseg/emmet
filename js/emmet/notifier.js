@@ -1,4 +1,4 @@
-define([], function() {
+define(['bootstrap'], function(bootstrap) {
     var setContents = function(id, title, message) {
         $("#emmet-"+id+"-modal .modal-title").text(title);
         $("#emmet-"+id+"-modal .modal-body").html(message);
@@ -6,7 +6,7 @@ define([], function() {
     
     var showError = function(title, message) {
         setContents("error", title, message);
-        $("#emmet-error-modal").modal();
+        new bootstrap.Modal("#emmet-error-modal").show();
     };
     
     return {
@@ -34,10 +34,10 @@ define([], function() {
                     "<p><code>"+errorDetails.replace(/\n/g, "<br />")+"</code></p>"+
                     "<p><small>Lehet, hogy további részletek olvashatók a hibáról a böngésző fejlesztői konzolján.</small></p>"
             );
-            $("#emmet-fatal-modal").modal({
+            new bootstrap.Modal("#emmet-fatal-modal", {
                     backdrop: 'static',
                     keyboard: false,
-            });
+            }).show();
         },
     };
 });

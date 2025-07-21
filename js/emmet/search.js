@@ -1,5 +1,5 @@
-define(['emmet/notifier', 'emmet/songdata', 'emmet/songdisplay', 'emmet/tokenizer', 'emmet/utils', 'mustache'],
-function(emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils, mustache) {
+define(['bootstrap', 'emmet/notifier', 'emmet/songdata', 'emmet/songdisplay', 'emmet/tokenizer', 'emmet/utils', 'mustache'],
+function(bootstrap, emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils, mustache) {
     /*
     Results for template: {
         // Calculated during search (one item per matched *lang*)
@@ -217,7 +217,7 @@ function(emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils
                 var langId = Number($(this).data("langid"))
                 emmetSongDisp.displaySongByInternalId(internalSongId, {langId: langId});
             });
-            $("#emmet-search-modal").modal("hide");
+            bootstrap.Modal.getOrCreateInstance("#emmet-search-modal").hide();
             emmetUtils.showPage("search");
         },
     };

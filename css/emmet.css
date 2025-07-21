@@ -1,4 +1,4 @@
-html {
+:root {
     --scrollbarBG: #444;
     --thumbBG: #303030;
 }
@@ -427,13 +427,27 @@ table.emmet-song-detail-section tr th {
 *** Bootstrap overrides ***
 **************************/
 
+:root {
+    --bs-body-font-size: 0.9375rem;
+    --bs-secondary-color: rgb(255, 255, 255);
+}
+.table {
+    --bs-table-bg: transparent !important;
+}
 .list-group-item-action:hover {
     background-color: #393939;
 }
 span.badge {
-    padding-top: 0.4em;
+    padding: 0.4em 0.4em 0.25em 0.4em;
     vertical-align: text-bottom;
+}
+h5 span.badge {
+    padding-top: 0.5em;
+    padding-bottom: 0.15em;
 }
 .breadcrumb-item+.breadcrumb-item::before {
     content: '»';
+}
+.text-muted {
+    color: #888 !important;
 }

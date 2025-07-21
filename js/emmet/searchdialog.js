@@ -1,5 +1,5 @@
-define(['emmet/notifier', 'emmet/songdata', 'emmet/utils', 'emmet/search', 'mustache'],
-function(emmetNotifier, emmetSongData, emmetUtils, emmetSearch, mustache) {
+define(['bootstrap', 'emmet/notifier', 'emmet/songdata', 'emmet/utils', 'emmet/search', 'mustache'],
+function(bootstrap, emmetNotifier, emmetSongData, emmetUtils, emmetSearch, mustache) {
     return {
         displayAdvancedSearch: function(keyword) {
             var langsForDisplay = emmetSongData.getAvailableLanguages()
@@ -58,7 +58,7 @@ function(emmetNotifier, emmetSongData, emmetUtils, emmetSearch, mustache) {
                 emmetSearch.search(searchExpression, searchMode, wordMatching, languages);
             });
 
-            $("#emmet-search-modal").modal();
+            new bootstrap.Modal("#emmet-search-modal").show();
         },
     };
 });

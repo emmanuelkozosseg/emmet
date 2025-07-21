@@ -1,14 +1,16 @@
-define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet/songdata', 'emmet/utils', 'mustache'],
-        function(emmetSearch, emmetSearchDialog, emmetLoader, emmetToc, emmetSongDisp, emmetSongData, emmetUtils, mustache) {
+define(['bootstrap', 'emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet/songdata', 'emmet/utils', 'mustache'],
+        function(bootstrap, emmetSearch, emmetSearchDialog, emmetLoader, emmetToc, emmetSongDisp, emmetSongData, emmetUtils, mustache) {
     var collapseNavBar = function() {
-        $('.navbar-collapse').collapse('hide');
+        var expandedNavbar = document.querySelector(".navbar-collapse.show");
+        if (expandedNavbar != null) {
+            bootstrap.Collapse.getOrCreateInstance(expandedNavbar).hide();
+        }
     };
-
     var hideMainDropdown = function() {
-        $("#emmetNavMainDropdown").dropdown('toggle');
+        bootstrap.Dropdown.getOrCreateInstance("#emmetNavMainDropdown").toggle();
     };
     var hideBookDropdown = function() {
-        $("#emmetNavBookDropdown").dropdown('toggle');
+        bootstrap.Dropdown.getOrCreateInstance("#emmetNavBookDropdown").toggle();
     };
     
     var search = function(searchElem) {
@@ -62,9 +64,9 @@ define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emme
             e.preventDefault();
             emmetToc.show();
         });
-        $(".emmet-jumpto-songno").tooltip({placement: "bottom", trigger: "manual", html: true});
-        $(".emmet-jumpto-songno").on("input", function(e) {
-            $(this).tooltip("hide");
+        $(".emmet-jumpto-songno").on("input blur", function(e) {
+            var tooltip = bootstrap.Tooltip.getInstance(this);
+            if (tooltip != null) { tooltip.dispose(); }
         });
         $(".emmet-form-jumpto").submit(function(e) {
             e.preventDefault();
@@ -73,8 +75,10 @@ define(['emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emme
                 emmetSongDisp.displaySong(songNoField.val());
             } catch (exc) {
                 var message = `<span class="text-warning"><span class="oi oi-circle-x"></span> ${exc.message}</span>`;
-                songNoField.attr("title", message).attr("data-original-title", message)
-                    .tooltip("update").tooltip("show");
+                songNoField.attr("data-bs-title", message);
+                var tooltip = new bootstrap.Tooltip(songNoField, {placement: "bottom", trigger: "manual", html: true})
+                tooltip.update();
+                tooltip.show();
                 return;
             }
             songNoField.val("");

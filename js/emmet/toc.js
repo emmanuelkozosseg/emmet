@@ -1,5 +1,5 @@
-define(['emmet/config', 'emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache'],
-function(emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
+define(['bootstrap', 'emmet/config', 'emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache'],
+function(bootstrap, emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
     const CONFIG_SORTBY = "toc-sortby";
     const CONFIG_SHOWCHAPTERS = "toc-showchapters";
     var loadedBook = null;
@@ -109,9 +109,9 @@ function(emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
         });
         $("#emmet-p-toc .emmet-toc-chapter-control").click(function() {
             var action = $(this).data("action");
-            var allChapters = $("#emmet-p-toc .emmet-toc-list.collapse");
-            if (action == "expand") {allChapters.collapse("show");}
-            if (action == "collapse") {allChapters.collapse("hide");}
+            var allChapters = document.querySelectorAll("#emmet-p-toc .emmet-toc-list.collapse");
+            if (action == "expand") {Array.from(allChapters, it => bootstrap.Collapse.getOrCreateInstance(it).show());}
+            if (action == "collapse") {Array.from(allChapters, it => bootstrap.Collapse.getOrCreateInstance(it).hide());}
             $(this).parents(".dropdown").dropdown("hide");
             return false;
         });
