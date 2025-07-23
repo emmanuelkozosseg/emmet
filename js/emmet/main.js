@@ -1,5 +1,5 @@
-define(['bootstrap', 'emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet/songdata', 'emmet/utils', 'mustache'],
-        function(bootstrap, emmetSearch, emmetSearchDialog, emmetLoader, emmetToc, emmetSongDisp, emmetSongData, emmetUtils, mustache) {
+define(['bootstrap', 'emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emmet/toc', 'emmet/songdisplay', 'emmet/songdata', 'emmet/projector', 'emmet/utils', 'mustache'],
+        function(bootstrap, emmetSearch, emmetSearchDialog, emmetLoader, emmetToc, emmetSongDisp, emmetSongData, emmetProjector, emmetUtils, mustache) {
     var collapseNavBar = function() {
         var expandedNavbar = document.querySelector(".navbar-collapse.show");
         if (expandedNavbar != null) {
@@ -94,6 +94,9 @@ define(['bootstrap', 'emmet/search', 'emmet/searchdialog', 'emmet/loader', 'emme
         $(".emmet-search-advanced").click(function() {
             searchAdvanced($(this).parents(".input-group").children(".emmet-search-expr"));
         });
+        $(".emmet-p-main-proj-btn").click(function() {
+            emmetProjector.launch();
+        })
         
         // Show main page by default
         emmetUtils.showPage("main");

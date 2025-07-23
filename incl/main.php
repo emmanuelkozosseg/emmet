@@ -12,21 +12,18 @@
             <form class="form-inline emmet-form-block emmet-form-jumpto">
                 <div class="input-group">
                     <input class="form-control emmet-jumpto-songno" type="search" placeholder="Énekszám" size="8" />
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit"><span class="oi oi-share"></span></button>
-                    </div>
+                    <button class="btn btn-primary" type="submit"><span class="oi oi-share"></span></button>
                 </div>
             </form>
             <h5>Keresés</h5>
             <form class="form-inline emmet-form-block emmet-form-search">
                 <div class="input-group">
                     <input class="form-control emmet-search-expr" type="search" placeholder="Keresés" size="20" />
-                    <div class="input-group-append" role="group">
-                        <button type="button" class="btn btn-primary emmet-search-simple"><span class="oi oi-magnifying-glass"></span></button>
-                        <button type="button" class="btn btn-secondary emmet-search-advanced"><span class="oi oi-cog"></span></button>
-                    </div>
+                    <button type="button" class="btn btn-primary emmet-search-simple"><span class="oi oi-magnifying-glass"></span></button>
+                    <button type="button" class="btn btn-secondary emmet-search-advanced"><span class="oi oi-cog"></span></button>
                 </div>
             </form>
+            <div class="mt-3"><a href="#" class="emmet-p-main-proj-btn btn btn-primary emmet-form-block" role="button">Vetítés</a></div>
             <hr />
             <h5>Legutóbbi változások</h5>
             <div class="container-fluid mt-4">

@@ -5,7 +5,7 @@
 {{/isLiteral}}
 <div class="emmet-song">
     {{#verses}}
-    <div class="emmet-song-verse">
+    <div class="emmet-song-verse" id="emmet-song-verse-{{verseId}}">
         <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}"
             >{{displayName}}</div>
         <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">

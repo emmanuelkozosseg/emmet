@@ -1,0 +1,8 @@
+<div class="btn-group">
+    {{#verses}}
+    <a href="#emmet-song-verse-{{verseId}}"
+        class="btn btn-secondary{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}">
+        {{displayName}}
+    </a>
+    {{/verses}}
+</div>

@@ -34,6 +34,7 @@ function to_busted_css_url($url) {
     
     <?php
     require("incl/modals.html");
+    require("incl/projector.html");
     foreach (scandir("incl/templates") as $template_file) {
         if (substr($template_file, -5) != ".html") {
             continue;

@@ -110,8 +110,8 @@ function(bootstrap, emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, musta
         $("#emmet-p-toc .emmet-toc-chapter-control").click(function() {
             var action = $(this).data("action");
             var allChapters = document.querySelectorAll("#emmet-p-toc .emmet-toc-list.collapse");
-            if (action == "expand") {Array.from(allChapters, it => bootstrap.Collapse.getOrCreateInstance(it).show());}
-            if (action == "collapse") {Array.from(allChapters, it => bootstrap.Collapse.getOrCreateInstance(it).hide());}
+            if (action == "expand") {allChapters.forEach(it => bootstrap.Collapse.getOrCreateInstance(it).show());}
+            if (action == "collapse") {allChapters.forEach(it => bootstrap.Collapse.getOrCreateInstance(it).hide());}
             $(this).parents(".dropdown").dropdown("hide");
             return false;
         });

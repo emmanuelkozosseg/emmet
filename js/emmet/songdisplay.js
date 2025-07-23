@@ -14,8 +14,8 @@ function(bootstrap, emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, 
     });
 
     var rerenderLyrics = function() {
-        if (emmetConfig.get(CONFIG_VDISPLAYMODE) == "repeat" && 'order' in currentlyDisplayedLang) {
-            var verses = currentlyDisplayedLang.order.map(verseName => currentlyDisplayedLang.verses.find(v => v.name == verseName));
+        if (emmetConfig.get(CONFIG_VDISPLAYMODE) == "repeat") {
+            var verses = emmetSongData.getVersesInDefinedOrder(currentlyDisplayedLang);
         } else {  // "once" OR ("repeat" AND order is not defined)
             var verses = currentlyDisplayedLang.verses;
         }
@@ -202,9 +202,8 @@ function(bootstrap, emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, 
         } else {
             $("#emmet-song-modal .emmet-song-play-btn a.nav-link").addClass("disabled");
         }
-        Array.from(document.querySelectorAll("#emmet-song-modal div.emmet-song-toolbar li.nav-item"), it =>
-            new bootstrap.Tooltip(it, {"placement": "bottom"})
-        );
+        document.querySelectorAll("#emmet-song-modal div.emmet-song-toolbar li.nav-item")
+            .forEach(it => new bootstrap.Tooltip(it, {"placement": "bottom"}));
         $(document).off("keydown", handleKeyDown).on("keydown", handleKeyDown);
         $('#emmet-song-modal').on('hidden.bs.modal', function() {$(document).off("keydown", handleKeyDown);});
 
@@ -216,15 +215,8 @@ function(bootstrap, emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, 
 
     return {
         displaySong: function(songId) {
-            var songBook = emmetSongData.getCurrentBook();
-            var songIdLc = songId.toLowerCase().trim();
-            if (! songIdLc) {
-                throw {name: "empty", message: "Hiányzó énekszám!"};
-            }
-            if (! songBook.songs.hasOwnProperty(songIdLc)) {
-                throw {name: "missing", message: "Ismeretlen énekszám!"};
-            }
-            displaySongByInternalId(songBook.songs[songIdLc].internalId);
+            var song = emmetSongData.getSongFromCurrentBook(songId);
+            displaySongByInternalId(song.internalId);
         },
 
         displaySongByInternalId: displaySongByInternalId,

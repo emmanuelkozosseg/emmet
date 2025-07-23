@@ -1,6 +1,13 @@
 :root {
     --scrollbarBG: #444;
     --thumbBG: #303030;
+
+    --emmetChorusColor: #981b27;
+    --emmetChorusHoverColor: #7a161f;
+    --emmetChorusActiveColor: #70141d;
+    --emmetBridgeColor: #003e80;
+    --emmetBridgeHoverColor: #003266;
+    --emmetBridgeActiveColor: #002e5e;
 }
 
 /*****************
@@ -72,6 +79,10 @@ h4 {
 /*************
 *** Navbar ***
 *************/
+
+nav.emmet-nav {
+    z-index: 10;
+}
 
 nav.emmet-nav .navbar-brand img {
     height: 35px; width: auto;
@@ -198,10 +209,10 @@ nav.emmet-nav .navbar-brand img {
     text-align: center;
 }
 .emmet-song-verse .emmet-header.emmet-chorus {
-    background-color: #981b27;
+    background-color: var(--emmetChorusColor);
 }
 .emmet-song-verse .emmet-header.emmet-bridge {
-    background-color: #003e80;
+    background-color: var(--emmetBridgeColor);
 }
 .emmet-song-verse .emmet-body {
     padding-bottom: 0.33em;
@@ -421,6 +432,92 @@ table.emmet-song-detail-section tr th {
 #emmet-search-modal .emmet-advs-mode-list ul > li > div > * label {
     display: block;
     margin-bottom: 0px;
+}
+
+/****************
+*** Projector ***
+****************/
+
+#emmet-projector {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    z-index: 991;
+    background-color: var(--bs-body-bg);
+    transition: display 1s linear;
+}
+#emmet-projector .emmet-proj-main {
+    flex-grow: 1;
+}
+#emmet-projector #emmet-proj-main-inner {
+    overflow-y: scroll;
+    padding: 1em;
+    text-align: center;
+}
+#emmet-projector #emmet-proj-main-inner #emmet-proj-lyrics {
+    display: inline-block;
+    text-align: left;
+    font-size: 300%;
+}
+#emmet-projector .emmet-proj-toolbar {
+    display: flex;
+    background-color: rgb(var(--bs-dark-rgb));
+    padding: 0.8em;
+}
+#emmet-projector .emmet-proj-toolbar .toolbar-main {
+    display: block;
+    flex-grow: 1;
+    min-width: 0;
+    margin-right: 1em;
+}
+#emmet-projector input.form-control {
+    background-color: var(--bs-body-bg);
+    border-color: #444;
+    color: var(--bs-body-color);
+}
+#emmet-projector #emmet-proj-verse-ctrl {
+    position: relative;
+}
+#emmet-projector #emmet-proj-verse-ctrl-content {
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+#emmet-projector #emmet-proj-verse-ctrl .emmet-shadow {
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 1em; height: 100%;
+}
+#emmet-projector #emmet-proj-verse-ctrl .emmet-shadow-before {
+    left: 0;
+    background: linear-gradient(90deg, rgb(var(--bs-dark-rgb)), transparent);
+}
+#emmet-projector #emmet-proj-verse-ctrl .emmet-shadow-after {
+    right: 0;
+    background: linear-gradient(270deg, rgb(var(--bs-dark-rgb)), transparent);
+}
+#emmet-projector #emmet-proj-verse-ctrl a.emmet-chorus {
+    background-color: var(--emmetChorusColor);
+}
+#emmet-projector #emmet-proj-verse-ctrl a.emmet-chorus:hover {
+    background-color: var(--emmetChorusHoverColor);
+}
+#emmet-projector #emmet-proj-verse-ctrl a.emmet-chorus.active {
+    background-color: var(--emmetChorusActiveColor);
+}
+#emmet-projector #emmet-proj-verse-ctrl a.emmet-bridge {
+    background-color: var(--emmetBridgeColor);
+}
+#emmet-projector #emmet-proj-verse-ctrl a.emmet-bridge:hover {
+    background-color: var(--emmetBridgeHoverColor);
+}
+#emmet-projector #emmet-proj-verse-ctrl a.emmet-bridge.active {
+    background-color: var(--emmetBridgeActiveColor);
+}
+.emmet-proj-fontsize-popover .popover-body {
+    padding: 0.25rem 0.5rem;
 }
 
 /**************************

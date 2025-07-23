@@ -18,6 +18,17 @@ define([], function() {
         getCurrentBookId: function() {
             return currentBook;
         },
+        getSongFromCurrentBook: function(songNumber) {
+            var songBook = songData.books[currentBook];
+            var songNumberLc = songNumber.toLowerCase().trim();
+            if (! songNumberLc) {
+                throw {name: "empty", message: "Hiányzó énekszám!"};
+            }
+            if (! songBook.songs.hasOwnProperty(songNumberLc)) {
+                throw {name: "missing", message: "Ismeretlen énekszám!"};
+            }
+            return songBook.songs[songNumberLc];
+        },
         getBook: function(bookId) {
             return songData.books[bookId];
         },
@@ -53,5 +64,15 @@ define([], function() {
         getMainLangOfSong: function(song) {
             return song.lyrics[getMainLangIdOfSong(song)];
         },
+        getVersesInDefinedOrder: function(lang) {
+            return 'order' in lang
+                ? lang.order.map((verseName, index) => {
+                    var verse = lang.verses.find(v => v.name == verseName);
+                    var newVerse = Object.assign({}, verse);
+                    newVerse.verseId = index;
+                    return newVerse;
+                })
+                : lang.verses;
+        }
     };
 })
