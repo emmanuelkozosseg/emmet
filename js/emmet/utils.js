@@ -4,25 +4,29 @@ define([], function() {
         'en': 'gb'
     };
     var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
-    var recordPurposes = {
-        'listening': {
-            'order': 1,
-            'icon': 'oi-headphones',
-            'name': 'Stúdiófelvétel',
-            'desc': 'Zenehallgatásra szánt, többszólamú, hangszeres felvétel'
-        },
-        'aid': {
-            'order': 2,
-            'icon': 'oi-puzzle-piece',
-            'name': 'Segédanyag',
-            'desc': 'Dicsőítési vagy szentségimádási segédanyagnak szánt felvétel'
-        },
+    var ensemblePurpose = {
+        'order': 1,
+        'icon': 'oi-people',
+        'name': 'Stúdiófelvétel',
+        'desc': 'Többszólamú, hangszeres felvétel'
+    };
+    var soloGuitarPurpose = {
+        'order': 2,
+        'icon': 'oi-person',
+        'name': 'Gitáros felvétel',
+        'desc': 'Szóló felvétel gitárkísérettel'
     };
     var unknownRecordPurpose = {
         'order': 999,
         'icon': 'oi-question-mark',
         'name': 'Ismeretlen',
         'desc': 'Ismeretlen célú felvétel',
+    };
+    var recordPurposes = {
+        'listening': ensemblePurpose,
+        'ensemble': ensemblePurpose,
+        'solo-guitar': soloGuitarPurpose,
+        'aid': soloGuitarPurpose,
     };
 
     return {
