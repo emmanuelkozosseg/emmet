@@ -30,5 +30,8 @@ define(['jscookie', 'emmet/utils'], function(jsCookie, emmetUtils) {
             settings[key] = value;
             jsCookie.set(COOKIE_KEY, btoa(JSON.stringify(settings)), {expires: COOKIE_EXPIRY_DAYS});
         },
+        cookieExists: function() {
+            return ! $.isEmptyObject(settings);
+        },
     };
 });

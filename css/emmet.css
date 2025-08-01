@@ -136,7 +136,8 @@ nav.emmet-nav .navbar-brand img {
 #emmet-p-main .emmet-main-latest-changes p {
     margin-top: 1em;
 }
-#emmet-p-main .emmet-main-latest-changes > p:first-child {
+#emmet-p-main .emmet-main-latest-changes > p:first-child,
+#emmet-p-main .emmet-main-latest-changes > h5 {
     margin-top: 0px;
 }
 

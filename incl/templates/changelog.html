@@ -1,0 +1,23 @@
+{{#currentMajorVersions}}
+<p><strong>{{dateWithoutTrailingDot}}-i frissítés <span class="badge bg-dark">{{version}}</span></strong></p>
+<ul>
+    {{#changes}}
+    <li>{{.}}</li>
+    {{/changes}}
+</ul>
+{{/currentMajorVersions}}
+
+<hr />
+<p class="text-center">
+    <button class="btn btn-primary btn-sm emmet-collapser-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#emmet-latest-changes-more">Korábbi változások</button>
+</p>
+<div id="emmet-latest-changes-more" class="collapse">
+    {{#previousVersions}}
+    <p><strong>{{dateWithoutTrailingDot}}-i frissítés <span class="badge bg-dark">{{version}}</span></strong></p>
+    <ul>
+        {{#changes}}
+        <li>{{.}}</li>
+        {{/changes}}
+    </ul>
+    {{/previousVersions}}
+</div>

@@ -1,0 +1,106 @@
+[
+  {
+    "version": "8.0",
+    "date": "2025.08.01.",
+    "changes": [
+      "Vetítési mód.",
+      "Ha az Emmet frissült, mióta legutóbb meglátogattad, akkor első alkalommal megjelenik egy külön értesítés a változásokról.",
+      "A kétféle hangfelvétel új nevet kapott: \"stúdiófelvétel\" és \"gitáros felvétel\"."
+    ]
+  },
+  {
+    "version": "7.1",
+    "date": "2025.03.01.",
+    "changes": [
+      "Csak infrastrukturális változások (kód költöztetése Bitbucketről GitHubra)."
+    ]
+  },
+  {
+    "version": "7.0",
+    "date": "2023.10.07.",
+    "changes": [
+      "Állítható betűméret a dalszövegeknél.",
+      "A főoldalon a program mellett a dalok legutóbbi változtatásának dátuma is megjelenik."
+    ]
+  },
+  {
+    "version": "6.0",
+    "date": "2020.10.25.",
+    "changes": [
+      "Lapozó az előző és következő dalra az énekek ablakában.",
+      "Ideiglenes, szó szerinti fordítások jelölése.",
+      "Mini folyamatjelző az énekek ablakában, a Lejátszás fül ikonja alatt, ha elindult egy felvétel lejátszása.",
+      "Egyéb kisebb változtatások."
+    ]
+  },
+  {
+    "version": "5.0",
+    "date": "2020.04.19.",
+    "changes": [
+      "Új, rugalmasabb tartalomjegyzék.",
+      "Beállítható, hogy a versszakok az éneklés sorrendjében jelenjenek meg (pl. a refrén minden versszak után, ne csak a legelején).",
+      "A dalok szerzői jogi információi elérhetők a Részletek fülön.",
+      "A megjelenítési beállításokat a böngésző megjegyzi, és a következő látogatáskor is érvényesek lesznek.",
+      "Az Emmet megbízhatóságát javító és egyéb kisebb fejlesztések."
+    ]
+  },
+  {
+    "version": "4.0",
+    "date": "2020.04.08.",
+    "changes": [
+      "Új zenelejátszó, ami többfajta felvételt is támogat egy éneknél.",
+      "Kisebb kozmetikai fejlesztések."
+    ]
+  },
+  {
+    "version": "3.3",
+    "date": "2019.11.20.",
+    "changes": [
+      "Egy hibás információ miatt a Google Translate \"átfogalmazta\" a dalszövegeket, ha a böngészőben automatikusra volt állítva az angol weboldalak magyarra fordítása.",
+      "Egyéb kisebb javítások."
+    ]
+  },
+  {
+    "version": "3.2",
+    "date": "2019.07.21.",
+    "changes": [
+      "A főoldalról elérhető az Emmet letölthető változata.",
+      "Az Emmet menüből elérhető az énekszövegek és az Emmet forráskódja."
+    ]
+  },
+  {
+    "version": "3.1",
+    "date": "2019.03.20.",
+    "changes": [
+      "A nyitott énekeskönyv tartalomjegyzéke közvetlenül a főoldalról is elérhető.",
+      "A zenelejátszó csak a Lejátszás fülre lépéskor épül fel, nem az ének megnyitásakor. (Ez eddig sem járt nagy adatforgalommal, mert a zenefájlt a böngésző csak a lejátszás elindításakor kezdi el letölteni.)"
+    ]
+  },
+  {
+    "version": "3.0",
+    "date": "2019.02.23.",
+    "changes": [
+      "A magyar énekeskönyv dalai fejezetenként jelennek meg a tartalomjegyzékben.",
+      "A közösség által CD-re / kazettára felvett magyar énekeket le lehet játszani a dalok ablakából.",
+      "A lejátszható dalok mellett egy hangszóró ikon jelenik meg a tartalomjegyzékben és a keresési eredmények között.",
+      "Az Emmet leírása a Súgó oldalra költözött, a helyét a főoldalon a két kereső és a legutóbbi változások listája vette át."
+    ]
+  },
+  {
+    "version": "2.0",
+    "date": "2018.12.06.",
+    "changes": [
+      "Az Emmet már a frissen lektorált, egységesített énekszövegeket használja.",
+      "Frissített betűtípus (az ő, ű betűket is rendesen ismeri).",
+      "Átalakult a felső menüsor (kompaktabb énekválasztó és a kereső mezők, külön Emmet- és könyvmenü).",
+      "Átdolgozott keresés: egyszerű és teljes módot ismer. (További infókért nyisd ki a részletes keresés ablakát a fogaskerék ikonnal.)"
+    ]
+  },
+  {
+    "version": "1.0",
+    "date": "2018.02.24.",
+    "changes": [
+      "Az Emmet első verziója."
+    ]
+  }
+]

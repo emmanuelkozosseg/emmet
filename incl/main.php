@@ -25,11 +25,26 @@
             </form>
             <div class="mt-3"><a href="#" class="emmet-p-main-proj-btn btn btn-primary emmet-form-block" role="button">Vetítés</a></div>
             <hr />
+            <div id="emmet-change-notification" class="d-none">
+                <div class="emmet-main-latest-changes alert alert-dismissible alert-primary">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <h5 class="alert-heading">Az Emmet frissült a legutóbbi látogatásod óta</h5>
+                    <div id="emmet-change-notification-content"></div>
+                </div>
+            </div>
             <h5>Legutóbbi változások</h5>
             <div class="container-fluid mt-4">
                 <div class="row">
                     <div class="col-6 col-md-4 offset-md-2">
-                        <p><span class="oi oi-cog"></span><br><strong>Program</strong><br>2023.10.07.</p>
+                        <p>
+                            <span class="oi oi-cog"></span><br>
+                            <strong>Program</strong><br>
+                            <span id="emmet-software-version">
+                                <span class="spinner-border spinner-border-sm">
+                                    <span class="visually-hidden">Betöltés...</span>
+                                </span>
+                            </span>
+                        </p>
                         <p class="text-center">
                             <button type="button" class="btn btn-primary emmet-collapser-btn collapsed" data-bs-toggle="collapse" data-bs-target="#emmet-latest-changes">Változások</button>
                         </p>
@@ -43,7 +58,11 @@
                 </div>
             </div>
             <div id="emmet-latest-changes" class="alert alert-secondary emmet-main-latest-changes collapse">
-                <?php require(__DIR__."/main-latest-changes.html"); ?>
+                <div class="text-center">
+                    <div class="spinner-border spinner-border-sm">
+                        <span class="visually-hidden">Betöltés...</span>
+                    </div>
+                </div>
             </div>
             <hr />
             <h5>Emmet Offline</h5>
