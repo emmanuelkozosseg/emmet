@@ -1,5 +1,5 @@
-define(['bootstrap', 'emmet/config', 'emmet/notifier', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
-function(bootstrap, emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
+define(['bootstrap', 'emmet/config', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
+function(bootstrap, emmetConfig, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
     const CONFIG_VDISPLAYMODE = "song-verse-display-mode";
     const CONFIG_FONTSIZE = "song-font-size";
     
@@ -19,9 +19,14 @@ function(bootstrap, emmetConfig, emmetNotifier, emmetSongData, emmetSongPlayer, 
         } else {  // "once" OR ("repeat" AND order is not defined)
             var verses = currentlyDisplayedLang.verses;
         }
+        if (verses.length == 1 && !verses[0].isChorus) {
+            var verse = Object.assign({}, verses[0]);
+            verse.hideDisplayName = true;
+            verses = [verse];
+        }
         var lyricsHtml = mustache.render(emmetUtils.getTemplate("songlyrics"), {
             'verses': verses,
-            'isLiteral': currentlyDisplayedLang.isLiteral
+            'isLiteral': currentlyDisplayedLang.isLiteral,
         });
         $("#emmet-song-lyrics").html(lyricsHtml);
     };

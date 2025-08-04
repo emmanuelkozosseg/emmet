@@ -6,8 +6,10 @@
 <div class="emmet-song">
     {{#verses}}
     <div class="emmet-song-verse" id="emmet-song-verse-{{verseId}}">
-        <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}"
-            >{{displayName}}</div>
+        <div class="emmet-header{{#isChorus}} emmet-chorus{{/isChorus}}{{#isBridge}} emmet-bridge{{/isBridge}}">
+            {{#hideDisplayName}}<span class="invisible">{{displayName}}</span>{{/hideDisplayName}}
+            {{^hideDisplayName}}{{displayName}}{{/hideDisplayName}}
+        </div>
         <div class="emmet-body{{#isChorus}} emmet-chorus{{/isChorus}}">
             {{#lines}}
             <p>{{.}}</p>
