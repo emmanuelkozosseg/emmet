@@ -58,6 +58,8 @@ function(bootstrap, mustache, emmetConfig, emmetLoader, emmetProjector, emmetSea
             } else {
                 version.dateWithoutTrailingDot = version.date;
             }
+            var minorVersion = version.version.split(".")[1];
+            version.isMajor = (minorVersion == "0");
         });
         
         document.getElementById("emmet-software-version").innerText = data[0].date;

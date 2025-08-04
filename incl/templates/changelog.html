@@ -1,5 +1,5 @@
 {{#currentMajorVersions}}
-<p><strong>{{dateWithoutTrailingDot}}-i frissítés <span class="badge bg-dark">{{version}}</span></strong></p>
+<p><strong>{{dateWithoutTrailingDot}}-i {{^isMajor}}kiegészítő {{/isMajor}}frissítés <span class="badge bg-dark">{{version}}</span></strong></p>
 <ul>
     {{#changes}}
     <li>{{.}}</li>
@@ -13,7 +13,7 @@
 </p>
 <div id="emmet-latest-changes-more" class="collapse">
     {{#previousVersions}}
-    <p><strong>{{dateWithoutTrailingDot}}-i frissítés <span class="badge bg-dark">{{version}}</span></strong></p>
+    <p><strong>{{dateWithoutTrailingDot}}-i {{^isMajor}}kiegészítő {{/isMajor}} frissítés <span class="badge bg-dark">{{version}}</span></strong></p>
     <ul>
         {{#changes}}
         <li>{{.}}</li>
