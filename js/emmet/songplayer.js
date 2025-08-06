@@ -82,6 +82,7 @@ function(emmetUtils, mustache) {
             return {
                 play: play,
                 destroy: destroy,
+                isPlaying: () => playing,
             };
         },
     };

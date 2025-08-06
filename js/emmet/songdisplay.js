@@ -7,11 +7,37 @@ function(bootstrap, emmetConfig, emmetSongData, emmetSongPlayer, emmetUtils, mus
 
     var currentlyDisplayedSong = null;
     var currentlyDisplayedLang = null;
+    var currentSongPlayer = null;
 
     emmetConfig.configureSettings({
         [CONFIG_VDISPLAYMODE]: "once",
         [CONFIG_FONTSIZE]: "m"
     });
+
+    // Warn on dialog close if player is playing
+    var closeConfirmed = false;
+    $("#emmet-song-modal").on("hide.bs.modal", function(e) {
+        if (closeConfirmed || currentSongPlayer === null || !currentSongPlayer.isPlaying()) {
+            return;
+        }
+        var confirmModalElement = document.querySelector("#emmet-song-playing-warn-modal .modal-content");
+        confirmModalElement.innerHTML = emmetUtils.getTemplate("songplayingconfirm");
+        document.getElementById("emmet-song-change-modal-yes-btn").addEventListener("click", () => {
+            closeConfirmed = true;
+            ["emmet-song-playing-warn-modal", "emmet-song-modal"].forEach(it => {
+                bootstrap.Modal.getInstance(document.getElementById(it)).hide();
+            });
+        });
+        bootstrap.Modal.getOrCreateInstance("#emmet-song-playing-warn-modal").show();
+        e.preventDefault();
+    });
+    // Stop playing on dialog close
+    $('#emmet-song-modal').on('hidden.bs.modal', function() {
+        currentSongPlayer?.destroy();
+        closeConfirmed = false;
+    });
+    // Remove keyboard events when modal is closed 
+    $('#emmet-song-modal').on('hidden.bs.modal', () => $(document).off("keydown", handleKeyDown));
 
     var rerenderLyrics = function() {
         if (emmetConfig.get(CONFIG_VDISPLAYMODE) == "repeat") {
@@ -190,19 +216,16 @@ function(bootstrap, emmetConfig, emmetSongData, emmetSongPlayer, emmetUtils, mus
         });
         if (song.records) {
             // Create songplayer
-            var songPlayer = emmetSongPlayer.create($("#emmet-song-modal .emmet-song-player-container"));
+            currentSongPlayer?.destroy();
+            currentSongPlayer = emmetSongPlayer.create($("#emmet-song-modal .emmet-song-player-container"));
             // Toolbar button
             $("#emmet-song-modal .emmet-song-play-btn a.nav-link").removeClass("disabled");
             // Record selector
             $("#emmet-song-modal .emmet-song-records a.emmet-song-record").click(function(e) {
-                songPlayer.play($(this).data("url"));
+                currentSongPlayer.play($(this).data("url"));
                 $(this).parent().children().removeClass("active");
                 $(this).addClass("active").blur();
                 e.preventDefault();
-            });
-            // Stop playing on dialog close
-            $('#emmet-song-modal').on('hidden.bs.modal', function() {
-                songPlayer.destroy();
             });
         } else {
             $("#emmet-song-modal .emmet-song-play-btn a.nav-link").addClass("disabled");
@@ -210,7 +233,6 @@ function(bootstrap, emmetConfig, emmetSongData, emmetSongPlayer, emmetUtils, mus
         document.querySelectorAll("#emmet-song-modal div.emmet-song-toolbar li.nav-item")
             .forEach(it => new bootstrap.Tooltip(it, {"placement": "bottom"}));
         $(document).off("keydown", handleKeyDown).on("keydown", handleKeyDown);
-        $('#emmet-song-modal').on('hidden.bs.modal', function() {$(document).off("keydown", handleKeyDown);});
 
         changeLanguage(options.langId);
         if (!options.dontShowModal) {
