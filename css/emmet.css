@@ -452,6 +452,22 @@ table.emmet-song-detail-section tr th {
 #emmet-projector .emmet-proj-main {
     flex-grow: 1;
 }
+#emmet-projector #emmet-proj-main-outer img.emmet-proj-emmicon {
+    display: none;
+}
+#emmet-projector #emmet-proj-main-outer.emmet-proj-idlebg-emmicon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+#emmet-projector #emmet-proj-main-outer.emmet-proj-idlebg-emmicon img.emmet-proj-emmicon {
+    display: block;
+    max-width: 70vw;
+    max-height: 70vh;
+    width: auto; height: auto;
+}
 #emmet-projector #emmet-proj-main-inner {
     overflow-y: scroll;
     padding: 1em;

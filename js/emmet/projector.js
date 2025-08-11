@@ -187,6 +187,14 @@ function(bootstrap, mustache, emmetConfig, emmetSongData, emmetUtils) {
         songNumField.value = "";
         return false;
     });
+    document.getElementById("emmet-proj-idlebg-btn").addEventListener("change", e => {
+        var outerMain = document.getElementById("emmet-proj-main-outer");
+        if (e.target.checked) {
+            outerMain.classList.add("emmet-proj-idlebg-emmicon");
+        } else {
+            outerMain.classList.remove("emmet-proj-idlebg-emmicon");
+        }
+    });
     updateFullScreenIcon();
     document.getElementById("emmet-proj-fontsize-btn").addEventListener("click", function() {
         if (fontSizePopoverDisplayed) {
