@@ -1,5 +1,14 @@
 [
   {
+    "version": "8.1",
+    "date": "2025.08.11.",
+    "changes": [
+      "A vetítési mód kezdőképernyőjén bekapcsolható, hogy üres képernyő helyett az Emmánuel ikon látszódjon.",
+      "Figyelmeztetés, ha zenelejátszás közben próbálod bezárni a dal ablakát.",
+      "Egyversszakos énekeknél nem jelenik meg a versszak sorszáma."
+    ]
+  },
+  {
     "version": "8.0",
     "date": "2025.08.01.",
     "changes": [
