@@ -195,6 +195,7 @@ function(bootstrap, mustache, emmetConfig, emmetLoader, emmetProjector, emmetSea
     var onSongsLoaded = function(data) {
         emmetSongData.setData(data);
         updateBookList();
+        document.getElementById("emmet-songs-version").innerText = data.version;
         $("#emmet-loading").fadeOut();
     };
 

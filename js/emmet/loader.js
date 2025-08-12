@@ -26,6 +26,7 @@ define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotif
             'bookList': origSongData.books,
             'books': {},
             'songs': origSongData.songs,
+            'version': origSongData.version,
         };
         
         origSongData.books.forEach(book => {

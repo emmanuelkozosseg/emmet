@@ -50,7 +50,15 @@
                         </p>
                     </div>
                     <div class="col-6 col-md-4">
-                        <p><span class="oi oi-musical-note"></span><br><strong>Dalok</strong><br><?php print(date("Y.m.d.", filemtime("songs.json"))); ?></p>
+                        <p>
+                            <span class="oi oi-musical-note"></span><br>
+                            <strong>Dalok</strong><br>
+                            <span id="emmet-songs-version">
+                                <span class="spinner-border spinner-border-sm">
+                                    <span class="visually-hidden">Betöltés...</span>
+                                </span>
+                            </span>
+                        </p>
                         <p class="text-center">
                             <a href="https://github.com/emmanuelkozosseg/edra/releases" class="btn btn-primary" role="button" target="_blank">Változások <small><span class="oi oi-external-link ps-1"></span></small></a>
                         </p>

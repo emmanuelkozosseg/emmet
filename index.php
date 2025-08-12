@@ -29,7 +29,7 @@ function to_busted_css_url($url) {
     
     <div class="container">
         <?php require("incl/nav.html"); ?>
-        <?php require("incl/main.php"); ?>
+        <?php require("incl/main.html"); ?>
     </div>
     
     <?php
