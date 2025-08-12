@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
       - name: Deploy Site
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
