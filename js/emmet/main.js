@@ -87,6 +87,9 @@ function(bootstrap, mustache, emmetConfig, emmetLoader, emmetProjector, emmetSea
             }
             newVersions.push(vObj);
         }
+        if (newVersions.every(it => it.silent)) {
+            return;
+        }
         document.getElementById("emmet-change-notification-content").innerHTML =
             mustache.render(emmetUtils.getTemplate("changelog-flat"), {
                 "versions": newVersions,

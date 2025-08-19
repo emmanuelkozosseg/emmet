@@ -1,5 +1,15 @@
 [
   {
+    "version": "8.2",
+    "date": "2025.08.19.",
+    "changes": [
+      "Hozzájárulás sütik használatához.",
+      "A dalok legutóbbi frissítésének pontosabb jelzése.",
+      "Egyversszakos énekeknél nem jelenik meg a versszak sorszáma vetítési módban sem."
+    ],
+    "silent": true
+  },
+  {
     "version": "8.1",
     "date": "2025.08.11.",
     "changes": [
