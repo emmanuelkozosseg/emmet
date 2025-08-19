@@ -82,6 +82,11 @@ function(bootstrap, mustache, emmetConfig, emmetSongData, emmetUtils) {
         var song = emmetSongData.getSongFromCurrentBook(songNum);
         var mainLang = emmetSongData.getMainLangOfSong(song);
         var verses = emmetSongData.getVersesInDefinedOrder(mainLang);
+        if (verses.length == 1 && !verses[0].isChorus) {
+            var verse = Object.assign({}, verses[0]);
+            verse.hideDisplayName = true;
+            verses = [verse];
+        }
 
         var lyricsHtml = mustache.render(emmetUtils.getTemplate("songlyrics"), {
             'verses': verses,
