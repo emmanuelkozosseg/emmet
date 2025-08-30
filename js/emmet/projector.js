@@ -192,12 +192,15 @@ function(bootstrap, mustache, emmetConfig, emmetSongData, emmetUtils) {
         songNumField.value = "";
         return false;
     });
-    document.getElementById("emmet-proj-idlebg-btn").addEventListener("change", e => {
+    document.getElementById("emmet-proj-idlebg-btn").addEventListener("click", e => {
         var outerMain = document.getElementById("emmet-proj-main-outer");
-        if (e.target.checked) {
-            outerMain.classList.add("emmet-proj-idlebg-emmicon");
-        } else {
+        var idleBgBtn = document.getElementById("emmet-proj-idlebg-btn");
+        if (idleBgBtn.classList.contains("active")) {
             outerMain.classList.remove("emmet-proj-idlebg-emmicon");
+            idleBgBtn.classList.remove("active");
+        } else {
+            outerMain.classList.add("emmet-proj-idlebg-emmicon");
+            idleBgBtn.classList.add("active");
         }
     });
     updateFullScreenIcon();
