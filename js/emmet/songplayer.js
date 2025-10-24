@@ -1,5 +1,5 @@
-define(['emmet/utils', 'mustache'],
-function(emmetUtils, mustache) {
+define(['emmet/utils', 'jquery', 'mustache'],
+function(emmetUtils, _j, mustache) {
     var nextPlayerId = 1;
 
     var timeToText = function(timeNumber) {

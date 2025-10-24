@@ -1,5 +1,5 @@
-define(['bootstrap', 'emmet/config', 'emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'mustache'],
-function(bootstrap, emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, mustache) {
+define(['bootstrap', 'emmet/config', 'emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'jquery', 'mustache'],
+function(bootstrap, emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, _j, mustache) {
     const CONFIG_SORTBY = "toc-sortby";
     const CONFIG_SHOWCHAPTERS = "toc-showchapters";
     var loadedBook = null;

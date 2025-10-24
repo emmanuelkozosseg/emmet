@@ -1,5 +1,5 @@
-define(['bootstrap', 'emmet/config', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'mustache'],
-function(bootstrap, emmetConfig, emmetSongData, emmetSongPlayer, emmetUtils, mustache) {
+define(['bootstrap', 'emmet/config', 'emmet/songdata', 'emmet/songplayer', 'emmet/utils', 'jquery', 'mustache'],
+function(bootstrap, emmetConfig, emmetSongData, emmetSongPlayer, emmetUtils, _j, mustache) {
     const CONFIG_VDISPLAYMODE = "song-verse-display-mode";
     const CONFIG_FONTSIZE = "song-font-size";
     

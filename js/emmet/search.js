@@ -1,5 +1,5 @@
-define(['bootstrap', 'emmet/notifier', 'emmet/songdata', 'emmet/songdisplay', 'emmet/tokenizer', 'emmet/utils', 'mustache'],
-function(bootstrap, emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils, mustache) {
+define(['bootstrap', 'emmet/notifier', 'emmet/songdata', 'emmet/songdisplay', 'emmet/tokenizer', 'emmet/utils', 'jquery', 'mustache'],
+function(bootstrap, emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils, _j, mustache) {
     /*
     Results for template: {
         // Calculated during search (one item per matched *lang*)

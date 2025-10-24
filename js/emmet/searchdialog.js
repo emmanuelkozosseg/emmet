@@ -1,5 +1,5 @@
-define(['bootstrap', 'emmet/notifier', 'emmet/songdata', 'emmet/utils', 'emmet/search', 'mustache'],
-function(bootstrap, emmetNotifier, emmetSongData, emmetUtils, emmetSearch, mustache) {
+define(['bootstrap', 'emmet/notifier', 'emmet/songdata', 'emmet/utils', 'emmet/search', 'jquery', 'mustache'],
+function(bootstrap, emmetNotifier, emmetSongData, emmetUtils, emmetSearch, _j, mustache) {
     return {
         displayAdvancedSearch: function(keyword) {
             var langsForDisplay = emmetSongData.getAvailableLanguages()

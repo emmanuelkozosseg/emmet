@@ -1,4 +1,4 @@
-define(['bootstrap'], function(bootstrap) {
+define(['bootstrap', 'jquery'], function(bootstrap, _j) {
     var setContents = function(id, title, message) {
         $("#emmet-"+id+"-modal .modal-title").text(title);
         $("#emmet-"+id+"-modal .modal-body").html(message);

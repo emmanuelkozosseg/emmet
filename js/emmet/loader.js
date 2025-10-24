@@ -1,4 +1,5 @@
-define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils'], function(emmetNotifier, emmetTokenizer, emmetUtils) {
+define(['emmet/notifier', 'emmet/tokenizer', 'emmet/utils', 'jquery'],
+function(emmetNotifier, emmetTokenizer, emmetUtils, _j) {
     var startLoad = function(finalCallback) {
         $.ajax({
             url: "songs.json",

@@ -1,5 +1,5 @@
-define(['bootstrap', 'mustache', 'emmet/config', 'emmet/loader', 'emmet/projector', 'emmet/search', 'emmet/searchdialog', 'emmet/songdata', 'emmet/songdisplay', 'emmet/toc', 'emmet/utils'],
-function(bootstrap, mustache, emmetConfig, emmetLoader, emmetProjector, emmetSearch, emmetSearchDialog, emmetSongData, emmetSongDisp, emmetToc, emmetUtils) {
+define(['bootstrap', 'emmet/config', 'emmet/loader', 'emmet/projector', 'emmet/search', 'emmet/searchdialog', 'emmet/songdata', 'emmet/songdisplay', 'emmet/toc', 'emmet/utils', 'jquery', 'mustache'],
+function(bootstrap, emmetConfig, emmetLoader, emmetProjector, emmetSearch, emmetSearchDialog, emmetSongData, emmetSongDisp, emmetToc, emmetUtils, _j, mustache) {
     const CONFIG_LAST_SEEN_SOFTWARE_VERSION = "last-seen-software-version";
     emmetConfig.configureSettings({
         [CONFIG_LAST_SEEN_SOFTWARE_VERSION]: null,

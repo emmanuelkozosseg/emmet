@@ -1,4 +1,4 @@
-define([], function() {
+define(['jquery'], function(_j) {
     var langsWithDifferentCountryCodes = {
         'la': 'va',
         'en': 'gb'

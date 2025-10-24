@@ -1,4 +1,4 @@
-define(['jscookie', 'emmet/utils'], function(jsCookie, emmetUtils) {
+define(['jscookie'], function(jsCookie) {
     const CONSENT_COOKIE_KEY = "emmet-consent";
     const SETTINGS_COOKIE_KEY = "emmet-settings";
     const COOKIE_EXPIRY_DAYS = 365;
