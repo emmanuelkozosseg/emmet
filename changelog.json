@@ -1,9 +1,17 @@
 [
   {
+    "version": "8.4",
+    "date": "2026.04.22.",
+    "changes": [
+      "Kiválasztható a kezdő énekeskönyv a webcím után fűzött ?konyv=azonosító, pl. ?konyv=nagymaros-2026-tav paraméterrel."
+    ],
+    "silent": true
+  },
+  {
     "version": "8.3",
     "date": "2025.10.24.",
     "changes": [
-      "Ritkán, véletlenszerűen előforduló betöltési hiba javítása.",
+      "Néha véletlenszerűen előforduló betöltési hiba javítása.",
       "Vetítési mód: az eszköztárgombok megjelenésének javítása."
     ],
     "silent": true

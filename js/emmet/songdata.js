@@ -58,6 +58,12 @@ define([], function() {
                 }
             }
             availableLanguages = Object.keys(langsAndOccurrances).sort((a, b) => langsAndOccurrances[b] - langsAndOccurrances[a]);
+
+            let urlParams = new URLSearchParams(document.location.search);
+            let requestedBook = urlParams.get("konyv");
+            if (requestedBook != null && requestedBook in songData.books) {
+                currentBook = requestedBook;
+            }
         },
 
         getMainLangIdOfSong: getMainLangIdOfSong,
