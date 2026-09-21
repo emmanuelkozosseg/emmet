@@ -14,7 +14,13 @@ RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
 RewriteRule ^(.*)$ - [E=BASE:%1]
 
 # Remove busts from the paths of CSS/JS files
-RewriteRule ^(.*)\.[\d]{10,}\.(css|js)$ %{ENV:BASE}/$1.$2
+RewriteRule ^(.*)\.[\d]{10,}\.(css|js)$ %{ENV:BASE}/$1.$2 [L]
+
+# Send application routes to the single-page application, while leaving assets
+# and any future server-side files alone.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
 
 # Redirect to HTTPS if available
 <IfModule mod_ssl.c>

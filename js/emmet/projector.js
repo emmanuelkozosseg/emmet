@@ -1,5 +1,5 @@
-define(['bootstrap', 'mustache', 'emmet/config', 'emmet/songdata', 'emmet/utils'],
-function(bootstrap, mustache, emmetConfig, emmetSongData, emmetUtils) {
+define(['bootstrap', 'mustache', 'emmet/config', 'emmet/router', 'emmet/songdata', 'emmet/utils'],
+function(bootstrap, mustache, emmetConfig, emmetRouter, emmetSongData, emmetUtils) {
     const CONFIG_FONTSIZE = "proj-font-size";
     emmetConfig.configureSettings({
         [CONFIG_FONTSIZE]: "100",
@@ -78,7 +78,7 @@ function(bootstrap, mustache, emmetConfig, emmetSongData, emmetUtils) {
             emmetConfig.get(CONFIG_FONTSIZE) + "%";
     };
 
-    var openSong = function(songNum) {
+    var displaySong = function(songNum) {
         var song = emmetSongData.getSongFromCurrentBook(songNum);
         var mainLang = emmetSongData.getMainLangOfSong(song);
         var verses = emmetSongData.getVersesInDefinedOrder(mainLang);
@@ -181,7 +181,9 @@ function(bootstrap, mustache, emmetConfig, emmetSongData, emmetUtils) {
         e.preventDefault();
         var songNumField = document.getElementById("emmet-proj-jumpto-songno");
         try {
-            openSong(songNumField.value);
+            emmetSongData.getSongFromCurrentBook(songNumField.value);
+            var route = Object.assign({}, emmetRouter.getCurrentRoute(), {songNumber: songNumField.value});
+            emmetRouter.navigate(route);
         } catch (e) {
             songNumField.style.transition = "background-color 0.5s ease";
             songNumField.style.backgroundColor = "var(--bs-danger)";
@@ -215,11 +217,18 @@ function(bootstrap, mustache, emmetConfig, emmetSongData, emmetUtils) {
     document.getElementById("emmet-proj-fullscreen-btn")
         .addEventListener("click", () => toggleFullScreen());
     document.getElementById("emmet-proj-close-btn")
-        .addEventListener("click", () => switchToOuter());
+        .addEventListener("click", () => {
+            var route = Object.assign({}, emmetRouter.getCurrentRoute());
+            delete route.songNumber;
+            emmetRouter.navigate(route);
+        });
     document.getElementById("emmet-proj-exit-btn")
-        .addEventListener("click", () => closeOverlay());
+        .addEventListener("click", () => emmetRouter.closeOverlay());
 
     return {
         launch: openOverlay,
+        close: closeOverlay,
+        displaySong: displaySong,
+        clearSong: switchToOuter,
     };
 });

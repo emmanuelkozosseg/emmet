@@ -59,13 +59,15 @@ function(j, b, m, emmetMain, emmetNotifier) {
 
     // Bootstrap fix for stacked modals
     $(document).on('show.bs.modal', '.modal', function () {
-        var zIndex = 1040 + (10 * $('.modal:visible').length);
-        $(this).css('z-index', zIndex);
+        var zIndex = 1040 + (10 * $('.modal.show, .emmet-modal-opening').not(this).length);
+        var backdropIndex = $('.modal-backdrop').length;
+        $(this).addClass('emmet-modal-opening').css('z-index', zIndex);
         setTimeout(function() {
-            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            $('.modal-backdrop').eq(backdropIndex).css('z-index', zIndex - 1);
         }, 0);
     });
     $(document).on('hidden.bs.modal', '.modal', function () {
+        $(this).removeClass('emmet-modal-opening');
         $('.modal:visible').length && $(document.body).addClass('modal-open');
     });
     

@@ -1,6 +1,7 @@
 define([], function() {
+    const DEFAULT_BOOK_ID = "emm_hu";
     var songData = null;
-    var currentBook = "emm_hu";
+    var currentBook = DEFAULT_BOOK_ID;
     var availableLanguages = null;
 
     var getMainLangIdOfSong = function(song) {
@@ -11,6 +12,33 @@ define([], function() {
         return song.lyrics.findIndex(e => e.lang == currentBookEntry.lang);
     };
 
+    var normalizeSongNumber = function(songNumber) {
+        return typeof songNumber == "string" ? songNumber.toLowerCase().trim() : "";
+    };
+
+    var hasSongInBook = function(songBook, songNumberLc) {
+        return songBook !== undefined && songNumberLc !== "" && songBook.songs.hasOwnProperty(songNumberLc);
+    };
+
+    var hasSong = function(bookId, songNumber) {
+        return hasSongInBook(songData.books[bookId], normalizeSongNumber(songNumber));
+    };
+
+    var getSong = function(bookId, songNumber) {
+        var songBook = songData.books[bookId];
+        if (songBook === undefined) {
+            throw {name: "bookMissing", message: "Ismeretlen énekeskönyv!"};
+        }
+        var songNumberLc = normalizeSongNumber(songNumber);
+        if (! songNumberLc) {
+            throw {name: "empty", message: "Hiányzó énekszám!"};
+        }
+        if (! hasSongInBook(songBook, songNumberLc)) {
+            throw {name: "missing", message: "Ismeretlen énekszám!"};
+        }
+        return songBook.songs[songNumberLc];
+    };
+
     return {
         getCurrentBook: function() {
             return songData.books[currentBook];
@@ -18,16 +46,19 @@ define([], function() {
         getCurrentBookId: function() {
             return currentBook;
         },
+        getDefaultBookId: function() {
+            return DEFAULT_BOOK_ID;
+        },
+        getSong: getSong,
+        hasSong: hasSong,
+        hasSongLanguage: function(bookId, songNumber, lang) {
+            if (! hasSong(bookId, songNumber)) {
+                return false;
+            }
+            return getSong(bookId, songNumber).lyrics.some(lyrics => lyrics.lang == lang);
+        },
         getSongFromCurrentBook: function(songNumber) {
-            var songBook = songData.books[currentBook];
-            var songNumberLc = songNumber.toLowerCase().trim();
-            if (! songNumberLc) {
-                throw {name: "empty", message: "Hiányzó énekszám!"};
-            }
-            if (! songBook.songs.hasOwnProperty(songNumberLc)) {
-                throw {name: "missing", message: "Ismeretlen énekszám!"};
-            }
-            return songBook.songs[songNumberLc];
+            return getSong(currentBook, songNumber);
         },
         getBook: function(bookId) {
             return songData.books[bookId];
@@ -58,12 +89,6 @@ define([], function() {
                 }
             }
             availableLanguages = Object.keys(langsAndOccurrances).sort((a, b) => langsAndOccurrances[b] - langsAndOccurrances[a]);
-
-            let urlParams = new URLSearchParams(document.location.search);
-            let requestedBook = urlParams.get("konyv");
-            if (requestedBook != null && requestedBook in songData.books) {
-                currentBook = requestedBook;
-            }
         },
 
         getMainLangIdOfSong: getMainLangIdOfSong,

@@ -1,5 +1,5 @@
-define(['bootstrap', 'emmet/notifier', 'emmet/songdata', 'emmet/songdisplay', 'emmet/tokenizer', 'emmet/utils', 'jquery', 'mustache'],
-function(bootstrap, emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer, emmetUtils, _j, mustache) {
+define(['bootstrap', 'emmet/notifier', 'emmet/router', 'emmet/songdata', 'emmet/tokenizer', 'emmet/utils', 'jquery', 'mustache'],
+function(bootstrap, emmetNotifier, emmetRouter, emmetSongData, emmetTokenizer, emmetUtils, _j, mustache) {
     /*
     Results for template: {
         // Calculated during search (one item per matched *lang*)
@@ -214,8 +214,15 @@ function(bootstrap, emmetNotifier, emmetSongData, emmetSongDisp, emmetTokenizer,
             $("#emmet-p-search a.emmet-search-item").click(function(e) {
                 e.preventDefault();
                 var internalSongId = Number($(this).data("songid"));
-                var langId = Number($(this).data("langid"))
-                emmetSongDisp.displaySongByInternalId(internalSongId, {langId: langId});
+                var langId = Number($(this).data("langid"));
+                var song = emmetSongData.getAllSongs()[internalSongId];
+                var songNumber = song.books.find(b => b.id == emmetSongData.getCurrentBookId()).number;
+                emmetRouter.navigate({
+                    page: "song",
+                    songNumber: songNumber,
+                    tab: "lyrics",
+                    lang: song.lyrics[langId].lang,
+                });
             });
             bootstrap.Modal.getOrCreateInstance("#emmet-search-modal").hide();
             emmetUtils.showPage("search");

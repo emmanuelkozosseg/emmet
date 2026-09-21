@@ -1,5 +1,5 @@
-define(['bootstrap', 'emmet/config', 'emmet/songdata', 'emmet/songdisplay', 'emmet/utils', 'jquery', 'mustache'],
-function(bootstrap, emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, _j, mustache) {
+define(['bootstrap', 'emmet/config', 'emmet/router', 'emmet/songdata', 'emmet/utils', 'jquery', 'mustache'],
+function(bootstrap, emmetConfig, emmetRouter, emmetSongData, emmetUtils, _j, mustache) {
     const CONFIG_SORTBY = "toc-sortby";
     const CONFIG_SHOWCHAPTERS = "toc-showchapters";
     var loadedBook = null;
@@ -116,7 +116,11 @@ function(bootstrap, emmetConfig, emmetSongData, emmetSongDisp, emmetUtils, _j, m
             return false;
         });
         $("#emmet-p-toc .emmet-toc-list a").click(function() {
-            emmetSongDisp.displaySong(String($(this).data("songnumber")));
+            emmetRouter.navigate({
+                page: "song",
+                songNumber: String($(this).data("songnumber")),
+                tab: "lyrics",
+            });
             return false;
         });
     };

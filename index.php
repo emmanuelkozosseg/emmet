@@ -2,10 +2,12 @@
 function to_busted_css_url($url) {
     return str_replace(".css", ".".filemtime($url).".css", $url);
 }
+$base_path = rtrim(str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"])), "/")."/";
 ?>
 <!doctype html>
 <html lang="hu">
 <head>
+    <base href="<?php print(htmlspecialchars($base_path, ENT_QUOTES)); ?>" />
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
