@@ -1,5 +1,12 @@
 [
   {
+    "version": "9.0",
+    "date": "2026.09.22.",
+    "changes": [
+      "Az egyes énekek, keresések, tartalomjegyzékek és vetítések saját webcímen is megnyithatók és megoszthatók. A cím a böngésző címsorában folyamatosan frissül, és a böngésző Előre és Vissza gombjai is működnek."
+    ]
+  },
+  {
     "version": "8.4",
     "date": "2026.04.22.",
     "changes": [
