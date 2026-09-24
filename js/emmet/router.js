@@ -217,7 +217,7 @@ define(['emmet/notifier'], function(emmetNotifier) {
 
     /**
      * @param {Partial<Route>} route
-     * @param {{background?: Route, replace?: boolean}} [options]
+     * @param {{background?: Route, replace?: boolean, apply?: boolean}} [options]
      */
     var navigate = function(route, options={}) {
         route = Object.assign({}, route);
@@ -232,7 +232,11 @@ define(['emmet/notifier'], function(emmetNotifier) {
         }
         var state = {route: route, background: background};
         history[options.replace ? "replaceState" : "pushState"](state, "", makePath(route));
-        applyRoute(route);
+        if (options.apply !== false) {
+            applyRoute(route);
+        } else {
+            currentRoute = route;
+        }
     };
 
     return {

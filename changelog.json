@@ -1,5 +1,12 @@
 [
   {
+    "version": "9.1",
+    "date": "2026.09.24.",
+    "changes": [
+      "Hibajavítás: a hangfelvétel lejátszása leállt, ha a dal ablakában másik fülre váltottunk; most már folytatódik."
+    ]
+  },
+  {
     "version": "9.0",
     "date": "2026.09.22.",
     "changes": [

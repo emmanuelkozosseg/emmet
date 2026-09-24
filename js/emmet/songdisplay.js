@@ -201,7 +201,9 @@ function(bootstrap, emmetConfig, emmetRouter, emmetSongData, emmetSongPlayer, em
                     tab: tab,
                     lang: emmetRouter.getCurrentRoute()?.lang || currentlyDisplayedLang.lang,
                 });
-                emmetRouter.navigate(route);
+                // Bootstrap has already displayed the selected tab. Only update
+                // the route here: re-rendering the dialog would destroy its audio.
+                emmetRouter.navigate(route, {apply: false});
             }
         });
         $("#emmet-song-modal .emmet-song-verse-display-mode").click(function(e) {
